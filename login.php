@@ -37,7 +37,7 @@
                 $_SESSION['ID'] = $row['user_id'];
                 $_SESSION['Surname'] = $row['lastName'];
 
-               echo "<script>window.top.location='https://www.facebook.com/'</script>";
+               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Nic/WebApp/'</script>";
             }
             else
             {
