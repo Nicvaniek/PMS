@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <script src="js/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="css/sweetalert.css">
 </head>
 <body>
     <div class="container">
@@ -16,7 +18,7 @@
             <div class="card col s12 m4 offset-m4">
               <div class="cardContainer">
                 <h3 style="margin-bottom:40px">Register</h3>
-                <form action="" method="post">
+                <form action="login.php" method="post" id = "regForm">
                     <div class="row">
                         <div class="input-field">
                             <i class="material-icons prefix">account_circle</i>
