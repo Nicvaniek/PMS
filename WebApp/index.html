@@ -93,47 +93,47 @@
                     </p>
                 </div>
             </div>
-            <form id="renovationsForm" action="" method="post">
+            <form id="addRenovationForm" action="#" method="post">
                 <div class="row">
                     <div id="renovationSelectDiv" class="input-field col m8">
-                        <select name="renovationName" class="validate" required>
+                        <select id="renovationNameInput" name="renovationName" class="validate" required>
                             <optgroup label=" WALL AND FLOOR COVERINGS ">
                                 <option value="" disabled selected>Choose your renovation</option>
-                                <option value="1">Floor Covering </option>
-                                <option value="1">Vinyl </option>
-                                <option value="1">Laminated </option>
-                                <option value="1">Wood </option>
-                                <option value="1">Cemcrete </option>
-                                <option value="1">Screed </option>
-                                <option value="1">Skirting </option>
-                                <option value="1">Architraves </option>
-                                <option value="1">Carpets </option>
-                                <option value="1">Wall Tiling </option>
+                                <option value="siekReno">Floor Covering </option>
+                                <option value="siekReno">Vinyl </option>
+                                <option value="siekReno">Laminated </option>
+                                <option value="siekReno">Wood </option>
+                                <option value="siekReno">Cemcrete </option>
+                                <option value="siekReno">Screed </option>
+                                <option value="siekReno">Skirting </option>
+                                <option value="siekReno">Architraves </option>
+                                <option value="siekReno">Carpets </option>
+                                <option value="siekReno">Wall Tiling </option>
                             </optgroup>
                             <optgroup label=" GENERAL BUILDING WORKS ">
-                                <option value="1">Ceilings </option>
-                                <option value="1">Cornices </option>
-                                <option value="1">Roofstructure </option>
-                                <option value="1">Roof Covering </option>
-                                <option value="1">Doors </option>
-                                <option value="1">Locks </option>
-                                <option value="1">Handels </option>
-                                <option value="1">Window Quote </option>
+                                <option value="siekReno">Ceilings </option>
+                                <option value="siekReno">Cornices </option>
+                                <option value="siekReno">Roofstructure </option>
+                                <option value="siekReno">Roof Covering </option>
+                                <option value="siekReno">Doors </option>
+                                <option value="siekReno">Locks </option>
+                                <option value="siekReno">Handels </option>
+                                <option value="siekReno">Window Quote </option>
                             </optgroup>
                             <optgroup label=" CLADDING ">
-                                <option value="1">Stone</option>
-                                <option value="1">Aliminium</option>
-                                <option value="1">Timber</option>
+                                <option value="siekReno">Stone</option>
+                                <option value="siekReno">Aliminium</option>
+                                <option value="siekReno">Timber</option>
                             </optgroup>
                         </select>
                         <label>Renovation</label>
                     </div>
                     <div id="customRenovationDiv" class="input-field col m8 hide">
-                        <input name="renovationName" id="customRenovationInput" type="text" class="validate" required>
+                        <input name="renovationName" id="renovationNameInput" type="text" class="validate" required>
                         <label for="customRenovationInput">Custom Renovation</label>
                     </div>
                     <div class="input-field col m2">
-                        <input name="quantity" id="quatnityInput" type="number" class="validate" required>
+                        <input name="quantity" id="quantityInput" type="number" class="validate" required>
                         <label for="quatnityInput">Quantity</label>
                     </div>
                     <div class="input-field col m2">
@@ -147,7 +147,7 @@
                         <label for="supplierInput">Supplier</label>
                     </div>
                     <div class="input-field col m6">
-                        <input name="invoiceDate" id="invoiceDatePicker" type="date" class="datepicker" required>
+                        <input name="invoiceDate" id="invoiceDateInput" type="date" class="datepicker" required>
                         <label for="invoiceDatePicker">Invoice Date</label>
                     </div>
                 </div>
@@ -158,12 +158,12 @@
                             <input type="file">
                         </div>
                         <div class="file-path-wrapper">
-                            <input name="invoiceFile" class="file-path validate" type="text">
+                            <input name="invoiceFile" id="invoiceFileInput" class="file-path validate" type="text">
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <button class="btn red darken-2 waves-effect waves-light" type="submit" name="action">Add Renovation
+                    <button  id="addRenovationBtn" class="btn red darken-2 waves-effect waves-light" type="submit" name="action">Add Renovation
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
@@ -240,7 +240,8 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../js/materialize.js"></script>
     <script src="../js/init.js"></script>
-    <script src="../js/webApp.js"></script>
+    <script src="../js/webAppAjax.js"></script>
+    <script src="../js/webAppCustoms.js"></script>
 </body>
 
 </html>
