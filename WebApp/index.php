@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-    <title>Materialize</title>
+    <title>Property Investor</title>
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -14,7 +14,7 @@
 <body class="grey lighten-5">
     <nav class="nav-extended">
         <div class="nav-wrapper red darken-2">
-            <a href="#" class="brand-logo">Property</a>
+            <a href="#" class="brand-logo">Property Investor</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="sass.html">Logout</a></li>
@@ -51,6 +51,7 @@
         <?php include 'renovationsTab.php'; ?>
     </div>
     <div id="expensesTab" class="col m12">
+         <?php include 'expensesTab.php'; ?>
     </div>
     <div id="salesCostsTab" class="col m12">
     </div>
@@ -120,7 +121,6 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../js/materialize.js"></script>
     <script src="../js/init.js"></script>
-    <script src="../js/webAppLoadTabs.js"></script>
     <script src="../js/webAppAjax.js"></script>
     <script src="../js/webAppCustoms.js"></script>
 </body>
