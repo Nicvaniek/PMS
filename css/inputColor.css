@@ -1,0 +1,86 @@
+  /* label color */
+  .input-field label {
+      color: #d32f2f;
+  }
+
+  /* icon prefix focus color */
+  .input-field .prefix.active {
+      color: #d32f2f;
+  }
+
+  /* TYPE text */
+  /* label focus color */
+  .input-field input[type=text]:focus + label {
+      color: #d32f2f;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+      border-bottom: 1px solid #d32f2f;
+      box-shadow: 0 1px 0 0 #d32f2f;
+  }
+  /* valid color */
+  .input-field input[type=text].valid {
+      border-bottom: 1px solid #388e3c;
+      box-shadow: 0 1px 0 0 #388e3c;
+  }
+  /* invalid color */
+  .input-field input[type=text].invalid {
+      border-bottom: 1px solid #d32f2f;
+      box-shadow: 0 1px 0 0 #d32f2f;
+  }
+
+ /* TYPE number */
+  /* label focus color */
+  .input-field input[type=number]:focus + label {
+      color: #d32f2f;
+  }
+  /* label underline focus color */
+  .input-field input[type=number]:focus {
+      border-bottom: 1px solid #d32f2f;
+      box-shadow: 0 1px 0 0 #d32f2f;
+  }
+  /* valid color */
+  .input-field input[type=number].valid {
+      border-bottom: 1px solid #388e3c;
+      box-shadow: 0 1px 0 0 #388e3c;
+  }
+  /* invalid color */
+  .input-field input[type=number].invalid {
+      border-bottom: 1px solid #d32f2f;
+      box-shadow: 0 1px 0 0 #d32f2f;
+  }
+
+ /* TYPE select */
+  /* label focus color */
+  .input-field input[type=select]:focus + label {
+      color: #d32f2f;
+  }
+  /* label underline focus color */
+  .input-field input[type=select]:focus {
+      border-bottom: 1px solid #d32f2f;
+      box-shadow: 0 1px 0 0 #d32f2f;
+  }
+  /* valid color */
+  .input-field input[type=select].valid {
+      border-bottom: 1px solid #388e3c;
+      box-shadow: 0 1px 0 0 #388e3c;
+  }
+  /* invalid color */
+  .input-field input[type=select].invalid {
+      border-bottom: 1px solid #d32f2f;
+      box-shadow: 0 1px 0 0 #d32f2f;
+  }
+  /*ul.dropdown-content.select-dropdown li span {    color: #d32f2f; }*/
+
+.picker__weekday-display{
+    background-color: #b71c1c;
+}
+.picker__date-display{
+    background-color: #d32f2f;
+}
+    div.picker__day.picker__day--infocus.picker__day--selected.picker__day--highlighted {
+        background-color: #d32f2f;
+    }
+    button.picker__today, button.picker__close {
+        color: #d32f2f;
+    }

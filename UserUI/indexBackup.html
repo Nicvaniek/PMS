@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Materialize</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body class="grey lighten-5">
+    <nav class="nav-extended">
+        <div class="nav-wrapper red darken-2">
+            <a href="#" class="brand-logo">Property</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="sass.html">Logout</a></li>
+                <li><a href="badges.html">Help</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="sass.html">Logout</a></li>
+                <li><a href="badges.html">Help</a></li>
+            </ul>
+            <ul class="tabs tabs-transparent center">
+                <li class="tab"><a href="#dashboardTab">Dashboard</a></li>
+                <li class="tab"><a href="#propertyInformationTab">Property Information</a></li>
+                <li class="tab"><a href="#renovationsTab">Renovations</a></li>
+                <li class="tab"><a href="#expensesTab">Expenses</a></li>
+                <li class="tab"><a href="#salesCostsTab">Sales Costs</a></li>
+                <li class="tab"><a href="#incomeTab">Income</a></li>
+                <li class="tab"><a href="#reportsTab">Reports</a></li>
+                <li class="tab"><a href="#myUploadsTab">My Uploads</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="dashboardTab" class="col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h1>DASHBOARD</h1>
+                </div>
+                <div class="row">
+                    <div class="col s12 m4">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Subscriptions</span>
+                                <p>There are currently 12 active subscriptions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Total Revenue</span>
+                                <p>R50000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">This Month's Revenue</span>
+                                <p>R1200</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m8">
+                        <ul class="collection with-header">
+                            <li class="collection-header">
+                                <h4>Users</h4></li>
+                            <li class="collection-item">
+                                <div>Kyle Erwin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                            </li>
+                            <li class="collection-item">
+                                <div>Kyle Erwin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                            </li>
+                            <li class="collection-item">
+                                <div>Kyle Erwin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                            </li>
+                            <li class="collection-item">
+                                <div>Kyle Erwin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">Payments Overdue</span>
+                                <p>3 users have not paid their subscriptions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-m-t no-m-b">
+                    <div class="col s12 m12 l12">
+                        <div class="card invoices-card">
+                            <div class="card-content">
+                                <div class="card-options">
+                                    <input type="text" class="expand-search" placeholder="Search" autocomplete="off">
+                                </div>
+                                <span class="card-title">Invoices</span>
+                                <table class="responsive-table bordered">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="id">ID</th>
+                                            <th data-field="number">Payment Type</th>
+                                            <th data-field="company">Company</th>
+                                            <th data-field="date">Date</th>
+                                            <th data-field="total">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#001</td>
+                                            <td>PayPal</td>
+                                            <td>Kyle Erwin</td>
+                                            <td>Jan 17 2017, 8:00</td>
+                                            <td>R10000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>#001</td>
+                                            <td>PayPal</td>
+                                            <td>Kyle Erwin</td>
+                                            <td>Jan 17 2017, 8:00</td>
+                                            <td>R10000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>#001</td>
+                                            <td>PayPal</td>
+                                            <td>Kyle Erwin</td>
+                                            <td>Jan 17 2017, 8:00</td>
+                                            <td>R10000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>#001</td>
+                                            <td>PayPal</td>
+                                            <td>Kyle Erwin</td>
+                                            <td>Jan 17 2017, 8:00</td>
+                                            <td>R10000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>#001</td>
+                                            <td>PayPal</td>
+                                            <td>Kyle Erwin</td>
+                                            <td>Jan 17 2017, 8:00</td>
+                                            <td>R10000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul id="dropdown1" class="dropdown-content notifications-dropdown">
+                    <li class="notificatoins-dropdown-container">
+                        <ul>
+                            <li class="notification-drop-title">Today</li>
+                            <li>
+                                <a href="#!">
+                                    <div class="notification">
+                                        <div class="notification-icon circle cyan"><i class="material-icons">done</i></div>
+                                        <div class="notification-text">
+                                            <p><b>Kyle Erwin</b> Paid Subscription</p><span>7 min ago</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#!">
+                                    <div class="notification">
+                                        <div class="notification-icon circle deep-purple"><i class="material-icons">cached</i></div>
+                                        <div class="notification-text">
+                                            <p><b>Tom</b> updated status</p><span>14 min ago</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#!">
+                                    <div class="notification">
+                                        <div class="notification-icon circle red"><i class="material-icons">delete</i></div>
+                                        <div class="notification-text">
+                                            <p><b>Amily Lee</b> deleted account</p><span>28 min ago</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#!">
+                                    <div class="notification">
+                                        <div class="notification-icon circle cyan"><i class="material-icons">person_add</i></div>
+                                        <div class="notification-text">
+                                            <p><b>Tom Simpson</b> registered</p><span>2 hrs ago</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#!">
+                                    <div class="notification">
+                                        <div class="notification-icon circle green"><i class="material-icons">file_upload</i></div>
+                                        <div class="notification-text">
+                                            <p>Finished uploading files</p><span>4 hrs ago</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notification-drop-title">Yestarday</li>
+                            <li>
+                                <a href="#!">
+                                    <div class="notification">
+                                        <div class="notification-icon circle green"><i class="material-icons">security</i></div>
+                                        <div class="notification-text">
+                                            <p>Security issues fixed</p><span>16 hrs ago</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#!">
+                                    <div class="notification">
+                                        <div class="notification-icon circle indigo"><i class="material-icons">file_download</i></div>
+                                        <div class="notification-text">
+                                            <p>Finished downloading files</p><span>22 hrs ago</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#!">
+                                    <div class="notification">
+                                        <div class="notification-icon circle cyan"><i class="material-icons">code</i></div>
+                                        <div class="notification-text">
+                                            <p>Code changes were saved</p><span>1 day ago</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="propertyInformationTab" class="col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h1>Property Information</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="renovationsTab" class="col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h3>Your Renovations</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m12">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Cape Town Property</h5></li>
+                        <li class="collection-item">
+                            <div>Lights<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Garden<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Pool<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                    </ul>
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Lonehill Property</h5></li>
+                        <li class="collection-item">
+                            <div>Pool<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Garage<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m12">
+                    <h3>Add Renovation</h3>
+                </div>
+            </div>
+            <form id="renovationsForm" action="" method="post">
+                <div class="row">
+                    <div class="input-field col s8">
+                        <select>
+                            <optgroup label=" WALL AND FLOOR COVERINGS ">
+                                <option value="" disabled selected>Choose your renovation</option>
+                                <option value="1">Floor Covering </option>
+                                <option value="1">Vinyl </option>
+                                <option value="1">Laminated </option>
+                                <option value="1">Wood </option>
+                                <option value="1">Cemcrete </option>
+                                <option value="1">Screed </option>
+                                <option value="1">Skirting </option>
+                                <option value="1">Architraves </option>
+                                <option value="1">Carpets </option>
+                                <option value="1">Wall Tiling </option>
+                            </optgroup>
+                            <optgroup label=" GENERAL BUILDING WORKS ">
+                                <option value="1">Ceilings </option>
+                                <option value="1">Cornices </option>
+                                <option value="1">Roofstructure </option>
+                                <option value="1">Roof Covering </option>
+                                <option value="1">Doors </option>
+                                <option value="1">Locks </option>
+                                <option value="1">Handels </option>
+                                <option value="1">Window Quote </option>
+                            </optgroup>
+                            <optgroup label=" CLADDING ">
+                                <option value="1">Stone</option>
+                                <option value="1">Aliminium</option>
+                                <option value="1">Timber</option>
+                            </optgroup>
+                        </select>
+                        <label>Renovation</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="quatnityInput" type="number" class="validate">
+                        <label for="quatnityInput">Quantity</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="costInput" type="number" class="validate">
+                        <label for="costInput">Cost</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="supplierInput" type="text" class="validate">
+                        <label for="supplierInput">Supplier</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="invoiceDatePicker" type="date" class="datepicker">
+                        <label for="invoiceDatePicker">Invoice Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="file-field input-field s4">
+                        <div class="btn red darken-2">
+                            <span>Invoice</span>
+                            <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="expensesTab" class="col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h3>Your Expenses</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m12">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Cape Town Property</h5></li>
+                        <li class="collection-item">
+                            <div>Lights<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Garden<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Pool<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                    </ul>
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Lonehill Property</h5></li>
+                        <li class="collection-item">
+                            <div>Pool<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Garage<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col m12">
+                        <h3>Add Expense</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select>
+                            <option value="" disabled selected>Choose your property</option>
+                            <option value="1">Property 1</option>
+                            <option value="2">Property 2</option>
+                            <option value="3">Property 3</option>
+                        </select>
+                        <label>Property</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <select>
+                            <option value="1">Monthly</option>
+                            <option value="2">Weekly</option>
+                        </select>
+                        <label>Occurence</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s8">
+                        <select>
+                            <optgroup label=" WALL AND FLOOR COVERINGS ">
+                                <option value="" disabled selected>Choose your expense</option>
+                                <option value="1">Floor Covering </option>
+                                <option value="1">Vinyl </option>
+                                <option value="1">Laminated </option>
+                                <option value="1">Wood </option>
+                                <option value="1">Cemcrete </option>
+                                <option value="1">Screed </option>
+                                <option value="1">Skirting </option>
+                                <option value="1">Architraves </option>
+                                <option value="1">Carpets </option>
+                                <option value="1">Wall Tiling </option>
+                            </optgroup>
+                            <optgroup label=" GENERAL BUILDING WORKS ">
+                                <option value="1">Ceilings </option>
+                                <option value="1">Cornices </option>
+                                <option value="1">Roofstructure </option>
+                                <option value="1">Roof Covering </option>
+                                <option value="1">Doors </option>
+                                <option value="1">Locks </option>
+                                <option value="1">Handels </option>
+                                <option value="1">Window Quote </option>
+                            </optgroup>
+                            <optgroup label=" CLADDING ">
+                                <option value="1">Stone</option>
+                                <option value="1">Aliminium</option>
+                                <option value="1">Timber</option>
+                            </optgroup>
+                        </select>
+                        <label>Renovation</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="costInput" type="number" class="validate">
+                        <label for="costInput">Cost</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="supplierInput" type="text" class="validate">
+                        <label for="supplierInput">Supplier</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="invoiceDatePicker" type="date" class="datepicker">
+                        <label for="invoiceDatePicker">Invoice Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="file-field input-field s4">
+                        <div class="btn red darken-2">
+                            <span>Invoice</span>
+                            <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="salesCostsTab" class="col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h3>Sales Costs</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m12">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Cape Town Property</h5></li>
+                        <li class="collection-item">
+                            <div>Lights<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Garden<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Pool<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                    </ul>
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h5>Lonehill Property</h5></li>
+                        <li class="collection-item">
+                            <div>Pool<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                        <li class="collection-item">
+                            <div>Garage<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col m12">
+                        <h3>Add Cost</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select>
+                            <option value="" disabled selected>Choose your property</option>
+                            <option value="1">Property 1</option>
+                            <option value="2">Property 2</option>
+                            <option value="3">Property 3</option>
+                        </select>
+                        <label>Property</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s8">
+                        <select>
+                            <optgroup label=" WALL AND FLOOR COVERINGS ">
+                                <option value="" disabled selected>Choose your cost</option>
+                                <option value="1">Floor Covering </option>
+                                <option value="1">Vinyl </option>
+                                <option value="1">Laminated </option>
+                                <option value="1">Wood </option>
+                                <option value="1">Cemcrete </option>
+                                <option value="1">Screed </option>
+                                <option value="1">Skirting </option>
+                                <option value="1">Architraves </option>
+                                <option value="1">Carpets </option>
+                                <option value="1">Wall Tiling </option>
+                            </optgroup>
+                            <optgroup label=" GENERAL BUILDING WORKS ">
+                                <option value="1">Ceilings </option>
+                                <option value="1">Cornices </option>
+                                <option value="1">Roofstructure </option>
+                                <option value="1">Roof Covering </option>
+                                <option value="1">Doors </option>
+                                <option value="1">Locks </option>
+                                <option value="1">Handels </option>
+                                <option value="1">Window Quote </option>
+                            </optgroup>
+                            <optgroup label=" CLADDING ">
+                                <option value="1">Stone</option>
+                                <option value="1">Aliminium</option>
+                                <option value="1">Timber</option>
+                            </optgroup>
+                        </select>
+                        <label>Costs</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input id="costInput" type="number" class="validate">
+                        <label for="costInput">Cost</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="supplierInput" type="text" class="validate">
+                        <label for="supplierInput">Supplier</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="invoiceDatePicker" type="date" class="datepicker">
+                        <label for="invoiceDatePicker">Invoice Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="file-field input-field s4">
+                        <div class="btn red darken-2">
+                            <span>Invoice</span>
+                            <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="incomeTab" class="col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h1>Income</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="reportsTab" class="col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h1>Reports</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myUploadsTab" class="col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col m12">
+                    <h1>My Uploads</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    </div>
+    <footer class="page-footer red darken-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Company Bio</h5>
+                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Settings</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Link 1</a></li>
+                        <li><a class="white-text" href="#!">Link 2</a></li>
+                        <li><a class="white-text" href="#!">Link 3</a></li>
+                        <li><a class="white-text" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Link 1</a></li>
+                        <li><a class="white-text" href="#!">Link 2</a></li>
+                        <li><a class="white-text" href="#!">Link 3</a></li>
+                        <li><a class="white-text" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="white-text" href="http://www.unhinged.co.za">Unhinged</a>
+            </div>
+        </div>
+    </footer>
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../js/materialize.js"></script>
+    <script src="../js/init.js"></script>
+</body>
+
+</html>
