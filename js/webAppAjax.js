@@ -40,6 +40,7 @@ $('#addRenovationBtn').on('click', function(e) {
     });
     document.getElementById("renovationsTab").innerHTML = "";
     $("#renovationsTab").load("../WebApp/tabs/testTab.php");
+    
 });
 ///////////////////////////////////////////////////////////////////////
 //                          Expenses                                 //
