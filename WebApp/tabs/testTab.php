@@ -1,3 +1,4 @@
+<script src="../js/init.js"></script>
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
@@ -8,11 +9,17 @@
         <div class="col m12">
             <ul class="collapsible popout" data-collapsible="accordion">
             <?php
-                include '../php/include/DB_Connect.php';
+                $server = "localhost";
+                $username = "morning2";
+                $password = "cm7RQ73jf9";
+                $database = "morning2_PropertyInvestor";
+                // Create Connection
+                $conn = mysqli_connect($server, $username, $password, $database);
                 $sql ="SELECT * FROM Properties WHERE UserID = 1";
                 $propertyResult = mysqli_query($conn, $sql);
                 if ($propertyResult->num_rows > 0) 
                 {
+                    echo "fuuck";
                     while($properyRow = $propertyResult->fetch_assoc()) 
                     {
             ?>
