@@ -50,6 +50,8 @@
       box-shadow: 0 1px 0 0 #d32f2f;
   }
 
+  
+
  /* TYPE select */
   /* label focus color */
   .input-field input[type=select]:focus + label {

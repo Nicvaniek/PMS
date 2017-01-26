@@ -1,5 +1,3 @@
-<?php
-echo "
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
@@ -110,5 +108,4 @@ echo "
             </button>
         </div>
     </form>
-</div>";
-?>
+</div>
