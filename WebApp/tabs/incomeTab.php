@@ -3,7 +3,7 @@ echo "
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
-            <h3>Your Expenses</h3>
+            <h3>Your Income</h3>
         </div>
     </div>
     <div class='row'>
@@ -11,17 +11,17 @@ echo "
     </div>
     <div class='row'>
         <div class='col m10'>
-            <h3>Add Expense</h3>
+            <h3>Add Income</h3>
         </div>
         <div class='col m2'>
             <br>
             <p>
-                <input type='checkbox' id='customExpense' onclick='customExpense()' />
-                <label for='customExpense'>Custom Expense</label>
+                <input type='checkbox' id='customIncome' onclick='customIncome()' />
+                <label for='customIncome'>Custom Income</label>
             </p>
         </div>
     </div>
-    <form id='addExpenseForm' action='#' method='post'>
+    <form id='addIncomeForm' action='#' method='post'>
         <div class='row'>
             <div class='input-field col m8'>
                 <select>
@@ -34,10 +34,10 @@ echo "
             </div>
         </div>
         <div class='row'>
-            <div id='expenseSelectDiv' class='input-field col m8'>
-                <select id='nameExpenseInput' name='expenseName' class='validate' required>
+            <div id='incomeSelectDiv' class='input-field col m8'>
+                <select id='nameIncomeInput' class='validate' required>
                     <optgroup label=' WALL AND FLOOR COVERINGS '>
-                        <option value='' disabled selected>Choose your expense</option>
+                        <option value='' disabled selected>Choose your income</option>
                         <option value='siekReno'>Floor Covering </option>
                         <option value='siekReno'>Vinyl </option>
                         <option value='siekReno'>Laminated </option>
@@ -65,31 +65,31 @@ echo "
                         <option value='siekReno'>Timber</option>
                     </optgroup>
                 </select>
-                <label>Expense</label>
+                <label>Income</label>
             </div>
-            <div id='customExpenseDiv' class='input-field col m8 hide'>
-                <input name='expenseName' id='nameExpenseInput' type='text' class='validate' required>
-                <label for='customExpenseExpenseInput'>Custom Expense</label>
-            </div>
-            <div class='input-field col m2'>
-                <input name='cost' id='costExpenseInput' type='number' class='validate' required>
-                <label for='costExpenseInput'>Cost</label>
+            <div id='customIncomeDiv' class='input-field col m8 hide'>
+                <input id='nameIncomeCustomInput' type='text' class='validate' required>
+                <label for='customIncomeInput'>Custom Income</label>
             </div>
             <div class='input-field col m2'>
-                    <select id='occurrenceExpenseInput'>
+                <input id='amountIncomeInput' type='number' class='validate' required>
+                <label for='amountIncomeInput'>Amount</label>
+            </div>
+            <div class='input-field col m2'>
+                    <select id='occurrenceIncomeInput'>
                     <option value='Monthly'>Monthly</option>
                     <option value='Weekly'>Weekly</option>
                 </select>
-                <label>occurrence</label>
+                <label>Occurrence</label>
             </div>
         </div>
         <div class='row'>
             <div class='input-field col m6'>
-                <input name='paidTo' id='paidToExpenseInput' type='text' class='validate' required>
-                <label for='paidToExpenseInput'>Paid To</label>
+                <input id='payeeIncomeInput' type='text' class='validate' required>
+                <label for='payeeIncomeInput'>Payee</label>
             </div>
             <div class='input-field col m6'>
-                <input name='invoiceDate' id='invoiceDateExpenseInput' type='date' class='datepicker' required>
+                <input id='invoiceDateIncomeInput' type='date' class='datepicker' required>
                 <label for='invoiceDatePicker'>Invoice Date</label>
             </div>
         </div>
@@ -100,16 +100,15 @@ echo "
                     <input type='file'>
                 </div>
                 <div class='file-path-wrapper'>
-                    <input name='invoiceFile' id='invoiceFileExpenseInput' class='file-path validate' type='text'>
+                    <input id='invoiceFileIncomeInput' class='file-path validate' type='text'>
                 </div>
             </div>
         </div>
         <div class='row'>
-            <button id='addExpenseBtn' class='btn red darken-2 waves-effect waves-light' type='submit' name='action'>Add Expense
+            <button id='addIncomeBtn' class='btn red darken-2 waves-effect waves-light' type='submit' name='action'>Add Income
                 <i class='material-icons right'>send</i>
             </button>
         </div>
     </form>
-</div>
-";
+</div>";
 ?>

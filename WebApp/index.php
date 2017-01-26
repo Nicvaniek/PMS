@@ -48,21 +48,16 @@
         </div>
     </div>
     <div id="renovationsTab" class="col m12">
-        <?php include 'renovationsTab.php'; ?>
+        <?php include 'tabs/renovationsTab.php'; ?>
     </div>
     <div id="expensesTab" class="col m12">
-         <?php include 'expensesTab.php'; ?>
+        <?php include 'tabs/expensesTab.php'; ?>
     </div>
     <div id="salesCostsTab" class="col m12">
+        <?php include 'tabs/salesCostsTab.php'; ?>
     </div>
     <div id="incomeTab" class="col m12">
-        <div class="container">
-            <div class="row">
-                <div class="col m12">
-                    <h1>Income</h1>
-                </div>
-            </div>
-        </div>
+        <?php include 'tabs/incomeTab.php'; ?>
     </div>
     <div id="reportsTab" class="col m12">
         <div class="container">

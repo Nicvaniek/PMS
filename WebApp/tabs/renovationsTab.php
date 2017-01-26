@@ -59,7 +59,7 @@ echo "
         </div>
         <div class='row'>
             <div id='renovationSelectDiv' class='input-field col m8'>
-                <select id='nameRenovationInput' name='renovationName' class='validate' required>
+                <select id='nameRenovationInput' class='validate' required>
                     <optgroup label=' WALL AND FLOOR COVERINGS '>
                         <option value='' disabled selected>Choose your renovation</option>
                         <option value='siekReno'>Floor Covering </option>
@@ -92,25 +92,25 @@ echo "
                 <label>Renovation</label>
             </div>
             <div id='customRenovationDiv' class='input-field col m8 hide'>
-                <input name='renovationName' id='nameRenovationInput' type='text' class='validate' required>
+                <input id='nameRenovationCustomInput' type='text' class='validate' required>
                 <label for='customRenovationRenovationInput'>Custom Renovation</label>
             </div>
             <div class='input-field col m2'>
-                <input name='quantity' id='quantityRenovationInput' type='number' class='validate' required>
+                <input id='quantityRenovationInput' type='number' class='validate' required>
                 <label for='quatnityRenovationInput'>Quantity</label>
             </div>
             <div class='input-field col m2'>
-                <input name='cost' id='costRenovationInput' type='number' class='validate' required>
+                <input id='costRenovationInput' type='number' class='validate' required>
                 <label for='costRenovationInput'>Cost</label>
             </div>
         </div>
         <div class='row'>
             <div class='input-field col m6'>
-                <input name='supplier' id='supplierRenovationInput' type='text' class='validate' required>
+                <input id='supplierRenovationInput' type='text' class='validate' required>
                 <label for='supplierRenovationInput'>Supplier</label>
             </div>
             <div class='input-field col m6'>
-                <input name='invoiceDate' id='invoiceDateRenovationInput' type='date' class='datepicker' required>
+                <input id='invoiceDateRenovationInput' type='date' class='datepicker' required>
                 <label for='invoiceDatePicker'>Invoice Date</label>
             </div>
         </div>
@@ -121,7 +121,7 @@ echo "
                     <input type='file'>
                 </div>
                 <div class='file-path-wrapper'>
-                    <input name='invoiceFile' id='invoiceFileRenovationInput' class='file-path validate' type='text'>
+                    <input id='invoiceFileRenovationInput' class='file-path validate' type='text'>
                 </div>
             </div>
         </div>
@@ -131,5 +131,5 @@ echo "
             </button>
         </div>
     </form>
-</div>"
+</div>";
 ?>
