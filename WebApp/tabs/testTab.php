@@ -5,6 +5,79 @@
         </div>
     </div>
     <div class='row'>
+        <div class="col m12">
+            <ul class="collapsible popout" data-collapsible="accordion">
+            <?php
+                include '../php/include/DB_Connect.php';
+                $sql ="SELECT * FROM Properties WHERE UserID = 1";
+                $propertyResult = mysqli_query($conn, $sql);
+                if ($propertyResult->num_rows > 0) 
+                {
+                    while($properyRow = $propertyResult->fetch_assoc()) 
+                    {
+            ?>
+                <li>
+                    <div class='collapsible-header'>
+                        <div class='row'>
+                            <div class='col m10'>
+                                <h5><?php echo $properyRow["Location"]?></h5>
+                            </div>
+                            <div class='col m2'>
+                                <a style='padding-right: 5px; padding-left: 5px;' href='#!' class='secondary-content'><i class='red-text text-darken-2 material-icons'>delete</i></a><a style='padding-right: 5px; padding-left: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>system_update_alt</i></a><a style='padding-right: 5px; padding-left: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>mode_edit</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='collapsible-body'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th data-field='id'>Description</th>
+                                    <th data-field='name'>Supplier </th>
+                                    <th data-field='price'>Invoice attached</th>
+                                    <th data-field='name'>Invoice date</th>
+                                    <th data-field='price'>Amount Paid</th>
+                                    <th data-field='price'>Select</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                $sql ="SELECT * FROM Renovations WHERE PropertyID = 1 ORDER BY ID";
+                                $renovationResult = mysqli_query($conn, $sql);
+
+                                if ($renovationResult->num_rows > 0) 
+                                {
+                                    while($renovationRow = $renovationResult->fetch_assoc()) 
+                                    {
+                            ?>
+                                <tr>
+                                    <td> <?php echo $renovationRow["Name"]?> </td>
+                                    <td> <?php echo $renovationRow["Supplier"]?> </td>
+                                    <td> Yes </td>
+                                    <td> <?php echo $renovationRow["InvoiceDate"]?> </td>
+                                    <td> R <?php echo$renovationRow["Cost"]?> </td>
+                                    <td>
+                                        <div>
+                                            <input class='with-gap' name='group2' type='radio' id='test3' />
+                                            <label for='test3'> </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php 
+                                    }
+                                }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            <?php 
+                    }
+                }
+            ?>                   
+            </ul>
+        </div>
+    </div>
+    <div class='row'>
         <div class='col m10'>
             <h3>Add Renovation</h3>
         </div>

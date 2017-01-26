@@ -1,5 +1,3 @@
-
-
 ///////////////////////////////////////////////////////////////////////
 //                          Renovations                              //
 ///////////////////////////////////////////////////////////////////////
@@ -40,6 +38,8 @@ $('#addRenovationBtn').on('click', function(e) {
             $('#addRenovationForm').submit();
         }
     });
+    document.getElementById("renovationsTab").innerHTML = "";
+    $("#renovationsTab").load("../WebApp/tabs/testTab.php");
 });
 ///////////////////////////////////////////////////////////////////////
 //                          Expenses                                 //
