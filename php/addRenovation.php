@@ -10,7 +10,7 @@
 
     $propertyID = 1;
     $userID = 1;
-
+    
 	/*echo $name;
     echo $quantity;
     echo $cost;

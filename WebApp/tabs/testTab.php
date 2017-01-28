@@ -1,4 +1,6 @@
 <script src="../js/init.js"></script>
+    <script src="../js/webAppAjax.js"></script>
+    <script src="../js/webAppCustoms.js"></script>
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
@@ -19,7 +21,6 @@
                 $propertyResult = mysqli_query($conn, $sql);
                 if ($propertyResult->num_rows > 0) 
                 {
-                    echo "fuuck";
                     while($properyRow = $propertyResult->fetch_assoc()) 
                     {
             ?>
@@ -96,7 +97,7 @@
             </p>
         </div>
     </div>
-    <form id='addRenovationForm' action='#' method='post'>
+    <form id='addRenovationForm' action='#' method='post' enctype='multipart/form-data'>
         <div class='row'>
             <div class='input-field col m8'>
                 <select>
@@ -165,14 +166,16 @@
                 <label for='invoiceDatePicker'>Invoice Date</label>
             </div>
         </div>
+    </form>
+    <form id='addRenovationFileForm' action='#' method='post' enctype='multipart/form-data'>
         <div class='row'>
             <div class='file-field input-field s4'>
                 <div class='btn red darken-2'>
                     <span>Invoice</span>
-                    <input type='file'>
+                    <input id='invoiceFileRenovationInput' type='file'>
                 </div>
                 <div class='file-path-wrapper'>
-                    <input id='invoiceFileRenovationInput' class='file-path validate' type='text'>
+                    <input class='file-path validate' type='text'>
                 </div>
             </div>
         </div>
