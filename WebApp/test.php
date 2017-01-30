@@ -1,6 +1,4 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
@@ -39,25 +37,15 @@
     <div id="dashboardTab" class="col m12">
     </div>
     <div id="propertyInformationTab" class="col m12">
-        <div class="container">
-            <div class="row">
-                <div class="col m12">
-                    <h1>Property Information</h1>
-                </div>
-            </div>
-        </div>
     </div>
     <div id="renovationsTab" class="col m12">
-        <?php include 'tabs/renovationsTab.php'; ?>
+        <?php include 'tabs/testTab.php'; ?>
     </div>
     <div id="expensesTab" class="col m12">
-        <?php include 'tabs/expensesTab.php'; ?>
     </div>
     <div id="salesCostsTab" class="col m12">
-        <?php include 'tabs/salesCostsTab.php'; ?>
     </div>
     <div id="incomeTab" class="col m12">
-        <?php include 'tabs/incomeTab.php'; ?>
     </div>
     <div id="reportsTab" class="col m12">
         <div class="container">
@@ -113,7 +101,7 @@
         </div>
     </footer>
     <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/materialize.js"></script>
     <script src="../js/init.js"></script>
     <script src="../js/webAppAjax.js"></script>
@@ -121,3 +109,5 @@
 </body>
 
 </html>
+<!--  
+-->

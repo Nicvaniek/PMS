@@ -1,51 +1,25 @@
-<?php  
-echo "
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
-            <h3>Your Renovations</h3>
+            <h3>Your Sales Costs</h3>
         </div>
     </div>
     <div class='row'>
-        <div class='col m12'>
-            <ul class='collection with-header'>
-                <li class='collection-header'>
-                    <h5>Cape Town Property</h5></li>
-                <li class='collection-item'>
-                    <div>Lights<a href='#!' class='secondary-content'><i class='material-icons'>send</i></a></div>
-                </li>
-                <li class='collection-item'>
-                    <div>Garden<a href='#!' class='secondary-content'><i class='material-icons'>send</i></a></div>
-                </li>
-                <li class='collection-item'>
-                    <div>Pool<a href='#!' class='secondary-content'><i class='material-icons'>send</i></a></div>
-                </li>
-            </ul>
-            <ul class='collection with-header'>
-                <li class='collection-header'>
-                    <h5>Lonehill Property</h5></li>
-                <li class='collection-item'>
-                    <div>Pool<a href='#!' class='secondary-content'><i class='material-icons'>send</i></a></div>
-                </li>
-                <li class='collection-item'>
-                    <div>Garage<a href='#!' class='secondary-content'><i class='material-icons'>send</i></a></div>
-                </li>
-            </ul>
-        </div>
+    
     </div>
     <div class='row'>
         <div class='col m10'>
-            <h3>Add Renovation</h3>
+            <h3>Add Sales Cost</h3>
         </div>
         <div class='col m2'>
             <br>
             <p>
-                <input type='checkbox' id='customRenovation' onclick='customRenovation()' />
-                <label for='customRenovation'>Custom Renovation</label>
+                <input type='checkbox' id='customSalesCost' onclick='customSalesCost()' />
+                <label for='customSalesCost'>Custom Sales Cost</label>
             </p>
         </div>
     </div>
-    <form id='addRenovationForm' action='#' method='post'>
+    <form id='addSalesCostForm' action='#' method='post'>
         <div class='row'>
             <div class='input-field col m8'>
                 <select>
@@ -58,10 +32,10 @@ echo "
             </div>
         </div>
         <div class='row'>
-            <div id='renovationSelectDiv' class='input-field col m8'>
-                <select id='nameRenovationInput' name='renovationName' class='validate' required>
+            <div id='salesCostSelectDiv' class='input-field col m8'>
+                <select id='nameSalesCostInput' class='validate' required>
                     <optgroup label=' WALL AND FLOOR COVERINGS '>
-                        <option value='' disabled selected>Choose your renovation</option>
+                        <option value='' disabled selected>Choose your sales cost</option>
                         <option value='siekReno'>Floor Covering </option>
                         <option value='siekReno'>Vinyl </option>
                         <option value='siekReno'>Laminated </option>
@@ -89,28 +63,24 @@ echo "
                         <option value='siekReno'>Timber</option>
                     </optgroup>
                 </select>
-                <label>Renovation</label>
+                <label>Sales Cost</label>
             </div>
-            <div id='customRenovationDiv' class='input-field col m8 hide'>
-                <input name='renovationName' id='nameRenovationInput' type='text' class='validate' required>
-                <label for='customRenovationRenovationInput'>Custom Renovation</label>
+            <div id='customSalesCostDiv' class='input-field col m8 hide'>
+                <input id='nameSalesCostCustomInput' type='text' class='validate' required>
+                <label for='customSalesCostInput'>Custom Sales Cost</label>
             </div>
-            <div class='input-field col m2'>
-                <input name='quantity' id='quantityRenovationInput' type='number' class='validate' required>
-                <label for='quatnityRenovationInput'>Quantity</label>
-            </div>
-            <div class='input-field col m2'>
-                <input name='cost' id='costRenovationInput' type='number' class='validate' required>
-                <label for='costRenovationInput'>Cost</label>
+            <div class='input-field col m4'>
+                <input id='costSalesCostInput' type='number' class='validate' required>
+                <label for='costSalesCostInput'>Cost</label>
             </div>
         </div>
         <div class='row'>
             <div class='input-field col m6'>
-                <input name='supplier' id='supplierRenovationInput' type='text' class='validate' required>
-                <label for='supplierRenovationInput'>Supplier</label>
+                <input id='paidToSalesCostInput' type='text' class='validate' required>
+                <label for='paidToSalesCostInput'>Paid To</label>
             </div>
             <div class='input-field col m6'>
-                <input name='invoiceDate' id='invoiceDateRenovationInput' type='date' class='datepicker' required>
+                <input id='invoiceDateSalesCostInput' type='date' class='datepicker' required>
                 <label for='invoiceDatePicker'>Invoice Date</label>
             </div>
         </div>
@@ -121,15 +91,14 @@ echo "
                     <input type='file'>
                 </div>
                 <div class='file-path-wrapper'>
-                    <input name='invoiceFile' id='invoiceFileRenovationInput' class='file-path validate' type='text'>
+                    <input id='invoiceFileSalesCostInput' class='file-path validate' type='text'>
                 </div>
             </div>
         </div>
         <div class='row'>
-            <button id='addRenovationBtn' class='btn red darken-2 waves-effect waves-light' type='submit' name='action'>Add Renovation
+            <button id='addSalesCostBtn' class='btn red darken-2 waves-effect waves-light' type='submit' name='action'>Add SalesCost
                 <i class='material-icons right'>send</i>
             </button>
         </div>
     </form>
-</div>"
-?>
+</div>

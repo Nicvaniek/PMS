@@ -1,5 +1,3 @@
-<?php
-echo "
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
@@ -35,7 +33,7 @@ echo "
         </div>
         <div class='row'>
             <div id='expenseSelectDiv' class='input-field col m8'>
-                <select id='nameExpenseInput' name='expenseName' class='validate' required>
+                <select id='nameExpenseInput' class='validate' required>
                     <optgroup label=' WALL AND FLOOR COVERINGS '>
                         <option value='' disabled selected>Choose your expense</option>
                         <option value='siekReno'>Floor Covering </option>
@@ -68,11 +66,11 @@ echo "
                 <label>Expense</label>
             </div>
             <div id='customExpenseDiv' class='input-field col m8 hide'>
-                <input name='expenseName' id='nameExpenseInput' type='text' class='validate' required>
+                <input id='nameExpenseCustomInput' type='text' class='validate' required>
                 <label for='customExpenseExpenseInput'>Custom Expense</label>
             </div>
             <div class='input-field col m2'>
-                <input name='cost' id='costExpenseInput' type='number' class='validate' required>
+                <input id='costExpenseInput' type='number' class='validate' required>
                 <label for='costExpenseInput'>Cost</label>
             </div>
             <div class='input-field col m2'>
@@ -80,16 +78,16 @@ echo "
                     <option value='Monthly'>Monthly</option>
                     <option value='Weekly'>Weekly</option>
                 </select>
-                <label>occurrence</label>
+                <label>Occurrence</label>
             </div>
         </div>
         <div class='row'>
             <div class='input-field col m6'>
-                <input name='paidTo' id='paidToExpenseInput' type='text' class='validate' required>
+                <input id='paidToExpenseInput' type='text' class='validate' required>
                 <label for='paidToExpenseInput'>Paid To</label>
             </div>
             <div class='input-field col m6'>
-                <input name='invoiceDate' id='invoiceDateExpenseInput' type='date' class='datepicker' required>
+                <input id='invoiceDateExpenseInput' type='date' class='datepicker' required>
                 <label for='invoiceDatePicker'>Invoice Date</label>
             </div>
         </div>
@@ -100,7 +98,7 @@ echo "
                     <input type='file'>
                 </div>
                 <div class='file-path-wrapper'>
-                    <input name='invoiceFile' id='invoiceFileExpenseInput' class='file-path validate' type='text'>
+                    <input id='invoiceFileExpenseInput' class='file-path validate' type='text'>
                 </div>
             </div>
         </div>
@@ -111,5 +109,3 @@ echo "
         </div>
     </form>
 </div>
-";
-?>
