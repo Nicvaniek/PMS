@@ -6,7 +6,6 @@
     }
     else {
         move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . $_FILES['file']['name']);
-        echo $_FILES['file']['type'];
 
         $fileName = $_FILES['file']['name'];
 		$tmpName  = $_FILES['file']['tmp_name'];
@@ -23,13 +22,17 @@
 		    $fileName = addslashes($fileName);
 		}
 
+		date_default_timezone_set("Africa/Johannesburg");
+		$timestamp = "" . date("Y-m-d") . " " . date("h:i:sa");
 
-		$sql = "INSERT INTO Uploads(UserID, Name, Type, Size, Content) VALUES (1, '$fileName', '$fileType', '$fileSize', '$content')";		
+
+		$sql = "INSERT INTO Uploads(UserID, Name, Type, Size, Content, Timestamp) VALUES (1, '$fileName', '$fileType', '$fileSize', '$content', '$timestamp')";		
         mysqli_query($conn, $sql);
 
-        $sql = "SELECT ID FROM Uploads WHERE UserID = 1 AND Name = '$fileName' AND Type = '$fileType' AND Size = '$fileSize' AND Content = '$content'";		
+        $sql = "SELECT ID FROM Uploads WHERE UserID = 1 AND Name = '$fileName' AND Size = $fileSize AND Timestamp = '$timestamp'";		
+        //echo $sql;
         $result = mysqli_query($conn, $sql);
-        $row = $renovationResult->fetch_assoc();
+        $row = $result->fetch_assoc();
         echo $row["ID"];
     }
 

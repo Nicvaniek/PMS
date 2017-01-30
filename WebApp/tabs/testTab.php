@@ -1,6 +1,8 @@
 <script src="../js/init.js"></script>
-    <script src="../js/webAppAjax.js"></script>
-    <script src="../js/webAppCustoms.js"></script>
+<script src="../js/webAppAjax.js"></script>
+<script src="../js/webAppCustoms.js"></script>
+<script src="../js/jquery-3.1.1.min.js"></script>
+
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
@@ -9,29 +11,36 @@
     </div>
     <div class='row'>
         <div class="col m12">
-            <ul class="collapsible popout" data-collapsible="accordion">
-            <?php
-                $server = "localhost";
-                $username = "morning2";
-                $password = "cm7RQ73jf9";
-                $database = "morning2_PropertyInvestor";
-                // Create Connection
-                $conn = mysqli_connect($server, $username, $password, $database);
-                $sql ="SELECT * FROM Properties WHERE UserID = 1";
-                $propertyResult = mysqli_query($conn, $sql);
-                if ($propertyResult->num_rows > 0) 
+        <?php
+            $server = "localhost";
+            $username = "morning2";
+            $password = "cm7RQ73jf9";
+            $database = "morning2_PropertyInvestor";
+            // Create Connection
+            $conn = mysqli_connect($server, $username, $password, $database);
+            $sql ="SELECT * FROM Properties WHERE UserID = 1";
+            $propertyResult = mysqli_query($conn, $sql);
+            if ($propertyResult->num_rows > 0) 
+            {
+                while($propertyRow = $propertyResult->fetch_assoc()) 
                 {
-                    while($properyRow = $propertyResult->fetch_assoc()) 
-                    {
-            ?>
+                    $count = 0;
+                    $propertyName = $propertyRow["Location"];
+                    $propertyName = str_replace(" ","", $propertyName);
+        ?>
+        <a  style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyName?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                                <a id="" style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>system_update_alt</i></a>
+                                <a id="" style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>mode_edit</i></a>
+            <ul class="collapsible popout" data-collapsible="accordion">
                 <li>
                     <div class='collapsible-header'>
                         <div class='row'>
                             <div class='col m10'>
-                                <h5><?php echo $properyRow["Location"]?></h5>
+                                <h5><?php echo $propertyRow["Location"]?></h5>
                             </div>
                             <div class='col m2'>
-                                <a style='padding-right: 5px; padding-left: 5px;' href='#!' class='secondary-content'><i class='red-text text-darken-2 material-icons'>delete</i></a><a style='padding-right: 5px; padding-left: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>system_update_alt</i></a><a style='padding-right: 5px; padding-left: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>mode_edit</i></a>
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -60,13 +69,19 @@
                                 <tr>
                                     <td> <?php echo $renovationRow["Name"]?> </td>
                                     <td> <?php echo $renovationRow["Supplier"]?> </td>
-                                    <td> Yes </td>
+                                    <?php  
+                                    if($renovationRow["UploadID"] > 0)
+                                        echo "<td> Yes </td>";
+                                    else
+                                        echo "<td> No </td>";
+                                    ?>
+                                    
                                     <td> <?php echo $renovationRow["InvoiceDate"]?> </td>
                                     <td> R <?php echo$renovationRow["Cost"]?> </td>
                                     <td>
                                         <div>
-                                            <input class='with-gap' name='group2' type='radio' id='test3' />
-                                            <label for='test3'> </label>
+                                            <input class='with-gap' name='group2' type='radio' id='<?php echo $propertyName?>Radio<?php echo $count?>' value='<?php echo $renovationRow["ID"] ?>'/>
+                                            <label for='<?php echo $propertyName?>Radio<?php echo $count++?>'></label>
                                         </div>
                                     </td>
                                 </tr>
@@ -74,6 +89,37 @@
                                     }
                                 }
                             ?>
+                                <script type="text/javascript">
+                                    $('#<?php echo $propertyName?>DeleteBtn').on('click', function(e) {
+                                        alert("Bitttch");
+
+                                        var max = <?php echo $count; ?> ;
+                                        alert("Bitttch1");
+                                        var count = 0;
+                                        while(count <= max)
+                                        {
+                                            if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
+                                            {
+                                                var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
+
+                                                $.post('../php/deleteRenovation.php', {
+                                                id: id1
+                                                }, function(d) {
+                                                    if (d != "")
+                                                    {
+                                                        alert(d);
+                                                        
+                                                        $("#renovationsTab").load("testTab.php");
+                                                    }                                        
+                                                    else {
+                                                        //error
+                                                    }
+                                                });
+                                            }
+                                            count++;
+                                        }                                        
+                                    });
+                                </script>
                             </tbody>
                         </table>
                     </div>

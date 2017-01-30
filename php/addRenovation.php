@@ -6,27 +6,28 @@
     $cost = $_POST['cost'];
     $supplier = $_POST['supplier'];
     $invoiceDate = $_POST['invoiceDate'];
-    $invoiceFile = $_POST['invoiceFile'];
+    $uploadID = $_POST['uploadID'];
 
     $propertyID = 1;
     $userID = 1;
-    
+
 	/*echo $name;
     echo $quantity;
     echo $cost;
     echo $supplier;
     echo $invoiceDate;
-    echo $invoiceFile;*/
+    echo $uploadID;*/
 
-    if (isset($_POST['renovationName']) && isset($_POST['quantity']) && isset($_POST['cost']) && isset($_POST['supplier']) && isset($_POST['invoiceDate']) && isset($_POST['invoiceFile'])) 
+    if (isset($_POST['renovationName']) && isset($_POST['quantity']) && isset($_POST['cost']) && isset($_POST['supplier']) && isset($_POST['invoiceDate']) && isset($_POST['uploadID'])) 
     {
         /*$stmt = $conn->prepare("INSERT INTO 'Renovations'('ID', 'PropertyID', 'UserID', 'Name', 'Cost', 'Quantity', 'Supplier', 'Invoice', 'InvoiceDate') VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
         echo "YEAAAAAAAA YESSSSSS";
-        $stmt->bind_param("iiisdisss", $userID, $propertyID, $userID, $name, $cost, $quantity, $supplier, $invoiceFile, $invoiceDate);
+        $stmt->bind_param("iiisdisss", $userID, $propertyID, $userID, $name, $cost, $quantity, $supplier, $uploadID, $invoiceDate);
         echo "YEAAAAAAAA YESSSSSS";*/
 
-        $sql ="INSERT INTO Renovations(PropertyID, UserID, Name, Cost, Quantity, Supplier, Invoice, InvoiceDate) 
-        VALUES($propertyID, $userID,'$name', $quantity, $cost, '$supplier', '$invoiceFile', '$invoiceDate')";
+
+        $sql ="INSERT INTO Renovations(PropertyID, UserID, Name, Cost, Quantity, Supplier, InvoiceDate, UploadID) 
+        VALUES($propertyID, $userID, '$name', $cost, $quantity, '$supplier', '$invoiceDate', $uploadID)";
         mysqli_query($conn, $sql);
 	}
 ?>	

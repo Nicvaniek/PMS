@@ -7,7 +7,6 @@ $('#addRenovationBtn').on('click', function(e) {
     var file_data = $('#invoiceFileRenovationInput').prop('files')[0];
     var form_data = new FormData();
     form_data.append('file', file_data);
-    alert(form_data);
     $.ajax({
         url: '../php/upload.php', // point to server-side PHP script 
         dataType: 'text', // what to expect back from the PHP script, if anything
@@ -17,8 +16,12 @@ $('#addRenovationBtn').on('click', function(e) {
         data: form_data,
         type: 'post',
         success: function(php_script_response) {
-            alert(php_script_response); // display response from the PHP script, if any
-            alert("this is success?")
+            //SUCCESS
+            //alert(php_script_response); // display response from the PHP script, if any
+            var uploadID1 = php_script_response; //Our invoive we uploaded
+            alert("this is the file ID ==== " + uploadID1);
+
+
             var name1 = $('#nameRenovationInput').val();
             if (document.getElementById("renovationSelectDiv").classList.contains("hide")) {
                 name1 = $('#nameRenovationCustomInput').val();
@@ -28,7 +31,6 @@ $('#addRenovationBtn').on('click', function(e) {
             var cost1 = $('#costRenovationInput').val();
             var supplier1 = $('#supplierRenovationInput').val();
             var invoiceDate1 = $('#invoiceDateRenovationInput').val();
-            var invoiceFile1 = $('#invoiceFileRenovationInput').val();
 
             /*alert(name1);
             alert(quantity1);
@@ -42,7 +44,7 @@ $('#addRenovationBtn').on('click', function(e) {
                 cost: cost1,
                 supplier: supplier1,
                 invoiceDate: invoiceDate1,
-                invoiceFile: invoiceFile1
+                uploadID: uploadID1
 
             }, function(d) {
                 if (d != "")
