@@ -3,44 +3,62 @@
 ///////////////////////////////////////////////////////////////////////
 $('#addRenovationBtn').on('click', function(e) {
     e.preventDefault();
-    
-    var name1 = $('#nameRenovationInput').val();
-    if (document.getElementById("renovationSelectDiv").classList.contains("hide")) 
-    {
-        name1 = $('#nameRenovationCustomInput').val();
-    }
 
-    var quantity1 = $('#quantityRenovationInput').val();
-    var cost1 = $('#costRenovationInput').val();
-    var supplier1 = $('#supplierRenovationInput').val();
-    var invoiceDate1 = $('#invoiceDateRenovationInput').val();
-    var invoiceFile1 = $('#invoiceFileRenovationInput').val();
+    var file_data = $('#invoiceFileRenovationInput').prop('files')[0];
+    var form_data = new FormData();
+    form_data.append('file', file_data);
+    $.ajax({
+        url: '../php/upload.php', // point to server-side PHP script 
+        dataType: 'text', // what to expect back from the PHP script, if anything
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        type: 'post',
+        success: function(php_script_response) {
+            //SUCCESS
+            //alert(php_script_response); // display response from the PHP script, if any
+            var uploadID1 = php_script_response; //Our invoive we uploaded
+            alert("this is the file ID ==== " + uploadID1);
 
-    /*alert(name1);
-    alert(quantity1);
-    alert(cost1);
-    alert(supplier1);
-    alert(invoiceDate1);*/
 
-    $.post('../php/addRenovation.php', {
-        renovationName: name1,
-        quantity: quantity1,
-        cost: cost1,
-        supplier: supplier1,
-        invoiceDate: invoiceDate1,
-        invoiceFile: invoiceFile1
+            var name1 = $('#nameRenovationInput').val();
+            if (document.getElementById("renovationSelectDiv").classList.contains("hide")) {
+                name1 = $('#nameRenovationCustomInput').val();
+            }
 
-    }, function(d) {
-        if (d != "")
-            alert(d);
-        else
-        {
-            $('#addRenovationForm').submit();
+            var quantity1 = $('#quantityRenovationInput').val();
+            var cost1 = $('#costRenovationInput').val();
+            var supplier1 = $('#supplierRenovationInput').val();
+            var invoiceDate1 = $('#invoiceDateRenovationInput').val();
+
+            /*alert(name1);
+            alert(quantity1);
+            alert(cost1);
+            alert(supplier1);
+            alert(invoiceDate1);*/
+
+            $.post('../php/addRenovation.php', {
+                renovationName: name1,
+                quantity: quantity1,
+                cost: cost1,
+                supplier: supplier1,
+                invoiceDate: invoiceDate1,
+                uploadID: uploadID1
+
+            }, function(d) {
+                if (d != "")
+                    alert(d);
+                else {
+                    $('#addRenovationForm').submit();
+                }
+            });
+            document.getElementById("renovationsTab").innerHTML = "";
+            $("#renovationsTab").load("../WebApp/tabs/testTab.php");
         }
     });
-    document.getElementById("renovationsTab").innerHTML = "";
-    $("#renovationsTab").load("../WebApp/tabs/testTab.php");
-    
+
+
 });
 ///////////////////////////////////////////////////////////////////////
 //                          Expenses                                 //
@@ -49,8 +67,7 @@ $('#addExpenseBtn').on('click', function(e) {
     e.preventDefault();
 
     var name1 = $('#nameExpenseInput').val();
-    if (document.getElementById("expenseSelectDiv").classList.contains("hide")) 
-    {
+    if (document.getElementById("expenseSelectDiv").classList.contains("hide")) {
         name1 = $('#nameExpenseCustomInput').val();
     }
 
@@ -77,8 +94,7 @@ $('#addExpenseBtn').on('click', function(e) {
     }, function(d) {
         if (d != "")
             alert(d);
-        else
-        {
+        else {
             $('#addExpenseForm').submit();
         }
     });
@@ -91,8 +107,7 @@ $('#addSalesCostBtn').on('click', function(e) {
     e.preventDefault();
 
     var name1 = $('#nameSalesCostInput').val();
-    if (document.getElementById("salesCostSelectDiv").classList.contains("hide")) 
-    {
+    if (document.getElementById("salesCostSelectDiv").classList.contains("hide")) {
         name1 = $('#nameSalesCostCustomInput').val();
     }
 
@@ -116,8 +131,7 @@ $('#addSalesCostBtn').on('click', function(e) {
     }, function(d) {
         if (d != "")
             alert(d);
-        else
-        {
+        else {
             $('#addSalesCostForm').submit();
         }
     });
@@ -130,8 +144,7 @@ $('#addIncomeBtn').on('click', function(e) {
     e.preventDefault();
 
     var name1 = $('#nameIncomeInput').val();
-    if (document.getElementById("incomeSelectDiv").classList.contains("hide")) 
-    {
+    if (document.getElementById("incomeSelectDiv").classList.contains("hide")) {
         name1 = $('#nameIncomeCustomInput').val();
     }
 
@@ -157,8 +170,7 @@ $('#addIncomeBtn').on('click', function(e) {
     }, function(d) {
         if (d != "")
             alert(d);
-        else
-        {
+        else {
             $('#addIncomeForm').submit();
         }
     });
