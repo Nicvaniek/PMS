@@ -75,12 +75,35 @@
                         <i class="material-icons right">send</i>
                     </button><br>
                     Don't have an account? <a href="index.php">Sign up here</a><br>
-                    <a href="register.php">Forgot password?</a>
+                    <a href="#modal1">Forgot password?</a>
                 </form>
               </div>
             </div>
         </div>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4 style="margin-bottom:30px">Forgot Password?</h4>
+                <form action="login.php" method="post" id = "resetForm">
+                    <div class="row">
+                        <div class="input-field">
+                            <i class="material-icons prefix">email</i>
+                            <input id="emailReset" type="email" class="validate" name="emailReset" required>
+                            <label for="email">Please enter your email address</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="action" id="resetBtn" style="margin-bottom:10px">Send Email
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+      </div>
     </div>
+
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>

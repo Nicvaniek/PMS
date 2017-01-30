@@ -107,4 +107,101 @@ $(document).ready(function(){
         }
         return false;
     });
+
+    // Reset password
+    $('#resetBtn').on('click', function(){
+            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var resetEmail = $('#emailReset').val();
+            if (!regex.test(resetEmail) || resetEmail === "")
+            {
+                swal({  
+                    title: "Error!",   
+                    text: "Please enter a valid email address",   
+                    type: "error",   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Close",   
+                    confirmButtonColor: '#B71C1C' 
+                }); 
+                return false;
+            }
+
+            $.post('php/send-recovery-email.php',
+            {
+                email: resetEmail,
+            }, function(d){
+                if (d === "")
+                {
+                    swal({
+                      title: "Recovery email sent!",
+                      text: "Please check your email to reset your password",
+                      type: 'success',
+                      confirmButtonText: "Close",
+                      confirmButtonColor: '#5cb85c'
+                    }, function(){
+                        $('#resetForm').submit();
+                    });
+                }
+                else
+                {
+                    swal({  
+                        title: "Oops!",   
+                        text: d,   
+                        type: "error",   
+                        confirmButtonColor: "#DD6B55",   
+                        confirmButtonText: "Close",   
+                        confirmButtonColor: '#B71C1C' 
+                    }); 
+                }
+          });   
+        return false;
+    });
+    $('#changePassBtn').on('click', function(){
+            var pass1 = $('#newPass').val();
+            var pass2 = $('#newPass2').val();
+            var mailAddress = $('#mail').val();
+
+            if (pass1 != pass2)
+            {
+                swal({  
+                    title: "Error!",   
+                    text: "Passwords do not match",   
+                    type: "error",   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Close",   
+                    confirmButtonColor: '#B71C1C' 
+                }); 
+                return false;
+            }
+
+            $.post('submit-new-password.php',
+            {
+                email: mailAddress,
+                password: pass1
+            }, function(d){
+                if (d === "")
+                {
+                    swal({
+                      title: "Password successfully changed!",
+                      type: 'success',
+                      confirmButtonText: "Close",
+                      confirmButtonColor: '#5cb85c'
+                    }, function(){
+                        $('#passwordForm').submit();
+                    });
+                }
+                else
+                {
+                    swal({  
+                        title: "Oops!",   
+                        text: d,   
+                        type: "error",   
+                        confirmButtonColor: "#DD6B55",   
+                        confirmButtonText: "Close",   
+                        confirmButtonColor: '#B71C1C' 
+                    }); 
+                }
+          });   
+        return false;
+    });
+
 });
