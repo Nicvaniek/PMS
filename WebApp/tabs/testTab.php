@@ -1,7 +1,6 @@
 <script src="../js/init.js"></script>
 <script src="../js/webAppAjax.js"></script>
 <script src="../js/webAppCustoms.js"></script>
-<script src="../js/jquery-3.1.1.min.js"></script>
 
 <div class='container'>
     <div class='row'>
@@ -28,7 +27,7 @@
                     $propertyName = $propertyRow["Location"];
                     $propertyName = str_replace(" ","", $propertyName);
         ?>
-        <a  style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyName?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                                <a  style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyName?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
                                 <a id="" style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>system_update_alt</i></a>
                                 <a id="" style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>mode_edit</i></a>
             <ul class="collapsible popout" data-collapsible="accordion">
@@ -66,7 +65,7 @@
                                     while($renovationRow = $renovationResult->fetch_assoc()) 
                                     {
                             ?>
-                                <tr>
+                                <tr id='<?php echo $propertyName?>Tr<?php echo $count?>'>
                                     <td> <?php echo $renovationRow["Name"]?> </td>
                                     <td> <?php echo $renovationRow["Supplier"]?> </td>
                                     <?php  
@@ -96,11 +95,12 @@
                                         var max = <?php echo $count; ?> ;
                                         alert("Bitttch1");
                                         var count = 0;
-                                        while(count <= max)
+                                        while(count < max)
                                         {
                                             if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
                                             {
                                                 var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
+                                                var trID = "<?php echo $propertyName?>Tr" + count + "";
 
                                                 $.post('../php/deleteRenovation.php', {
                                                 id: id1
@@ -109,7 +109,9 @@
                                                     {
                                                         alert(d);
                                                         
-                                                        $("#renovationsTab").load("testTab.php");
+                                                        alert(trID);
+                                                        document.getElementById(trID).innerHTML = "";
+
                                                     }                                        
                                                     else {
                                                         //error
