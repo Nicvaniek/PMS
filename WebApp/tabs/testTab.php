@@ -1,7 +1,7 @@
 <script src="../js/init.js"></script>
 <script src="../js/webAppAjax.js"></script>
 <script src="../js/webAppCustoms.js"></script>
-
+    <script src="../js/jquery-3.1.1.min.js"></script>
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
@@ -28,7 +28,7 @@
                     $propertyName = str_replace(" ","", $propertyName);
         ?>
                                 <a  style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyName?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
-                                <a id="" style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>system_update_alt</i></a>
+                                <a  style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyName?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
                                 <a id="" style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>mode_edit</i></a>
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li>
@@ -111,12 +111,40 @@
                                                         
                                                         alert(trID);
                                                         document.getElementById(trID).innerHTML = "";
-
                                                     }                                        
                                                     else {
                                                         //error
                                                     }
                                                 });
+                                            }
+                                            count++;
+                                        }                                        
+                                    });
+                                    $('#<?php echo $propertyName?>DownloadBtn').on('click', function(e) {
+                                        alert("nigga");
+
+                                        var max = <?php echo $count; ?> ;
+                                        alert("nigga1");
+                                        var count = 0;
+                                        while(count < max)
+                                        {
+                                            if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
+                                            {
+                                                var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
+                                                window.open("../php/downloadRenovation.php?id="+id1);
+
+                                                /*$.post('../php/downloadRenovation.php', {
+                                                id: id1
+                                                }, function(d) {
+                                                    if (d != "")
+                                                    {
+                                                        alert("success");                                              
+                                                        
+                                                    }                                        
+                                                    else {
+                                                        //error
+                                                    }
+                                                });*/
                                             }
                                             count++;
                                         }                                        
