@@ -1,7 +1,5 @@
 <script src="../js/init.js"></script>
-<script src="../js/webAppAjax.js"></script>
-<script src="../js/webAppCustoms.js"></script>
-
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
@@ -27,23 +25,22 @@
                     $propertyName = $propertyRow["Location"];
                     $propertyName = str_replace(" ","", $propertyName);
         ?>
-                                <a  style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyName?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
-                                <a id="" style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>system_update_alt</i></a>
-                                <a id="" style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i class='black-text material-icons'>mode_edit</i></a>
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li>
                     <div class='collapsible-header'>
                         <div class='row'>
-                            <div class='col m10'>
+                            <div class='col m12'>
                                 <h5><?php echo $propertyRow["Location"]?></h5>
-                            </div>
-                            <div class='col m2'>
-                                
-                                
                             </div>
                         </div>
                     </div>
                     <div class='collapsible-body'>
+                        <div>
+                            <a style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyName?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                            <a style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyName?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
+                            <a style='padding-right: 5px; padding-left: 5px; padding-top: 5px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyName?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
+                            
+                        </div>
                         <table>
                             <thead>
                                 <tr>
@@ -111,12 +108,44 @@
                                                         
                                                         alert(trID);
                                                         document.getElementById(trID).innerHTML = "";
-
                                                     }                                        
                                                     else {
                                                         //error
                                                     }
                                                 });
+                                            }
+                                            count++;
+                                        }                                        
+                                    });
+                                    $('#<?php echo $propertyName?>DownloadBtn').on('click', function(e) {
+                                        alert("nigga");
+
+                                        var max = <?php echo $count; ?> ;
+                                        alert("nigga1");
+                                        var count = 0;
+                                        while(count < max)
+                                        {
+                                            if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
+                                            {
+                                                var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
+                                                window.open("../php/downloadRenovation.php?id="+id1);
+                                            }
+                                            count++;
+                                        }                                        
+                                    });
+                                    $('#<?php echo $propertyName?>EditBtn').on('click', function(e) {
+
+                                        var max = <?php echo $count; ?> ;
+                                        var count = 0;
+                                        while(count < max)
+                                        {
+                                            if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
+                                            {
+                                                var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
+                                                $("#editModal").load("../php/editRenovation.php?id="+id1);
+                                                alert("wigga2");
+                                                $('#editModal').modal('open');
+                                                alert("wigga9000");
                                             }
                                             count++;
                                         }                                        
