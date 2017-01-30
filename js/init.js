@@ -4,6 +4,7 @@ $(document).ready(function()
     $('.button-collapse').sideNav();
     $('.parallax').parallax();
     $('select').material_select();
+    $('.modal').modal();
 
     $('.datepicker').pickadate({
         format: 'yyyy-mm-dd',

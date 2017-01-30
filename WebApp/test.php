@@ -100,8 +100,10 @@
             </div>
         </div>
     </footer>
+    <div id="editModal" class="modal modal-fixed-footer">
+
+    </div>
     <!--  Scripts-->
-    <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/materialize.js"></script>
     <script src="../js/init.js"></script>
     <script src="../js/webAppAjax.js"></script>
