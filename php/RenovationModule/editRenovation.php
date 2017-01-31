@@ -1,6 +1,5 @@
 <?php 
-
-	require_once 'include/DB_Connect.php';
+	require_once '../include/DB_Connect.php';
 	$id = $_GET['id'];
 	if (isset($_GET['id'])) 
     {

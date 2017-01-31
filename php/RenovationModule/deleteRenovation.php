@@ -1,5 +1,5 @@
 <?php
-	require_once 'include/DB_Connect.php';
+	require_once '../include/DB_Connect.php';
 
 	$id = $_POST['id'];
 

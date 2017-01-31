@@ -21,7 +21,6 @@ $('#addRenovationBtn').on('click', function(e) {
             var uploadID1 = php_script_response; //Our invoive we uploaded
             alert("this is the file ID ==== " + uploadID1);
 
-
             var name1 = $('#nameRenovationInput').val();
             if (document.getElementById("renovationSelectDiv").classList.contains("hide")) {
                 name1 = $('#nameRenovationCustomInput').val();
@@ -32,13 +31,7 @@ $('#addRenovationBtn').on('click', function(e) {
             var supplier1 = $('#supplierRenovationInput').val();
             var invoiceDate1 = $('#invoiceDateRenovationInput').val();
 
-            /*alert(name1);
-            alert(quantity1);
-            alert(cost1);
-            alert(supplier1);
-            alert(invoiceDate1);*/
-
-            $.post('../php/addRenovation.php', {
+            $.post('../php/RenovationModule/addRenovation.php', {
                 renovationName: name1,
                 quantity: quantity1,
                 cost: cost1,
@@ -48,17 +41,27 @@ $('#addRenovationBtn').on('click', function(e) {
 
             }, function(d) {
                 if (d != "")
-                    alert(d);
+                {
+                    alert("Add successful");
+                    
+                    /*$('#nameRenovationInput').val() = null;
+                    $('#nameRenovationCustomInput').val() = null;
+                    $('#quantityRenovationInput').val() = null;
+                    $('#costRenovationInput').val() = null;
+                    $('#supplierRenovationInput').val() = null;
+                    $('#invoiceDateRenovationInput').val() = null;*/
+
+
+                    var propertyName = $('#renovationPropertySelect').val();
+                    alert(propertyName);
+                    $("#"+propertyName+"tbody").load("../php/RenovationModule/renovationTable.php?id="+ propertyName);
+                }
                 else {
-                    $('#addRenovationForm').submit();
+                   alert("Failure");
                 }
             });
-            document.getElementById("renovationsTab").innerHTML = "";
-            $("#renovationsTab").load("../WebApp/tabs/testTab.php");
         }
     });
-
-
 });
 ///////////////////////////////////////////////////////////////////////
 //                          Expenses                                 //

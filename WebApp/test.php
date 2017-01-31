@@ -7,9 +7,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../css/inputColor.css" type="text/css" rel="stylesheet" media="screen,projection" />
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
-
 <body class="grey lighten-5">
+        <!--  Scripts-->
+        
+    <div id="scriptsDiv">
+        
+    </div>
     <nav class="nav-extended">
         <div class="nav-wrapper red darken-2">
             <a href="#" class="brand-logo">Property Investor</a>
@@ -103,11 +108,10 @@
     <div id="editModal" class="modal modal-fixed-footer">
 
     </div>
-    <!--  Scripts-->
     <script src="../js/materialize.js"></script>
-    <script src="../js/init.js"></script>
-    <script src="../js/webAppAjax.js"></script>
-    <script src="../js/webAppCustoms.js"></script>
+        <script src="../js/init.js"></script>
+        <script src="../js/webAppAjax.js"></script>
+        <script src="../js/webAppCustoms.js"></script>
 </body>
 
 </html>

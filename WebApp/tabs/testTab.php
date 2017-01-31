@@ -1,5 +1,3 @@
-<script src="../js/init.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <div class='container'>
     <div class='row'>
         <div class='col m12'>
@@ -52,7 +50,7 @@
                                     <th data-field='price'>Select</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="<?php echo $propertyName?>tbody">
                             <?php
                                 $sql ="SELECT * FROM Renovations WHERE PropertyID = 1 ORDER BY ID";
                                 $renovationResult = mysqli_query($conn, $sql);
@@ -99,7 +97,7 @@
                                                 var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
                                                 var trID = "<?php echo $propertyName?>Tr" + count + "";
 
-                                                $.post('../php/deleteRenovation.php', {
+                                                $.post('../php/RenovationModule/deleteRenovation.php', {
                                                 id: id1
                                                 }, function(d) {
                                                     if (d != "")
@@ -128,7 +126,7 @@
                                             if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
                                             {
                                                 var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
-                                                window.open("../php/downloadRenovation.php?id="+id1);
+                                                window.open("../php/RenovationModule/downloadRenovation.php?id="+id1);
                                             }
                                             count++;
                                         }                                        
@@ -142,7 +140,7 @@
                                             if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
                                             {
                                                 var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
-                                                $("#editModal").load("../php/editRenovation.php?id="+id1);
+                                                $("#editModal").load("../php/RenovationModule/editRenovation.php?id="+id1);
                                                 alert("wigga2");
                                                 $('#editModal').modal('open');
                                                 alert("wigga9000");
@@ -177,11 +175,24 @@
     <form id='addRenovationForm' action='#' method='post' enctype='multipart/form-data'>
         <div class='row'>
             <div class='input-field col m8'>
-                <select>
+                <select id="renovationPropertySelect">
                     <option value='' disabled selected>Choose your property</option>
-                    <option value='1'>Property 1</option>
-                    <option value='2'>Property 2</option>
-                    <option value='3'>Property 3</option>
+                    <?php 
+                        $sql ="SELECT * FROM Properties WHERE UserID = 1";
+                        $propertyResult = mysqli_query($conn, $sql);
+                        if ($propertyResult->num_rows > 0) 
+                        {
+                            while($propertyRow = $propertyResult->fetch_assoc()) 
+                            {
+                                $propertyName = $propertyRow["Location"];
+                                $propertyName = str_replace(" ","", $propertyName);
+                                ?>
+
+                                <option value='<?php echo $propertyName?>'><?php echo $propertyRow['Location']?></option>
+                                <?php
+                            }
+                        }
+                    ?>
                 </select>
                 <label>Property</label>
             </div>

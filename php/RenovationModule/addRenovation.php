@@ -1,5 +1,5 @@
 <?php
-	require_once 'include/DB_Connect.php';
+	require_once '../include/DB_Connect.php';
 
 	$name = $_POST['renovationName'];
     $quantity = $_POST['quantity'];
