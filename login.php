@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if ($_SERVER['REQUEST_METHOD'] == 'GET')
+    {
+        $_SESSION = array();
+        session_destroy(); 
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +24,6 @@
     // Only if user is trying to login
     if (isset($_POST['passLogin']))
     {
-        session_start();
         include 'php/connectDB.php';
 
         // Get values from form
@@ -37,7 +44,7 @@
                 $_SESSION['ID'] = $row['user_id'];
                 $_SESSION['Surname'] = $row['lastName'];
 
-               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Nic/WebApp/'</script>";
+               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Nic15/WebApp/'</script>";
             }
             else
             {
