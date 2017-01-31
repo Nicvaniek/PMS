@@ -15,11 +15,14 @@ $('#addRenovationBtn').on('click', function(e) {
         processData: false,
         data: form_data,
         type: 'post',
+        failure: function()
+        {
+            swal({ title: "Error!", text: "File upload unsuccessful", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
+        },
         success: function(php_script_response) {
             //SUCCESS
             //alert(php_script_response); // display response from the PHP script, if any
             var uploadID1 = php_script_response; //Our invoive we uploaded
-            alert("this is the file ID ==== " + uploadID1);
 
             var name1 = $('#nameRenovationInput').val();
             if (document.getElementById("renovationSelectDiv").classList.contains("hide")) {
@@ -40,10 +43,10 @@ $('#addRenovationBtn').on('click', function(e) {
                 uploadID: uploadID1
 
             }, function(d) {
-                if (d != "")
-                {
-                    alert("Add successful");
-                    
+                if (d != "") {
+                    var propertyName = $('#renovationPropertySelect').val();
+                    $("#" + propertyName + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyName);
+                    swal({ title: "Renovation added!", type: "success", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
                     /*$('#nameRenovationInput').val() = null;
                     $('#nameRenovationCustomInput').val() = null;
                     $('#quantityRenovationInput').val() = null;
@@ -52,12 +55,8 @@ $('#addRenovationBtn').on('click', function(e) {
                     $('#invoiceDateRenovationInput').val() = null;*/
 
 
-                    var propertyName = $('#renovationPropertySelect').val();
-                    alert(propertyName);
-                    $("#"+propertyName+"tbody").load("../php/RenovationModule/renovationTable.php?id="+ propertyName);
-                }
-                else {
-                   alert("Failure");
+                } else {
+                    swal({ title: "Error!", text: "Details entered are unsupported", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
                 }
             });
         }
