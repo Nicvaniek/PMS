@@ -7,7 +7,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../css/inputColor.css" type="text/css" rel="stylesheet" media="screen,projection" />
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="../css/sweetalert.css">
 </head>
 <body class="grey lighten-5">
         <!--  Scripts-->
