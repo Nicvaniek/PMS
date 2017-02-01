@@ -1,3 +1,12 @@
+<?php 
+    session_start();
+    // Make sure logged out user cannot enter
+    if ($_SERVER['REQUEST_METHOD'] == 'GET')
+    {
+        if (!isset($_SESSION['Name']))
+            header('Location: ../login.php');
+    } 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,11 +26,13 @@
             <a href="#" class="brand-logo">Property Investor</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="sass.html">Logout</a></li>
+                <li><a href="#"><?php echo $_SESSION['Name'] ?></a></li>
+                <li><a href="../login.php">Logout</a></li>
                 <li><a href="badges.html">Help</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
-                <li><a href="sass.html">Logout</a></li>
+                <li><a href="#"><?php echo $_SESSION['Name'] ?></a></li>
+                <li><a href="../login.php">Logout</a></li>
                 <li><a href="badges.html">Help</a></li>
             </ul>
             <ul class="tabs tabs-transparent center">
