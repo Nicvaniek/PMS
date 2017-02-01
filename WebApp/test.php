@@ -29,15 +29,13 @@
                 <li><a href="sass.html">Logout</a></li>
                 <li><a href="badges.html">Help</a></li>
             </ul>
-            <ul class="tabs tabs-transparent center">
+            <ul class="tabs tabs-transparent tabs-fixed-width center">
                 <li class="tab"><a href="#dashboardTab">Dashboard</a></li>
                 <li class="tab"><a href="#propertyInformationTab">Property Information</a></li>
                 <li class="tab"><a href="#renovationsTab">Renovations</a></li>
                 <li class="tab"><a href="#expensesTab">Expenses</a></li>
                 <li class="tab"><a href="#salesCostsTab">Sales Costs</a></li>
                 <li class="tab"><a href="#incomeTab">Income</a></li>
-                <li class="tab"><a href="#reportsTab">Reports</a></li>
-                <li class="tab"><a href="#myUploadsTab">My Uploads</a></li>
             </ul>
         </div>
     </nav>
@@ -53,24 +51,6 @@
     <div id="salesCostsTab" class="col m12">
     </div>
     <div id="incomeTab" class="col m12">
-    </div>
-    <div id="reportsTab" class="col m12">
-        <div class="container">
-            <div class="row">
-                <div class="col m12">
-                    <h1>Reports</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="myUploadsTab" class="col m12">
-        <div class="container">
-            <div class="row">
-                <div class="col m12">
-                    <h1>My Uploads</h1>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="container">
     </div>

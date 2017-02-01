@@ -58,6 +58,7 @@
     </div>
     <div class='row'>
         <div class='col m12'>
+            <h4>Your Renovations</h4>
         </div>
     </div>
     <div class='row'>
@@ -104,12 +105,14 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th data-field='id'>Description</th>
-                                    <th data-field='name'>Supplier </th>
-                                    <th data-field='price'>Invoice attached</th>
-                                    <th data-field='name'>Invoice date</th>
-                                    <th data-field='price'>Amount Paid</th>
-                                    <th data-field='price'>Select</th>
+                                    <th>Description</th>
+                                    <th>Supplier </th>
+                                    <th>Invoice attached</th>
+                                    <th>Invoice date</th>
+                                    <th>Amount Paid</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Select</th>
                                 </tr>
                             </thead>
                             <tbody id="<?php echo $propertyName?>tbody">
@@ -133,7 +136,9 @@
                                     ?>
                                     
                                     <td> <?php echo $renovationRow["InvoiceDate"]?> </td>
-                                    <td> R <?php echo$renovationRow["Cost"]?> </td>
+                                    <td> R <?php echo $renovationRow["Cost"]?> </td>
+                                    <td> <?php echo $renovationRow["Quantity"]?> </td>
+                                    <td> R <?php echo ($renovationRow["Cost"] * $renovationRow["Quantity"]) ?> </td>
                                     <td>
                                         <div>
                                             <input class='with-gap' name='group2' type='radio' id='<?php echo $propertyName?>Radio<?php echo $count?>' value='<?php echo $renovationRow["ID"] ?>'/>
@@ -149,10 +154,12 @@
                                     $('#<?php echo $propertyName?>DeleteBtn').on('click', function(e) {
                                         var max = <?php echo $count; ?> ;
                                         var count = 0;
+                                        var found = false;
                                         while(count < max)
                                         {
                                             if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
                                             {
+                                                found = true;
                                                 var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
                                                 var trID = "<?php echo $propertyName?>Tr" + count + "";
                                                 swal({
@@ -183,27 +190,34 @@
                                                                 });
                                                         } else 
                                                         {
-                                                            swal("Cancelled", "Your imaginary file is safe :)", "error");
+                                                            swal("Cancelled", "Your renovation is safe", "error");
                                                         }
                                                 });
                                             }
                                             count++;
+                                        }
+                                        if(found == false)
+                                        {
+                                            swal("Error", "Please selected the renovation you wish to delete", "error");
                                         }                                        
                                     });
                                     $('#<?php echo $propertyName?>DownloadBtn').on('click', function(e) {
-                                        alert("nigga");
-
                                         var max = <?php echo $count; ?> ;
-                                        alert("nigga1");
                                         var count = 0;
+                                        var found = false;
                                         while(count < max)
                                         {
                                             if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
                                             {
+                                                found = true;
                                                 var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
                                                 window.open("../php/RenovationModule/downloadRenovation.php?id="+id1);
                                             }
                                             count++;
+                                        } 
+                                        if(found == false)
+                                        {
+                                            swal("Error", "Please selected the renovation you wish to delete", "error");
                                         }                                        
                                     });
                                     $('#<?php echo $propertyName?>EditBtn').on('click', function(e) {
