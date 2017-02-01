@@ -44,7 +44,7 @@
     <div id="propertyInformationTab" class="col m12">
     </div>
     <div id="renovationsTab" class="col m12">
-        <?php include 'tabs/testTab.php'; ?>
+        <?php include 'tabs/renovationsTab.php'; ?>
     </div>
     <div id="expensesTab" class="col m12">
     </div>
