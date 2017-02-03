@@ -29,6 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
     <title>Property Investor</title>
     <!-- CSS  -->
+
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -37,6 +38,7 @@
     <script src="../js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="../css/sweetalert.css">
     <script type="text/javascript" src = "../js/script.js"></script>
+
 </head>
 
 <body class="grey lighten-5">
@@ -63,58 +65,29 @@
                 <li><a href="../login.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Settings<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
-            <ul class="tabs tabs-transparent center">
+<ul class="tabs tabs-transparent tabs-fixed-width center">
                 <li class="tab"><a href="#dashboardTab">Dashboard</a></li>
                 <li class="tab"><a href="#propertyInformationTab">Property Information</a></li>
                 <li class="tab"><a href="#renovationsTab">Renovations</a></li>
                 <li class="tab"><a href="#expensesTab">Expenses</a></li>
                 <li class="tab"><a href="#salesCostsTab">Sales Costs</a></li>
                 <li class="tab"><a href="#incomeTab">Income</a></li>
-                <li class="tab"><a href="#reportsTab">Reports</a></li>
-                <li class="tab"><a href="#myUploadsTab">My Uploads</a></li>
             </ul>
         </div>
     </nav>
     <div id="dashboardTab" class="col m12">
+        <?php include 'tabs/dashboardTab.php'; ?>
     </div>
     <div id="propertyInformationTab" class="col m12">
-        <div class="container">
-            <div class="row">
-                <div class="col m12">
-                    <h1>Property Information</h1>
-                </div>
-            </div>
-        </div>
     </div>
     <div id="renovationsTab" class="col m12">
-        <?php include 'tabs/renovationsTab.php'; ?>
+        <?php include 'tabs/testTab.php'; ?>
     </div>
     <div id="expensesTab" class="col m12">
-        <?php include 'tabs/expensesTab.php'; ?>
     </div>
     <div id="salesCostsTab" class="col m12">
-        <?php include 'tabs/salesCostsTab.php'; ?>
     </div>
     <div id="incomeTab" class="col m12">
-        <?php include 'tabs/incomeTab.php'; ?>
-    </div>
-    <div id="reportsTab" class="col m12">
-        <div class="container">
-            <div class="row">
-                <div class="col m12">
-                    <h1>Reports</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="myUploadsTab" class="col m12">
-        <div class="container">
-            <div class="row">
-                <div class="col m12">
-                    <h1>My Uploads</h1>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="container">
     </div>
@@ -151,9 +124,11 @@
             </div>
         </div>
     </footer>
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <div id="editModal" class="modal modal-fixed-footer">
+
+    </div>
     <script src="../js/materialize.js"></script>
+
     <script src="../js/init.js"></script>
     <script src="../js/webAppAjax.js"></script>
     <script src="../js/webAppCustoms.js"></script>

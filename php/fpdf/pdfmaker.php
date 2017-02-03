@@ -95,7 +95,7 @@ function generateRandomString($length = 10) {
 $filename = generateRandomString();
 
 $myfile = fopen($filename, "w");
-$sql ="SELECT * FROM Renovations WHERE PropertyID = 1 AND UserID = 1 ORDER BY ID";
+$sql ="SELECT * FROM Renovations WHERE PropertyID = ". $_GET['id'] ." ORDER BY ID";
 $result = mysqli_query($conn, $sql);
 
 if ($result->num_rows > 0) 

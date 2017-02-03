@@ -1,19 +1,24 @@
+<?php 
+    session_start();
+?>
 <div class='container'>
     <div class="row">
     <br>
     <br>
     <?php
+        $userID = $_SESSION['ID'];
         $server = "localhost";
         $username = "morning2";
         $password = "cm7RQ73jf9";
         $database = "morning2_PropertyInvestor";
         // Create Connection
         $conn = mysqli_connect($server, $username, $password, $database);
-        $sql ="SELECT * FROM Properties WHERE UserID = 1";
+        $sql ="SELECT * FROM Properties WHERE UserID = $userID";
         $result = mysqli_query($conn, $sql);  
         if ($result->num_rows > 0) 
         {
     ?>
+
         <div class="row">
         <?php
             $count = 0;
@@ -24,11 +29,11 @@
                     <div class="card-content white-text">
                         <span class="card-title"><?php echo $row["Location"] ?></span>
                         <?php 
-                            $sql ="SELECT SUM(Cost) FROM Renovations WHERE UserID = 1 AND PropertyID = 1";
+                            $sql ="SELECT SUM(Cost) FROM Renovations WHERE UserID = " . $_SESSION['ID'] . " AND PropertyID = " . $row['ID'] . "";
                             $costResult = mysqli_query($conn, $sql);
                             $costTotal = $costResult->fetch_assoc();
 
-                            $sql ="SELECT COUNT(Cost) FROM Renovations WHERE UserID = 1 AND PropertyID = 1";
+                            $sql ="SELECT COUNT(Cost) FROM Renovations WHERE UserID = " . $_SESSION['ID'] . " AND PropertyID = " . $row['ID'] . "";
                             $NoOfResult = mysqli_query($conn, $sql);
                             $NoOf = $NoOfResult->fetch_assoc();
                         ?>
@@ -64,15 +69,15 @@
     <div class='row'>
         <div class="col m12">
         <?php
-            $sql ="SELECT * FROM Properties WHERE UserID = 1";
+            $sql ="SELECT * FROM Properties WHERE UserID = " . $_SESSION['ID'] . "";
             $propertyResult = mysqli_query($conn, $sql);
             if ($propertyResult->num_rows > 0) 
             {
                 while($propertyRow = $propertyResult->fetch_assoc()) 
                 {
                     $count = 0;
-                    $propertyName = $propertyRow["Location"];
-                    $propertyName = str_replace(" ","", $propertyName);
+                    $propertyLocation = $propertyRow["Location"];
+                    $propertyLocation = str_replace(" ","", $propertyLocation);
         ?>
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li>
@@ -80,26 +85,14 @@
                         <div class='row'>
                             <div class='col m8'>
                                 <h5><?php echo $propertyRow["Location"]?></h5>
-                            </div>
-                            <div class="col m4">
-                                <?php 
-                                    $sql ="SELECT SUM(Cost) FROM Renovations WHERE UserID = 1 AND PropertyID = 1";
-                                    $costResult = mysqli_query($conn, $sql);
-                                    $costTotal = $costResult->fetch_assoc();
-
-                                    $sql ="SELECT COUNT(Cost) FROM Renovations WHERE UserID = 1 AND PropertyID = 1";
-                                    $NoOfResult = mysqli_query($conn, $sql);
-                                    $NoOf = $NoOfResult->fetch_assoc();
-                                ?>
-                                <p class="grey-text text-darken-2">Total Cost: R<?php echo $costTotal["SUM(Cost)"]?> From <?php echo $NoOf["COUNT(Cost)"]?> Renovations</p>
-                            </div>                            
+                            </div>                          
                         </div>
                     </div>
                     <div class='collapsible-body'>
                         <div>
-                            <a style='padding-right: 40px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyName?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
-                            <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyName?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
-                            <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyName?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
+                            <a style='padding-right: 40px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyLocation?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                            <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyLocation?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
+                            <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyLocation?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
                             
                         </div>
                         <table>
@@ -115,130 +108,13 @@
                                     <th>Select</th>
                                 </tr>
                             </thead>
-                            <tbody id="<?php echo $propertyName?>tbody">
-                            <?php
-                                $sql ="SELECT * FROM Renovations WHERE PropertyID = 1 ORDER BY ID";
-                                $renovationResult = mysqli_query($conn, $sql);
-
-                                if ($renovationResult->num_rows > 0) 
-                                {
-                                    while($renovationRow = $renovationResult->fetch_assoc()) 
-                                    {
-                            ?>
-                                <tr id='<?php echo $propertyName?>Tr<?php echo $count?>'>
-                                    <td> <?php echo $renovationRow["Name"]?> </td>
-                                    <td> <?php echo $renovationRow["Supplier"]?> </td>
-                                    <?php  
-                                    if($renovationRow["UploadID"] > 0)
-                                        echo "<td> Yes </td>";
-                                    else
-                                        echo "<td> No </td>";
-                                    ?>
-                                    
-                                    <td> <?php echo $renovationRow["InvoiceDate"]?> </td>
-                                    <td> R <?php echo $renovationRow["Cost"]?> </td>
-                                    <td> <?php echo $renovationRow["Quantity"]?> </td>
-                                    <td> R <?php echo ($renovationRow["Cost"] * $renovationRow["Quantity"]) ?> </td>
-                                    <td>
-                                        <div>
-                                            <input class='with-gap' name='group2' type='radio' id='<?php echo $propertyName?>Radio<?php echo $count?>' value='<?php echo $renovationRow["ID"] ?>'/>
-                                            <label for='<?php echo $propertyName?>Radio<?php echo $count++?>'></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php 
-                                    }
-                                }
-                            ?>
-                                <script type="text/javascript">
-                                    $('#<?php echo $propertyName?>DeleteBtn').on('click', function(e) {
-                                        var max = <?php echo $count; ?> ;
-                                        var count = 0;
-                                        var found = false;
-                                        while(count < max)
-                                        {
-                                            if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
-                                            {
-                                                found = true;
-                                                var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
-                                                var trID = "<?php echo $propertyName?>Tr" + count + "";
-                                                swal({
-                                                    title: "Are you sure?",
-                                                    text: "You will not be able to recover this entry",
-                                                    type: "warning",
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: "#DD6B55",
-                                                    confirmButtonText: "Yes, delete it!",
-                                                    cancelButtonText: "No, cancel!",
-                                                    closeOnConfirm: false,
-                                                    closeOnCancel: false
-                                                    },function(isConfirm)
-                                                    {
-                                                        if (isConfirm) 
-                                                        {
-                                                            $.post('../php/RenovationModule/deleteRenovation.php', {
-                                                                id: id1
-                                                                }, function(d) {
-                                                                    if (d != "")
-                                                                    {
-                                                                        swal("Deleted!", "Your renovation has been.", "success");
-                                                                        document.getElementById(trID).innerHTML = "";
-                                                                    }                                        
-                                                                    else {
-                                                                        swal("Error", "Unable to delete renovation. Please refresh the page. ", "error");
-                                                                    }
-                                                                });
-                                                        } else 
-                                                        {
-                                                            swal("Cancelled", "Your renovation is safe", "error");
-                                                        }
-                                                });
-                                            }
-                                            count++;
-                                        }
-                                        if(found == false)
-                                        {
-                                            swal("Error", "Please selected the renovation you wish to delete", "error");
-                                        }                                        
-                                    });
-                                    $('#<?php echo $propertyName?>DownloadBtn').on('click', function(e) {
-                                        var max = <?php echo $count; ?> ;
-                                        var count = 0;
-                                        var found = false;
-                                        while(count < max)
-                                        {
-                                            if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
-                                            {
-                                                found = true;
-                                                var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
-                                                window.open("../php/RenovationModule/downloadRenovation.php?id="+id1);
-                                            }
-                                            count++;
-                                        } 
-                                        if(found == false)
-                                        {
-                                            swal("Error", "Please selected the renovation you wish to delete", "error");
-                                        }                                        
-                                    });
-                                    $('#<?php echo $propertyName?>EditBtn').on('click', function(e) {
-
-                                        var max = <?php echo $count; ?> ;
-                                        var count = 0;
-                                        while(count < max)
-                                        {
-                                            if($('#<?php echo $propertyName?>Radio' + count + '').is(':checked'))
-                                            {
-                                                var id1 = $('#<?php echo $propertyName?>Radio' + count + ':checked').val();
-                                                $("#editModal").load("../php/RenovationModule/editRenovation.php?id="+id1);
-                                                alert("wigga2");
-                                                $('#editModal').modal('open');
-                                                alert("wigga9000");
-                                            }
-                                            count++;
-                                        }                                        
-                                    });
-                                </script>
+                            <tbody id="<?php echo $propertyLocation?>tbody">
+                            
                             </tbody>
+                                <script>
+                                $(document).ready(function() {
+                                    $("#<?php echo $propertyLocation ?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $propertyRow['ID'] ?>&location=<?php echo $propertyLocation ?>")
+                                    });</script>
                         </table>
                     </div>
                 </li>
@@ -267,17 +143,17 @@
                 <select id="renovationPropertySelect">
                     <option value='' disabled selected>Choose your property</option>
                     <?php 
-                        $sql ="SELECT * FROM Properties WHERE UserID = 1";
+                        $sql ="SELECT * FROM Properties WHERE UserID = " . $_SESSION['ID'] . "";
                         $propertyResult = mysqli_query($conn, $sql);
                         if ($propertyResult->num_rows > 0) 
                         {
                             while($propertyRow = $propertyResult->fetch_assoc()) 
                             {
-                                $propertyName = $propertyRow["Location"];
-                                $propertyName = str_replace(" ","", $propertyName);
+                                $propertyLocation = $propertyRow["Location"];
+                                $propertyLocation = str_replace(" ","", $propertyLocation);
                                 ?>
 
-                                <option value='<?php echo $propertyName?>'><?php echo $propertyRow['Location']?></option>
+                                <option value='<?php echo $propertyLocation. " " .$propertyRow['ID']. " " .$userID?>'><?php echo $propertyRow['Location']?></option>
                                 <?php
                             }
                         }
