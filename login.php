@@ -44,7 +44,7 @@
                 $_SESSION['ID'] = $row['user_id'];
                 $_SESSION['Surname'] = $row['lastName'];
 
-               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Nic15/WebApp/'</script>";
+               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Kyle1024/WebApp/'</script>";
             }
             else
             {
@@ -106,7 +106,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
       </div>
     </div>
