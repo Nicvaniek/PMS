@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 $(document).ready(function() {
+=======
+$(document).ready(function() 
+{
+    $(".dropdown-button").dropdown();
+>>>>>>> refs/remotes/origin/master
     $('.modal').modal();
     $('.collapsible').collapsible();
     $('.button-collapse').sideNav();
