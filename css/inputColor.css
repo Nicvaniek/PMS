@@ -28,6 +28,26 @@
       border-bottom: 1px solid #d32f2f;
       box-shadow: 0 1px 0 0 #d32f2f;
   }
+    /* TYPE textarea */
+  /* label focus color */
+  textarea:focus + label {
+      color: #d32f2f;
+  }
+  /* label underline focus color */
+  textarea:focus {
+      border-bottom: 1px solid #d32f2f;
+      box-shadow: 0 1px 0 0 #d32f2f;
+  }
+  /* valid color */
+  textarea.valid {
+      border-bottom: 1px solid #388e3c;
+      box-shadow: 0 1px 0 0 #388e3c;
+  }
+  /* invalid color */
+  textarea.invalid {
+      border-bottom: 1px solid #d32f2f;
+      box-shadow: 0 1px 0 0 #d32f2f;
+  }
 
  /* TYPE number */
   /* label focus color */

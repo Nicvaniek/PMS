@@ -20,7 +20,6 @@
             $pass = $row['password'];
             $name = $row['firstName'];
 
-            $link="http://www.unhinged.co.za/Demo/Nic15/php/reset-password.php?key=".md5($email)."&reset=".md5($pass);
 
             // Send email
             $to      = $email; // Send email to our user
