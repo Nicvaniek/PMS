@@ -222,7 +222,7 @@ $(document).ready(function(){
                     userId: id
                 }, function(d){
                     alert(d);
-                    window.location.href = "http://unhinged.co.za/Demo/Nic21/login.php";
+                    window.location.href = "http://unhinged.co.za/Demo/Kyle1024/login.php";
                 });
             });
     });
