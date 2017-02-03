@@ -57,7 +57,7 @@
         Your account has been created, but you will only be able to login once you have verified your account.
 
         Please click this link to activate your account:
-        http://www.unhinged.co.za/Demo/Kyle1024/php/verify.php?email='.$email.'&hash='.$hash.'
+        http://www.unhinged.co.za/Demo/Kyle1028/php/verify.php?email='.$email.'&hash='.$hash.'
          
         '; // Our message above including the link
                              
