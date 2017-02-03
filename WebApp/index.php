@@ -49,6 +49,7 @@
         </div>
     </nav>
     <div id="dashboardTab" class="col m12">
+        <?php include 'tabs/dashboardTab.php'; ?>
     </div>
     <div id="propertyInformationTab" class="col m12">
     </div>

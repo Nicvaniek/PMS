@@ -1,15 +1,15 @@
 <?php
 	require_once '../include/DB_Connect.php';
 
-	$name = $_POST['renovationName'];
+    $propertyID = $_POST['propertyID'];
+    $userID = $_POST['userID'];
+    $name = $_POST['renovationName'];
     $quantity = $_POST['quantity'];
     $cost = $_POST['cost'];
     $supplier = $_POST['supplier'];
     $invoiceDate = $_POST['invoiceDate'];
     $uploadID = $_POST['uploadID'];
 
-    $propertyID = 1;
-    $userID = 1;
 
 	/*echo $name;
     echo $quantity;
