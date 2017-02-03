@@ -204,4 +204,27 @@ $(document).ready(function(){
         return false;
     });
 
+    // Delete account
+    $('#deleteAccount').on('click', function(){
+        var id = $('#userId').val();
+
+            swal({   
+                title: "Are you sure?",   
+                text: "Your account will be permanently deleted",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Yes, delete it!",   
+                closeOnConfirm: true 
+            }, function(){
+                $.post('../php/delete-account.php',
+                {
+                    userId: id
+                }, function(d){
+                    alert(d);
+                    window.location.href = "http://unhinged.co.za/Demo/Nic21/login.php";
+                });
+            });
+    });
+
 });
