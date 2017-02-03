@@ -221,7 +221,7 @@ $(document).ready(function(){
                 {
                     userId: id
                 }, function(){
-                    window.location.href = "http://unhinged.co.za/Demo/Kyle1024/login.php";
+                    window.location.href = "http://unhinged.co.za/Demo/Kyle1028/login.php";
                 });
             });
     });
