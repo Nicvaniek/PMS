@@ -1,4 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function() 
+{
+    $(".dropdown-button").dropdown();
+
     $('.modal').modal();
     $('.collapsible').collapsible();
     $('.button-collapse').sideNav();
