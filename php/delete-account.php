@@ -2,7 +2,6 @@
     include 'connectDB.php';
     
     $id = $_POST['userId'];
-    echo $id;
 
     $sql = "DELETE FROM Users WHERE user_id = '$id'";
 
