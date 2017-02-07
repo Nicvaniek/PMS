@@ -29,14 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
     <title>Property Investor</title>
     <!-- CSS  -->
-<<<<<<< HEAD
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="../css/inputColor.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="../js/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="../css/sweetalert.css">
-=======
+
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -45,7 +38,6 @@
     <script src="../js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="../css/sweetalert.css">
     <script type="text/javascript" src = "../js/script.js"></script>
->>>>>>> refs/remotes/origin/master
 </head>
 
 <body class="grey lighten-5">
@@ -135,11 +127,6 @@
 
     </div>
     <script src="../js/materialize.js"></script>
-<<<<<<< HEAD
-        <script src="../js/init.js"></script>
-        <script src="../js/webAppAjax.js"></script>
-        <script src="../js/webAppCustoms.js"></script>
-=======
     <script src="../js/init.js"></script>
     <script src="../js/webAppAjax.js"></script>
     <script src="../js/webAppCustoms.js"></script>
@@ -239,7 +226,6 @@
                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
       </div>
->>>>>>> refs/remotes/origin/master
 </body>
 
 </html>
