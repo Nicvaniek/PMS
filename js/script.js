@@ -220,9 +220,8 @@ $(document).ready(function(){
                 $.post('../php/delete-account.php',
                 {
                     userId: id
-                }, function(d){
-                    alert(d);
-                    window.location.href = "http://unhinged.co.za/Demo/Kyle1024/login.php";
+                }, function(){
+                    window.location.href = "http://unhinged.co.za/Demo/Kyle1030/login.php";
                 });
             });
     });
