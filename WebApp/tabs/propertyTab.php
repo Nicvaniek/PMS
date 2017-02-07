@@ -44,7 +44,7 @@
             </div>
             <div class='input-field col m4'>
                 <i class="material-icons prefix">location_on</i>
-                <input id='locationPropertyInput' type='number' class='validate' required>
+                <input id='locationPropertyInput' type='text' class='validate' required>
                 <label for='locationPropertyInput'>Location</label>
             </div>
         </div>
@@ -70,8 +70,11 @@
                 <label for='uncoveredAreaPropertyInput'>uncovered Area (m^2)</label>
             </div>
         </div>
+        <div class='row hide'>
+        <input id='userIDPropertyInput' type='number' value="<?php echo $_SESSION['ID'];?>">
+        </div>
         <div class='row'>
-            <input id='userIDPropertyInput' type='number' class='hidden' value="<?php echo $_SESSION['ID'];?>">
+            
             <button id='addPropertyBtn' class='btn red darken-2 waves-effect waves-light' type='submit' name='action'>Add Property
                 <i class='material-icons right'>send</i>
             </button>

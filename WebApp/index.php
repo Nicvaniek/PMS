@@ -38,7 +38,6 @@
     <script src="../js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="../css/sweetalert.css">
     <script type="text/javascript" src = "../js/script.js"></script>
-
 </head>
 
 <body class="grey lighten-5">
@@ -128,7 +127,6 @@
 
     </div>
     <script src="../js/materialize.js"></script>
-
     <script src="../js/init.js"></script>
     <script src="../js/webAppAjax.js"></script>
     <script src="../js/webAppCustoms.js"></script>

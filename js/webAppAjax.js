@@ -72,14 +72,13 @@ $('#addPropertyBtn').on('click', function(e) {
     var amount1 = $('#purchaseAmountPropertyInput').val();
     var propertyLocation1 = $('#locationPropertyInput').val();
 
-    $.post('../php/RenovationModule/addRenovation.php', {
+    $.post('../php/PropertyModule/addProperty.php', {
         userID: userId1,
         discription: name1,
         amount: amount1,
         location: propertyLocation1
     }, function(d) {
         if (d != "") {
-
             swal({ title: "Property added!", type: "success", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
 
         } else {
