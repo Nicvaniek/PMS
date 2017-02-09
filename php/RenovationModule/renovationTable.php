@@ -48,5 +48,109 @@
         <td><strong>R <?php echo $sumproduct['SumProduct'] ?></strong></td>
         <td><strong>---</strong></td>
     </tr>
+
+    <script type="text/javascript">
+        var <?php echo $propertyLocation?>max = <?php echo $count; ?> ;
+
+        $('#<?php echo $propertyLocation?>DeleteBtn').on('click', function(e) {
+            if(<?php echo $propertyLocation?>max == 0)
+            {
+                swal("Error", "You have no renovations for this property. ", "error");
+                return;
+            }
+            var count = 0;
+            var found = false;
+            while(count < <?php echo $propertyLocation?>max)
+            {
+                if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                {
+                    found = true;
+                    var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                    var trID = "<?php echo $propertyLocation?>Tr" + count + "";
+                    swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this entry",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                        },function(isConfirm)
+                        {
+                            if (isConfirm) 
+                            {
+                                $.post('../php/RenovationModule/deleteRenovation.php', {
+                                    id: id1
+                                    }, function(d) {
+                                        if (d != "")
+                                        {
+                                            swal("Deleted!", "Your renovation has been.", "success");
+                                            document.getElementById(trID).innerHTML = "";
+                                            <?php echo $propertyLocation?>max--;
+                                        }                                        
+                                        else {
+                                            swal("Error", "Unable to delete renovation. Please refresh the page. ", "error");
+                                        }
+                                    });
+                            } else 
+                            {
+                                swal("Cancelled", "Your renovation is safe", "error");
+                            }
+                    });
+                }
+                count++;
+            }
+            if(found == false)
+            {
+                swal("Error", "Please selected the renovation you wish to delete", "error");
+            }                                        
+        });
+
+        $('#<?php echo $propertyLocation?>DownloadBtn').on('click', function(e) {
+            if(<?php echo $propertyLocation?>max == 0)
+            {
+                swal("Error", "You have no renovations for this property. ", "error");
+                return;
+            }
+            var count = 0;
+            var found = false;
+            while(count < <?php echo $propertyLocation?>max)
+            {
+                if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                {
+                    found = true;
+                    var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                    window.open("../php/RenovationModule/downloadRenovation.php?id="+id1);
+                }
+                count++;
+            } 
+            if(found == false)
+            {
+                swal("Error", "Please selected the renovation you wish to download", "error");
+            }                                        
+        });
+        $('#<?php echo $propertyLocation?>EditBtn').on('click', function(e) {
+
+            if(<?php echo $propertyLocation?>max == 0)
+            {
+                swal("Error", "You have no renovations for this property. ", "error");
+                return;
+            }
+            var count = 0;
+            while(count < <?php echo $propertyLocation?>max)
+            {
+                if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                {
+                    var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                    $("#editModal").load("../php/RenovationModule/editRenovation.php?id="+id1);
+
+                    $('#editModal').modal('open');
+                }
+                count++;
+            }                                        
+        });
+    </script>
 <?php 
     }?>

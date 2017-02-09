@@ -57,7 +57,7 @@
                         
                     </div>
                     <div class="card-action">
-                      <a href="../php/fpdf/pdfmaker.php?id=<?php echo $row['ID']?>" target="_blank">Download Report</a>
+                      <a href="../php/fpdf/pdfmaker.php?propertyid=<?php echo $row['ID']?>" target="_blank">Download Report</a>
                     </div>
                 </div>
             </div>

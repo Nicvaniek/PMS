@@ -1,4 +1,22 @@
 ///////////////////////////////////////////////////////////////////////
+//                            Updates                                //
+///////////////////////////////////////////////////////////////////////
+var update = false;
+
+function update()
+{
+    if (update == true)
+    {
+        update = false;
+    }
+}
+
+function setUpdate(x)
+{
+    update = x;
+}
+
+///////////////////////////////////////////////////////////////////////
 //                          Renovations                              //
 ///////////////////////////////////////////////////////////////////////
 $('#addRenovationBtn').on('click', function(e) {
@@ -52,155 +70,14 @@ $('#addRenovationBtn').on('click', function(e) {
             }, function(d) {
                 if (d != "") {
                     $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID1 + "&location=" + propertyLocation);
+                    $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
                     swal({ title: "Renovation added!", type: "success", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
+                    $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID1 + "&location=" + propertyLocation);
 
                 } else {
                     swal({ title: "Error!", text: "Details entered are unsupported", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
                 }
             });
-        }
-    });
-});
-///////////////////////////////////////////////////////////////////////
-//                          Property                                 //
-///////////////////////////////////////////////////////////////////////
-$('#addPropertyBtn').on('click', function(e) {
-    e.preventDefault();
-
-    var userId1 = $('#userIDPropertyInput').val();
-    var name1 = $('#namePropertyInput').val();
-    var amount1 = $('#purchaseAmountPropertyInput').val();
-    var propertyLocation1 = $('#locationPropertyInput').val();
-
-    $.post('../php/PropertyModule/addProperty.php', {
-        userID: userId1,
-        discription: name1,
-        amount: amount1,
-        location: propertyLocation1
-    }, function(d) {
-        if (d != "") {
-            swal({ title: "Property added!", type: "success", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
-
-        } else {
-            swal({ title: "Error!", text: "Details entered are unsupported", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
-        }
-    });
-
-});
-
-
-///////////////////////////////////////////////////////////////////////
-//                          Expenses                                 //
-///////////////////////////////////////////////////////////////////////
-$('#addExpenseBtn').on('click', function(e) {
-    e.preventDefault();
-
-    var name1 = $('#nameExpenseInput').val();
-    if (document.getElementById("expenseSelectDiv").classList.contains("hide")) {
-        name1 = $('#nameExpenseCustomInput').val();
-    }
-
-    var cost1 = $('#costExpenseInput').val();
-    var occurrence1 = $('#occurrenceExpenseInput').val();
-    var paidTo1 = $('#paidToExpenseInput').val();
-    var invoiceDate1 = $('#invoiceDateExpenseInput').val();
-    var invoiceFile1 = $('#invoiceFileExpenseInput').val();
-
-    /*alert(name1);
-    alert(occurrence1);
-    alert(cost1);
-    alert(paidTo1);
-    alert(invoiceDate1);*/
-
-    $.post('../php/addExpense.php', {
-        expenseName: name1,
-        occurrence: occurrence1,
-        cost: cost1,
-        paidTo: paidTo1,
-        invoiceDate: invoiceDate1,
-        invoiceFile: invoiceFile1
-
-    }, function(d) {
-        if (d != "")
-            alert(d);
-        else {
-            $('#addExpenseForm').submit();
-        }
-    });
-});
-
-///////////////////////////////////////////////////////////////////////
-//                          Sales Costs                              //
-///////////////////////////////////////////////////////////////////////
-$('#addSalesCostBtn').on('click', function(e) {
-    e.preventDefault();
-
-    var name1 = $('#nameSalesCostInput').val();
-    if (document.getElementById("salesCostSelectDiv").classList.contains("hide")) {
-        name1 = $('#nameSalesCostCustomInput').val();
-    }
-
-    var cost1 = $('#costSalesCostInput').val();
-    var paidTo1 = $('#paidToSalesCostInput').val();
-    var invoiceDate1 = $('#invoiceDateSalesCostInput').val();
-    var invoiceFile1 = $('#invoiceFileSalesCostInput').val();
-
-    /*alert(name1);
-    alert(cost1);
-    alert(paidTo1);
-    alert(invoiceDate1);*/
-
-    $.post('../php/addSalesCost.php', {
-        salesCostName: name1,
-        cost: cost1,
-        paidTo: paidTo1,
-        invoiceDate: invoiceDate1,
-        invoiceFile: invoiceFile1
-
-    }, function(d) {
-        if (d != "")
-            alert(d);
-        else {
-            $('#addSalesCostForm').submit();
-        }
-    });
-});
-
-///////////////////////////////////////////////////////////////////////
-//                            Income                                //
-///////////////////////////////////////////////////////////////////////
-$('#addIncomeBtn').on('click', function(e) {
-    e.preventDefault();
-
-    var name1 = $('#nameIncomeInput').val();
-    if (document.getElementById("incomeSelectDiv").classList.contains("hide")) {
-        name1 = $('#nameIncomeCustomInput').val();
-    }
-
-    var amount1 = $('#amountIncomeInput').val();
-    var occurrence1 = $('#occurrenceIncomeInput').val();
-    var payee1 = $('#payeeIncomeInput').val();
-    var invoiceDate1 = $('#invoiceDateIncomeInput').val();
-    var invoiceFile1 = $('#invoiceFileIncomeInput').val();
-
-    alert(name1);
-    alert(amount1);
-    alert(payee1);
-    alert(invoiceDate1);
-
-    $.post('../php/addIncome.php', {
-        incomeName: name1,
-        amount: amount1,
-        occurrence: occurrence1,
-        payee: payee1,
-        invoiceDate: invoiceDate1,
-        invoiceFile: invoiceFile1
-
-    }, function(d) {
-        if (d != "")
-            alert(d);
-        else {
-            $('#addIncomeForm').submit();
         }
     });
 });
