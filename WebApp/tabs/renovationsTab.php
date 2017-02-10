@@ -1,3 +1,31 @@
+<style>
+    #addRenovationForm {
+        width: 670px;
+    }
+    #addRenovationForm label.error {
+        margin-left: 10px;
+        width: auto;
+        display: inline;
+    }
+</style>
+<script type="text/javascript">
+    $().ready(function() {
+    $("#signupForm").validate({
+            rules: {
+                nameRenovationCustomInput: {
+                    required: true,
+                    minlength: 2
+                }
+            },
+            messages: {
+                nameRenovationCustomInput: {
+                    required: "Please enter a username",
+                    minlength: "Your username must consist of at least 2 characters"
+                }
+            }
+        });
+    });
+</script>
 <div class='container'>
     <div class="row">
     <br>
@@ -288,7 +316,6 @@
         </div>
         <div class='row'>
             <div id='renovationSelectDiv' class='input-field col m6'>
-
                 <select id='nameRenovationInput' class='validate' required>
                     <optgroup label=' WALL AND FLOOR COVERINGS '>
                         <option value='' disabled selected>Choose your renovation</option>
@@ -372,8 +399,8 @@
             </div>
             <div id='customRenovationDiv' class='input-field col m6 hide'>
                 <i class="material-icons prefix">info_outline</i>
-                <input id='nameRenovationCustomInput' type='text' class='validate' required>
-                <label for='customRenovationRenovationInput'>Custom Renovation</label>
+                <input id='nameRenovationCustomInput' type='text'>
+                <label for='customRenovationInput'>Custom Renovation</label>
             </div>
             <div class='input-field col m3'>
                 <i class="material-icons prefix">mode_edit</i>

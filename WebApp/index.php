@@ -38,6 +38,7 @@
     <script src="../js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="../css/sweetalert.css">
     <script type="text/javascript" src = "../js/script.js"></script>
+    <script src="../js/jquery.validate.js"></script>
 </head>
 
 <body class="grey lighten-5">
