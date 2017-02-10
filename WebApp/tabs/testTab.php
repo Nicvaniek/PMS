@@ -192,8 +192,8 @@
             </div>
             <div id='customRenovationDiv' class='input-field col m6 hide'>
                 <i class="material-icons prefix">info_outline</i>
-                <input id='nameRenovationCustomInput' type='text' class='validate' required>
-                <label for='customRenovationRenovationInput'>Custom Renovation</label>
+                <input id='nameRenovationCustomInput' type='text'>
+                <label for='nameRenovationCustomInput'>Custom Renovation</label>
             </div>
             <div class='input-field col m3'>
                 <i class="material-icons prefix">mode_edit</i>
