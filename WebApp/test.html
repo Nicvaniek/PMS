@@ -12,198 +12,214 @@
     <link rel="stylesheet" href="../css/sweetalert.css">
 </head>
 <style type="text/css">
-  .input-field div.error{
+.input-field div.error {
     position: relative;
     top: -1rem;
     left: 0rem;
     font-size: 0.8rem;
-    color:#FF4081;
+    color: #FF4081;
     -webkit-transform: translateY(0%);
     -ms-transform: translateY(0%);
     -o-transform: translateY(0%);
     transform: translateY(0%);
-  }
-  .input-field label.active{
-      width:100%;
-  }
-  .left-alert input[type=text] + label:after, 
-  .left-alert input[type=password] + label:after, 
-  .left-alert input[type=email] + label:after, 
-  .left-alert input[type=url] + label:after, 
-  .left-alert input[type=time] + label:after,
-  .left-alert input[type=date] + label:after, 
-  .left-alert input[type=datetime-local] + label:after, 
-  .left-alert input[type=tel] + label:after, 
-  .left-alert input[type=number] + label:after, 
-  .left-alert input[type=search] + label:after, 
-  .left-alert textarea.materialize-textarea + label:after{
-      left:0px;
-  }
-  .right-alert input[type=text] + label:after, 
-  .right-alert input[type=password] + label:after, 
-  .right-alert input[type=email] + label:after, 
-  .right-alert input[type=url] + label:after, 
-  .right-alert input[type=time] + label:after,
-  .right-alert input[type=date] + label:after, 
-  .right-alert input[type=datetime-local] + label:after, 
-  .right-alert input[type=tel] + label:after, 
-  .right-alert input[type=number] + label:after, 
-  .right-alert input[type=search] + label:after, 
-  .right-alert textarea.materialize-textarea + label:after{
-      right:70px;
-  }
-  </style>
+}
+
+.input-field label.active {
+    width: 100%;
+}
+</style>
+
 <body class="grey lighten-5">
     <div class="container">
-        <!--
-              jQuery Validation Plugin
-          -->
         <p class="caption">jQuery Validation Plugin</p>
         <p><a href="http://jqueryvalidation.org/" target="_blank">jQuery Validation</a> This jQuery plugin makes simple clientside form validation easy, whilst still offering plenty of customization options.</p>
         <div class="divider"></div>
         <!--jqueryvalidation-->
-        <div id="jqueryvalidation" class="section">
+        <h4 class="header2">Validations example</h4>
+        <div class='row'>
+            <div class='col m10'>
+                <h4>Add Renovation</h4>
+            </div>
+            <div class='col m2'>
+                <br>
+                <p>
+                    <input type='checkbox' id='customRenovation' onclick='customRenovation()' />
+                    <label for='customRenovation'>Custom Renovation</label>
+                </p>
+            </div>
+        </div>
+        <form id="addRenovationForm" method="get" action="" enctype='multipart/form-data'>
+            <div class='row'>
+                <div class='input-field col m8'>
+                    <select id="renovationPropertySelect" name="renovationPropertySelect" data-error=".errorTxt10">
+                        <option value='' disabled selected>Choose your property</option>
+                        <?php 
+                        $sql ="SELECT * FROM Properties WHERE UserID = " . $_SESSION['ID'] . "";
+                        $propertyResult = mysqli_query($conn, $sql);
+                        if ($propertyResult->num_rows > 0) 
+                        {
+                            while($propertyRow = $propertyResult->fetch_assoc()) 
+                            {
+                                $propertyLocation = $propertyRow["Location"];
+                                $propertyLocation = str_replace(" ","", $propertyLocation);
+                                ?>
+                        <option value='<?php echo $propertyLocation. " " .$propertyRow[' ID ']. " " .$userID?>'>
+                            <?php echo $propertyRow['Location']?>
+                        </option>
+                        <?php
+                            }
+                        }
+                    ?>
+                    </select>
+                    <label>Property</label>
+                    <div class="errorTxt11"></div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col s12 m12 l12">
-                    <div class="col s12 m12 l6">
-                        <div class="card-panel">
-                            <h4 class="header2">Validations example</h4>
-                            <div class="row">
-                                <form class="formValidate" id="formValidate" method="get" action="">
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <label for="uname">Username*</label>
-                                            <input id="uname" name="uname" type="text" data-error=".errorTxt1">
-                                            <div class="errorTxt1"></div>
-                                        </div>
-                                        <div class="input-field col s12">
-                                            <label for="cemail">E-Mail *</label>
-                                            <input id="cemail" type="email" name="cemail" data-error=".errorTxt2">
-                                            <div class="errorTxt2"></div>
-                                        </div>
-                                        <div class="input-field col s12">
-                                            <label for="password">Password *</label>
-                                            <input id="password" type="password" name="password" data-error=".errorTxt3">
-                                            <div class="errorTxt3"></div>
-                                        </div>
-                                        <div class="input-field col s12">
-                                            <label for="cpassword">Confirm Password *</label>
-                                            <input id="cpassword" type="password" name="cpassword" data-error=".errorTxt4">
-                                            <div class="errorTxt4"></div>
-                                        </div>
-                                        <div class="input-field col s12">
-                                            <label for="curl">URL *</label>
-                                            <input id="curl" type="url" name="curl" data-error=".errorTxt5">
-                                            <div class="errorTxt5"></div>
-                                        </div>
-                                        <div class="col s12">
-                                            <label for="crole">Role *</label>
-                                            <select class="error browser-default" id="crole" name="crole" data-error=".errorTxt6">
-                                                <option value="" disabled selected>Choose your profile</option>
-                                                <option value="1">Manager</option>
-                                                <option value="2">Developer</option>
-                                                <option value="3">Business</option>
-                                            </select>
-                                            <div class="input-field">
-                                                <div class="errorTxt6"></div>
-                                            </div>
-                                        </div>
-                                        <div class="input-field col s12">
-                                            <textarea id="ccomment" name="ccomment" class="materialize-textarea validate" data-error=".errorTxt7"></textarea>
-                                            <label for="ccomment">Your comment *</label>
-                                            <div class="errorTxt7"></div>
-                                        </div>
-                                        <div class="col s12">
-                                            <label for="genter_select">Gender *</label>
-                                            <p>
-                                                <input name="cgender" type="radio" id="gender_male" data-error=".errorTxt8" />
-                                                <label for="gender_male">Male</label>
-                                            </p>
-                                            <p>
-                                                <input name="cgender" type="radio" id="gender_female" value="f" />
-                                                <label for="gender_female">Female</label>
-                                            </p>
-                                            <div class="input-field">
-                                                <div class="errorTxt8"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col s12">
-                                            <label for="tnc_select">T&C *</label>
-                                            <p>
-                                                <input type="checkbox" class="checkbox" id="cagree" name="cagree" data-error=".errorTxt9" />
-                                                <label for="cagree">Please agree to our policy</label>
-                                            </p>
-                                            <div class="input-field">
-                                                <div class="errorTxt6"></div>
-                                            </div>
-                                        </div>
-                                        <div class="input-field col s12">
-                                            <button class="btn waves-effect waves-light right submit" type="submit" name="action">Submit
-                                                <i class="mdi-content-send right"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                <div id='renovationSelectDiv' class='input-field col m6'>
+                    <select id='nameRenovationInput' name="nameRenovationInput" data-error=".errorTxt10">
+                        <optgroup label=' WALL AND FLOOR COVERINGS '>
+                            <option value='' disabled selected>Choose your renovation</option>
+                            <option value='FloorCovering'> Floor Covering </option>
+                            <option value='Vinyl'> Vinyl </option>
+                            <option value='Laminated'> Laminated </option>
+                            <option value='Wood'> Wood </option>
+                            <option value='Cemcrete'> Cemcrete </option>
+                            <option value='Screed'> Screed </option>
+                            <option value='Skirting'> Skirting </option>
+                            <option value='Architraves'> Architraves </option>
+                            <option value='Carpets'> Carpets </option>
+                            <option value='Wall Tiling'> Wall Tiling </option>
+                        </optgroup>
+                        <optgroup label=' GENERAL BUILDING WORKS '>
+                            <option value='Ceilings'> Ceilings </option>
+                            <option value='Cornices'> Cornices </option>
+                            <option value='Roofstructure'> Roofstructure </option>
+                            <option value='Roof Covering'> Roof Covering </option>
+                            <option value='Doors'> Doors </option>
+                            <option value='Locks'> Locks </option>
+                            <option value='Handels'> Handels </option>
+                            <option value='Window Quote'> Window Quote </option>
+                        </optgroup>
+                        <optgroup label=' CLADDING '>
+                            <option value='Stone'> Stone </option>
+                            <option value='Aliminium'> Aliminium </option>
+                            <option value='Timber'> Timber </option>
+                        </optgroup>
+                        <optgroup label=' PLUMBING '>
+                        </optgroup>
+                        <optgroup label=' SANITARYWARE '>
+                        </optgroup>
+                        <optgroup label=' KITCHEN AND BICS '>
+                        </optgroup>
+                        <optgroup label=' LIGHT FITTINGS '>
+                        </optgroup>
+                        <optgroup label=' ELECTRICAL '>
+                        </optgroup>
+                        <optgroup label=' EXTERNAL WORK '>
+                            <option value='Kitchen and Bics'> Kitchen and Bics </option>
+                            <option value='Light fittings'> Light fittings </option>
+                            <option value='Electrical'> Electrical </option>
+                            <option value='External Work'> External Work </option>
+                            <option value='Pool'> Pool </option>
+                            <option value='Braai'> Braai </option>
+                            <option value='Fireplace'> Fireplace </option>
+                            <option value='External Shower'> External Shower </option>
+                            <option value='Rainwater harvesting'> Rainwater harvesting </option>
+                            <option value='Water storage tanks'> Water storage tanks </option>
+                            <option value='Water storage pumps'> Water storage pumps </option>
+                            <option value='Timber decking'> Timber decking </option>
+                            <option value='Timber screening'> Timber screening </option>
+                            <option value='Pergolas'> Pergolas </option>
+                            <option value='Boma'> Boma </option>
+                            <option value='Garage Doors'> Garage Doors </option>
+                            <option value='Solar power system'> Solar power system </option>
+                            <option value='Battery room and invertors'> Battery room and invertors </option>
+                            <option value='Security System'> Security System </option>
+                            <option value='Gutters'> Gutters </option>
+                            <option value='Screen walls'> Screen walls </option>
+                            <option value='Yard gates'> Yard gates </option>
+                            <option value='Washing lines'> Washing lines </option>
+                            <option value='Landscaping'> Landscaping </option>
+                            <option value='Irrigation'> Irrigation </option>
+                            <option value='Paving'> Paving </option>
+                            <option value='Painting'> Painting </option>
+                            <option value='Internal'> Internal </option>
+                            <option value='External'> External </option>
+                            <option value=''> Miscellaneous </option>
+                            <option value='Bar area'> Bar area </option>
+                            <option value='Wine Cella'> Wine Cellar </option>
+                            <option value='Special staircase'> Special staircase </option>
+                            <option value='Balustrades (Glass - Int. and Ext.)'> Balustrades (Glass - Int. and Ext.) </option>
+                            <option value='Mild steel'> Mild steel </option>
+                            <option value='Aliminium'> Aliminium </option>
+                            <option value='Glass'> Glass </option>
+                        </optgroup>
+                    </select>
+                    <label>Renovation</label>
+                    <div class="errorTxt10"></div>
+                </div>
+                <div id="customRenovationDiv" class="input-field col m6">
+                    <i class="material-icons prefix">info_outline</i>
+                    <input id="nameRenovationCustomInput" name="nameRenovationCustomInput" type="text" data-error=".errorTxt1">
+                    <div class="errorTxt1"></div>
+                    <label for="nameRenovationCustomInput">Custom Renovation</label>
+                </div>
+                <div class="input-field col m3">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <input id="quantityRenovationInput" name="quantityRenovationInput" type="number" data-error=".errorTxt2">
+                    <div class="errorTxt2"></div>
+                    <label for="quatnityRenovationInput">Quantity</label>
+                </div>
+                <div class="input-field col m3">
+                    <i class="material-icons prefix">shopping_cart</i>
+                    <input id="costRenovationInput" name="costRenovationInput" type="number" data-error=".errorTxt3">
+                    <div class="errorTxt3"></div>
+                    <label for="costRenovationInput">Amount</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col m6">
+                    <i class="material-icons prefix">store</i>
+                    <input id="supplierRenovationInput" name="supplierRenovationInput" type="text" data-error=".errorTxt4">
+                    <div class="errorTxt4"></div>
+                    <label for="supplierRenovationInput">Supplier</label>
+                </div>
+                <div class="input-field col m6">
+                    <i class="material-icons prefix">today</i>
+                    <input id="invoiceDateRenovationInput" name="invoiceDateRenovationInput" type="date" class="datepicker" data-error=".errorTxt5">
+                    <div class="errorTxt5"></div>
+                    <label for="invoiceDatePicker">Invoice Date</label>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='file-field input-field s4'>
+                    <div class='btn red darken-2'>
+                        <span>Invoice</span>
+                        <input id='invoiceFileRenovationInput' accept="application/pdf" type='file'>
                     </div>
-                    <div class="col s12 m12 l6">
-                        <p>Simple jQuery Validation script to validate your form inputs.</p>
-                        <pre class="language-javascript"><code class="language-javascript">
-     $("#formValidate").validate({
-        rules: {
-            uname: {
-                required: true,
-                minlength: 5
-            },
-            cemail: {
-                required: true,
-                email:true
-            },
-            password: {
-                required: true,
-                minlength: 5
-            },
-            cpassword: {
-                required: true,
-                minlength: 5,
-                equalTo: "#password"
-            },
-            curl: {
-                required: true,
-                url:true
-            },
-            crole:"required",
-            ccomment: {
-                required: true,
-                minlength: 15
-            },
-            cgender:"required",
-            cagree:"required",
-        },
-        //For custom messages
-        messages: {
-            uname:{
-                required: "Enter a username",
-                minlength: "Enter at least 5 characters"
-            },
-            curl: "Enter your website",
-        },
-        errorElement : 'div',
-        errorPlacement: function(error, element) {
-          var placement = $(element).data('error');
-          if (placement) {
-            $(placement).append(error)
-          } else {
-            error.insertAfter(element);
-          }
-        }
-     });
-     </code></pre>
+                    <div class='file-path-wrapper'>
+                        <input class='file-path validate' type='text'>
                     </div>
                 </div>
             </div>
+            <div class='row'>
+                <button class='btn red darken-2 waves-effect waves-light' type='submit' name='action'>Add Renovation
+                    <i class='material-icons right'>send</i>
+                </button>
+                <br>
+                <br>
+            </div>
+        </form>
+        <div class="col s12 m12 l6">
+            <p>Simple jQuery Validation script to validate your form inputs.</p>
+            <pre class="language-javascript"><code class="language-javascript">
+
+     </code></pre>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
     <script src="../js/materialize.js"></script>
     <script src="../js/init.js"></script>
@@ -211,56 +227,79 @@
     <script src="../js/webAppCustoms.js"></script>
     <script type="text/javascript" src="../js/jquery.validate.js"></script>
     <script type="text/javascript" src="../js/additional-methods.js"></script>
-        <script type="text/javascript">
-    $("#formValidate").validate({
+    <script type="text/javascript">
+    $("#addRenovationForm").validate({
         rules: {
-            uname: {
+            renovationPropertySelect: {
+                required: true
+            },
+            nameRenovationInput: {
+                required: true
+            },
+            nameRenovationCustomInput: {
                 required: true,
                 minlength: 5
             },
-            cemail: {
+            quantityRenovationInput: {
                 required: true,
-                email:true
+                min: 1,
+                number: true
             },
-            password: {
+            costRenovationInput: {
+                required: true,
+                min: 0,
+                number: true
+            },
+            supplierRenovationInput: {
                 required: true,
                 minlength: 5
             },
-            cpassword: {
+            invoiceDateRenovationInput: {
                 required: true,
-                minlength: 5,
-                equalTo: "#password"
+                date: true
             },
-            curl: {
-                required: true,
-                url:true
-            },
-            crole:"required",
+            crole: "required",
             ccomment: {
                 required: true,
                 minlength: 15
             },
-            cgender:"required",
-            cagree:"required",
         },
         //For custom messages
         messages: {
-            uname:{
-                required: "Enter a username",
+            renovationPropertySelect: {
+                required: "Please select a property"
+            },
+            nameRenovationInput: {
+                required: "Please select a renovation"
+            },
+            nameRenovationCustomInput: {
+                required: "Enter a renovation",
+                minlength: "Enter at least 5 characters"
+            },
+            quantityRenovationInput: {
+                required: "Enter the quantity",
+                min: "Please enter a valid quantity"
+            },
+            costRenovationInput: {
+                required: "Enter the amount",
+                min: "Please enter a valid quantity"
+            },
+            supplierRenovationInput: {
+                required: "Enter supplier information",
                 minlength: "Enter at least 5 characters"
             },
             curl: "Enter your website",
         },
-        errorElement : 'div',
+        errorElement: "div",
         errorPlacement: function(error, element) {
-          var placement = $(element).data('error');
-          if (placement) {
-            $(placement).append(error)
-          } else {
-            error.insertAfter(element);
-          }
+            var placement = $(element).data("error");
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
         }
-     });
+    });
     </script>
 </body>
 

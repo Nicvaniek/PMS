@@ -1,70 +1,88 @@
 ///////////////////////////////////////////////////////////////////////
-//                            Updates                                //
-///////////////////////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////////////////////////
 //                          Renovations                              //
 ///////////////////////////////////////////////////////////////////////
-$('#addRenovationBtn').on('click', function(e) {
+$('#addRenovationForm').submit(function(e) {
     e.preventDefault();
 
+    if (!($('#renovationPropertySelect').val() != "Choose your property" &&
+            ($('#nameRenovationInput').val() != "Choose your renovation" ||
+            $('#nameRenovationCustomInput').hasClass("valid")) &&
+            $('#quantityRenovationInput').hasClass("valid") &&
+            $('#costRenovationInput').hasClass("valid") &&
+            $('#supplierRenovationInput').hasClass("valid"))) {
+
+        swal({ title: "File Upload Unsuccessful", text: "Please fill out the required information.", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
+        return;
+    }
+
+    if ($('#invoiceFileRenovationInput').val() == "") {
+        swal({
+            title: "Missing Invoice",
+            text: "Are you sure you want to upload with out an invoice?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, upload it!",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+
+            } else {
+                swal("Cancelled", "Did not upload", "error");
+                return;
+            }
+        });
+    }
+
+    var form = new FormData();
+
+    if (document.getElementById("renovationSelectDiv").classList.contains("hide"))
+        form.append('name', $('#nameRenovationCustomInput').val());
+    else
+        form.append('name', $('#nameRenovationInput').val());
+
+    form.append('quantity', $('#quantityRenovationInput').val());
+    form.append('cost', $('#costRenovationInput').val());
+    form.append('supplier', $('#supplierRenovationInput').val());
+    form.append('invoiceDate', $('#invoiceDateRenovationInput').val());
+
+    var propertyDetails = $('#renovationPropertySelect').val();
+    var res = propertyDetails.split(" ");
+
+    var propertyLocation = res[0];
+
+    var propertyID = res[1];
+    form.append('propertyID', res[1]);
+
+    var userID = res[2];
+    form.append('userID', res[2]);
+
     var file_data = $('#invoiceFileRenovationInput').prop('files')[0];
-    var form_data = new FormData();
-    form_data.append('file', file_data);
+    form.append('file', file_data);
+
     $.ajax({
-        url: '../php/upload.php', // point to server-side PHP script 
-        dataType: 'text', // what to expect back from the PHP script, if anything
+        type: "POST",
+        url: '../php/RenovationModule/addRenovation.php',
+        data: form,
         cache: false,
         contentType: false,
         processData: false,
-        data: form_data,
-        type: 'post',
         failure: function() {
             swal({ title: "Error!", text: "File upload unsuccessful", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
         },
-        success: function(php_script_response) {
-            //SUCCESS
-            //alert(php_script_response); // display response from the PHP script, if any
-            var uploadID1 = php_script_response; //Our invoive we uploaded
+        success: function(response) {
+            console.log(response);
+            if (response != "") {
+                $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID + "&location=" + propertyLocation);
+                $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
+                swal({ title: "Renovation added!", type: "success", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
+                $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID + "&location=" + propertyLocation);
 
-            var name1 = $('#nameRenovationInput').val();
-            if (document.getElementById("renovationSelectDiv").classList.contains("hide")) {
-                name1 = $('#nameRenovationCustomInput').val();
+            } else {
+                swal({ title: "Error!", text: "Details entered are unsupported", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
             }
-
-            var propertyDetails = $('#renovationPropertySelect').val();
-            var res = propertyDetails.split(" ");
-            var propertyLocation = res[0];
-            var propertyID1 = res[1];
-            var userId1 = res[2];
-
-            var quantity1 = $('#quantityRenovationInput').val();
-            var cost1 = $('#costRenovationInput').val();
-            var supplier1 = $('#supplierRenovationInput').val();
-            var invoiceDate1 = $('#invoiceDateRenovationInput').val();
-
-            $.post('../php/RenovationModule/addRenovation.php', {
-                userID: userId1,
-                propertyID: propertyID1,
-                renovationName: name1,
-                quantity: quantity1,
-                cost: cost1,
-                supplier: supplier1,
-                invoiceDate: invoiceDate1,
-                uploadID: uploadID1
-
-            }, function(d) {
-                if (d != "") {
-                    $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID1 + "&location=" + propertyLocation);
-                    $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
-                    swal({ title: "Renovation added!", type: "success", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
-                    $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID1 + "&location=" + propertyLocation);
-
-                } else {
-                    swal({ title: "Error!", text: "Details entered are unsupported", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
-                }
-            });
         }
     });
 });
