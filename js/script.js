@@ -206,8 +206,7 @@ $(document).ready(function(){
 
     // Delete account
     $('#deleteAccount').on('click', function(){
-        var id = $('#userId').val();
-
+        var id = $('#sesID').val();
             swal({   
                 title: "Are you sure?",   
                 text: "Your account will be permanently deleted",   
@@ -221,9 +220,29 @@ $(document).ready(function(){
                 {
                     userId: id
                 }, function(){
-                    window.location.href = "http://unhinged.co.za/Demo/Kyle1031/login.php";
+                    window.location.href = "http://unhinged.co.za/Demo/Nic108/login.php";
                 });
             });
     });
 
+    // Admin delete account
+    $('.deleteAccount3rd').on('click', function(){
+        var id = $(this).parent().parent().attr('id');
+            swal({   
+                title: "Are you sure?",   
+                text: "This account will be permanently deleted",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Yes, delete it!",   
+                closeOnConfirm: true 
+            }, function(){
+                $.post('../php/delete-account.php',
+                {
+                    userId: id
+                }, function(){
+                    location.reload();
+                });
+            });
+    });
 });

@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-    <title>Materialize</title>
+    <title>Admin Login</title>
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -30,8 +30,8 @@
         $email = $_POST["emailL"];
         $password = $_POST["passLogin"];
 
-        // Check if user exists
-        $sql = "SELECT * FROM Users WHERE email = '$email' AND active = '1'";
+        // Check if user exists and is admin
+        $sql = "SELECT * FROM Users WHERE email = '$email' AND active = '1' AND admin = '1'";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0)
@@ -44,7 +44,7 @@
                 $_SESSION['ID'] = $row['user_id'];
                 $_SESSION['Surname'] = $row['lastName'];
 
-               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Nic000/WebApp/'</script>";
+               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Nic105/WebApp/admin.php'</script>";
             }
             else
             {
@@ -53,7 +53,7 @@
         }
         else
         {
-            echo '<script>swal({title: "Login Failed!",   text: "Please make sure that you enter the correct details and that you have activated your account",   type: "error",   confirmButtonText: "Close", confirmButtonColor:"#B71C1C" });</script>';
+            echo '<script>swal({title: "Login Failed!",   text: "Please make sure that you have administrative privileges",   type: "error",   confirmButtonText: "Close", confirmButtonColor:"#B71C1C" });</script>';
         }
         mysqli_close($conn);
     }
@@ -62,8 +62,8 @@
         <div class="row">
             <div class="card col s12 m4 offset-m4">
               <div class="cardContainer">
-                <h3 style="margin-bottom:40px">Login</h3>
-                <form action="login.php" method="post">
+                <h3 style="margin-bottom:40px">Admin Login</h3>
+                <form action="admin-login.php" method="post">
                     <div class="row">
                         <div class="input-field">
                             <i class="material-icons prefix">email</i>
@@ -80,8 +80,7 @@
                     </div>
                     <button class="btn waves-effect waves-light" type="submit" name="action" id="loginBtn" style="margin-bottom:10px">Login
                         <i class="material-icons right">send</i>
-                    </button><br>
-                    Don't have an account? <a href="index.php">Sign up here</a><br>
+                    </button>
                     <a href="#modal1">Forgot password?</a>
                 </form>
               </div>
