@@ -220,7 +220,7 @@ $(document).ready(function(){
                 {
                     userId: id
                 }, function(){
-                    window.location.href = "http://unhinged.co.za/Demo/Nic108/login.php";
+                    window.location.href = "http://unhinged.co.za/Demo/Nic2/login.php";
                 });
             });
     });
@@ -244,5 +244,21 @@ $(document).ready(function(){
                     location.reload();
                 });
             });
+    });
+
+    // Make Admin
+    $('.makeAdmin').on('click', function(){
+            var id = $(this).parent().parent().attr('id');
+            $.post('../php/make-admin.php',
+            {
+                newAdmin: id,
+            }, function(){
+               swal({
+                  title: "Admin Created!",
+                  type: 'success',
+                  confirmButtonText: "Close",
+                  confirmButtonColor: '#5cb85c'
+              });
+           });
     });
 });
