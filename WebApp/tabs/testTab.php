@@ -60,6 +60,115 @@
                                 <script>$("#<?php echo $propertyLocation?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $propertyRow["ID"]?>&location=<?php echo $propertyLocation?>");</script>
                             </tbody>
                         </table>
+                        <script type="text/javascript">
+
+                            $('#<?php echo $propertyLocation?>DeleteBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                                if(max == 0)
+                                {
+                                    swal("Error", "You have no renovations for this property. ", "error");
+                                    return;
+                                }
+                                var count = 0;
+                                var found = false;
+                                while(count < max)
+                                {
+                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    {
+                                        found = true;
+                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                                        var trID = "<?php echo $propertyLocation?>Tr" + count + "";
+                                        swal({
+                                            title: "Are you sure?",
+                                            text: "You will not be able to recover this entry",
+                                            type: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#DD6B55",
+                                            confirmButtonText: "Yes, delete it!",
+                                            cancelButtonText: "No, cancel!",
+                                            closeOnConfirm: false,
+                                            closeOnCancel: false
+                                            },function(isConfirm)
+                                            {
+                                                if (isConfirm) 
+                                                {
+                                                    $.post('../php/RenovationModule/deleteRenovation.php', {
+                                                        id: id1
+                                                        }, function(d) {
+                                                            if (d != "")
+                                                            {
+                                                                swal("Deleted!", "Your renovation has been.", "success");
+                                                                document.getElementById(trID).innerHTML = "";
+                                                                max--;
+                                                                localStorage.setItem("<?php echo $propertyLocation?>max", max);
+                                                                $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
+                                                            }                                        
+                                                            else {
+                                                                swal("Error", "Unable to delete renovation. Please refresh the page. ", "error");
+                                                            }
+                                                        });
+                                                } else 
+                                                {
+                                                    swal("Cancelled", "Your renovation is safe", "error");
+                                                }
+                                                localStorage.setItem("<?php echo $propertyLocation?>max", max);
+                                                $("#<?php echo $propertyLocation ?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $renovationRow["ID"] ?>&location=<?php echo $propertyLocation?>");
+                                        });
+                                    }
+                                    count++;
+                                }
+                                if(found == false)
+                                {
+                                    swal("Error", "Please selected the renovation you wish to delete", "error");
+                                }                                        
+                            });
+
+                            $('#<?php echo $propertyLocation?>DownloadBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                                if(max == 0)
+                                {
+                                    swal("Error", "You have no renovations for this property. ", "error");
+                                    return;
+                                }
+                                var count = 0;
+                                var found = false;
+                                while(count < max)
+                                {
+                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    {
+                                        found = true;
+                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                                        window.open("../php/RenovationModule/downloadRenovation.php?id="+id1);
+                                    }
+                                    count++;
+                                } 
+                                if(found == false)
+                                {
+                                    swal("Error", "Please selected the renovation you wish to download", "error");
+                                }                                        
+                            });
+
+                            $('#<?php echo $propertyLocation?>EditBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                                if(max == 0)
+                                {
+                                    swal("Error", "You have no renovations for this property. ", "error");
+                                    return;
+                                }
+                                var count = 0;
+                                while(count < max)
+                                {
+                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    {
+                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                                        $("#editModal").load("../php/RenovationModule/editRenovation.php?id="+id1);
+
+                                        $('#editModal').modal('open');
+                                    }
+                                    count++;
+                                }                                        
+                            });
+                        </script>
                     </div>
                 </li>
             <?php 
@@ -83,7 +192,7 @@
         </div>
         <form id="addRenovationForm" enctype='multipart/form-data'>
             <div class='row'>
-                <div class='input-field col m8'>
+                <div class='input-field col m12'>
                     <select id="renovationPropertySelect" name="renovationPropertySelect" data-error=".errorTxt10">
                         <option value='' disabled selected>Choose your property</option>
                         <?php 
