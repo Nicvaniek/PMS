@@ -10,6 +10,12 @@
         $password = testPassword($_POST['password']);
         $refCode = test($_POST['refCode']);
         $active = 0;
+        $admin = 0;
+        $cell = "";
+        $address = "";
+        $prov = "";
+        $ref = "";
+        $sub = 5;
 
         // Check if email already exists in db
         $sql = "SELECT * FROM Users WHERE email = '$email'";
@@ -23,8 +29,8 @@
             $hash = md5(rand(0,1000));
 
             // Prepared statements for efficiency and to guard against SQL injections
-            $stmt = $conn->prepare("INSERT INTO Users (firstName, lastName, email, password, active, hash) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssis", $name, $surname, $email, $password, $active, $hash);
+            $stmt = $conn->prepare("INSERT INTO Users (firstName, lastName, email, password, active, hash, admin, cellNumber, address, province, reference, Subscription_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssisissssi", $name, $surname, $email, $password, $active, $hash, $admin, $cell, $address, $prov, $ref, $sub);
             $stmt->execute();
 
             $stmt->close();
@@ -57,7 +63,7 @@
         Your account has been created, but you will only be able to login once you have verified your account.
 
         Please click this link to activate your account:
-        http://www.unhinged.co.za/Demo/Kyle1031/php/verify.php?email='.$email.'&hash='.$hash.'
+        http://www.unhinged.co.za/Demo/Nic000/php/verify.php?email='.$email.'&hash='.$hash.'
          
         '; // Our message above including the link
                              
