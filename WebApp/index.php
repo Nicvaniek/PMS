@@ -38,9 +38,23 @@
     <script src="../js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="../css/sweetalert.css">
     <script type="text/javascript" src = "../js/script.js"></script>
-    <script src="../js/jquery.validate.js"></script>
 </head>
-
+<style type="text/css">
+  .input-field div.error{
+    position: relative;
+    top: -1rem;
+    left: 0rem;
+    font-size: 0.8rem;
+    color:#FF4081;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+  .input-field label.active{
+      width:100%;
+  }
+</style>
 <body class="grey lighten-5">
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
@@ -79,6 +93,7 @@
         <?php include 'tabs/dashboardTab.php'; ?>
     </div>
     <div id="propertyInformationTab" class="col m12">
+        <?php include 'tabs/propertyTab.php'; ?>
     </div>
     <div id="renovationsTab" class="col m12">
         <?php include 'tabs/testTab.php'; ?>
@@ -131,6 +146,81 @@
     <script src="../js/init.js"></script>
     <script src="../js/webAppAjax.js"></script>
     <script src="../js/webAppCustoms.js"></script>
+    <script src="../js/jquery.validate.js"></script>
+    <script src="../js/additional-methods.js"></script>
+    <script>
+    $("#addRenovationForm").validate({
+        rules: {
+            renovationPropertySelect: {
+                required: true
+            },
+            nameRenovationInput: {
+                required: true
+            },
+            nameRenovationCustomInput: {
+                required: true,
+                minlength: 5
+            },
+            quantityRenovationInput: {
+                required: true,
+                min: 1,
+                number: true
+            },
+            costRenovationInput: {
+                required: true,
+                min: 0,
+                number: true
+            },
+            supplierRenovationInput: {
+                required: true,
+                minlength: 5
+            },
+            invoiceDateRenovationInput: {
+                required: true,
+                date: true
+            },
+            crole: "required",
+            ccomment: {
+                required: true,
+                minlength: 15
+            },
+        },
+        //For custom messages
+        messages: {
+            renovationPropertySelect: {
+                required: "Please select a property"
+            },
+            nameRenovationInput: {
+                required: "Please select a renovation"
+            },
+            nameRenovationCustomInput: {
+                required: "Enter a renovation",
+                minlength: "Enter at least 5 characters"
+            },
+            quantityRenovationInput: {
+                required: "Enter the quantity",
+                min: "Please enter a valid quantity"
+            },
+            costRenovationInput: {
+                required: "Enter the amount",
+                min: "Please enter a valid quantity"
+            },
+            supplierRenovationInput: {
+                required: "Enter supplier information",
+                minlength: "Enter at least 5 characters"
+            }
+        },
+        errorElement: "div",
+        errorPlacement: function(error, element) {
+            var placement = $(element).data("error");
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    </script>
 
     <!-- Modal Structure -->
         <div id="modal1" class="modal">
