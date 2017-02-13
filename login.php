@@ -44,7 +44,7 @@
                 $_SESSION['ID'] = $row['user_id'];
                 $_SESSION['Surname'] = $row['lastName'];
 
-               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Kyle1033/WebApp/'</script>";
+               echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Kyle29/WebApp/'</script>";
             }
             else
             {
