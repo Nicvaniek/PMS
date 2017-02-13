@@ -102,6 +102,7 @@
                                                                 max--;
                                                                 localStorage.setItem("<?php echo $propertyLocation?>max", max);
                                                                 $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
+                                                                $("#<?php echo $propertyLocation ?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $propertyRow["ID"] ?>&location=<?php echo $propertyLocation?>");
                                                             }                                        
                                                             else {
                                                                 swal("Error", "Unable to delete renovation. Please refresh the page. ", "error");
@@ -111,8 +112,6 @@
                                                 {
                                                     swal("Cancelled", "Your renovation is safe", "error");
                                                 }
-                                                localStorage.setItem("<?php echo $propertyLocation?>max", max);
-                                                $("#<?php echo $propertyLocation ?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $renovationRow["ID"] ?>&location=<?php echo $propertyLocation?>");
                                         });
                                     }
                                     count++;

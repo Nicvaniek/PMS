@@ -45,6 +45,7 @@
                 $_SESSION['Surname'] = $row['lastName'];
 
                echo "<script>window.top.location='http://www.unhinged.co.za/Demo/Nic000/WebApp/'</script>";
+
             }
             else
             {

@@ -22,7 +22,7 @@
     <div class="row">
     <br>
     <?php
-        $sql ="SELECT * FROM Properties WHERE UserID = 54";
+        $sql ="SELECT * FROM Properties WHERE UserID = " . $userID;
         $propertyResult = mysqli_query($conn, $sql);  
         //echo $result->num_rows;
         if ($propertyResult->num_rows > 0) 

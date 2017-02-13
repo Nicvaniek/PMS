@@ -75,7 +75,6 @@ $('#addRenovationForm').submit(function(e) {
         success: function(response) {
             console.log(response);
             if (response != "") {
-                $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID + "&location=" + propertyLocation);
                 $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
                 swal({ title: "Renovation added!", type: "success", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
                 $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID + "&location=" + propertyLocation);
