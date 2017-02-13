@@ -1,10 +1,9 @@
 <?php
     include 'connectDB.php';
     
-    $id = $_POST['userId'];
-    echo "<script>alert('".$id."');</script>";
+    $new = $_POST['newAdmin'];
 
-    $sql = "DELETE FROM Users WHERE user_id = '$id'";
+    $sql = "UPDATE Users SET admin = '1' WHERE user_id = '$new'";
 
     if (!mysqli_query($conn, $sql))
     {

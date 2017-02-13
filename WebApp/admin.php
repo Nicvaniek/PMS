@@ -10,6 +10,8 @@
     {
         include '../php/update-details.php';
     }
+
+    // Retrieve user details
     include '../php/connectDB.php';
     $id = $_SESSION['ID'];
     $sql = "SELECT * FROM Users WHERE user_id = '$id'";
@@ -20,6 +22,7 @@
         $row = mysqli_fetch_assoc($result);
     }
     mysqli_close($conn);
+
     $idtest = $row['user_id'];
     $address = $row['address'];
     $cell = $row['cellNumber'];
@@ -43,23 +46,10 @@
     <script src="../js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="../css/sweetalert.css">
     <script type="text/javascript" src = "../js/script.js"></script>
+    <script type="text/javascript" src = "../js/search.js"></script>
+    <script src="../js/jquery.validate.js"></script>
 </head>
-<style type="text/css">
-  .input-field div.error{
-    position: relative;
-    top: -1rem;
-    left: 0rem;
-    font-size: 0.8rem;
-    color:#FF4081;
-    -webkit-transform: translateY(0%);
-    -ms-transform: translateY(0%);
-    -o-transform: translateY(0%);
-    transform: translateY(0%);
-  }
-  .input-field label.active{
-      width:100%;
-  }
-</style>
+
 <body class="grey lighten-5">
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
@@ -70,11 +60,11 @@
       <li><a href="#modal1">About me</a></li>
       <li><a href="#modal2">Account</a></li>
     </ul>
-    <nav class="nav-extended">
-        <div class="nav-wrapper red darken-2">
-            <a href="#" class="brand-logo">Property Investor</a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <nav>
+    <div class="nav-wrapper red darken-2">
+      <a href="#" class="brand-logo">Propery Investor</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> <?php echo $_SESSION['Name'] ?></a></li>
                 <li><a href="../login.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Settings<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -84,33 +74,200 @@
                 <li><a href="../login.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Settings<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
-<ul class="tabs tabs-transparent tabs-fixed-width center">
-                <li class="tab"><a href="#dashboardTab">Dashboard</a></li>
-                <li class="tab"><a href="#propertyInformationTab">Property Information</a></li>
-                <li class="tab"><a href="#renovationsTab">Renovations</a></li>
-                <li class="tab"><a href="#expensesTab">Expenses</a></li>
-                <li class="tab"><a href="#salesCostsTab">Sales Costs</a></li>
-                <li class="tab"><a href="#incomeTab">Income</a></li>
-            </ul>
+    </div>
+  </nav>
+  <?php
+    // Get summaries to display on cards
+    $server = "localhost";
+    $username = "morning2";
+    $password = "cm7RQ73jf9";
+    $database = "morning2_PropertyInvestor";
+
+    // Create Connection
+    $conn2 = mysqli_connect($server, $username, $password, $database);
+
+    // Test Connection
+    if (!$conn2)
+    {
+        die("Connection Failed: " . mysqli_connect_error());
+    }
+
+    # Get number of users
+    $sql2 = "SELECT * FROM Users";
+    $result2 = mysqli_query($conn2, $sql2);
+
+    $noUsers = mysqli_num_rows($result2);
+
+    # Get most poplar subscription
+    $sql3 = "SELECT * FROM Users WHERE Subscription_ID = 5";
+    $result3 = mysqli_query($conn2, $sql3);
+    $sql4 = "SELECT * FROM Users WHERE Subscription_ID = 6";
+    $result4 = mysqli_query($conn2, $sql4);
+    $sql5 = "SELECT * FROM Users WHERE Subscription_ID = 7";
+    $result5 = mysqli_query($conn2, $sql5);
+    $sql6 = "SELECT * FROM Users WHERE Subscription_ID = 8";
+    $result6 = mysqli_query($conn2, $sql6);
+    $sql7 = "SELECT * FROM Users WHERE Subscription_ID = 9";
+    $result7 = mysqli_query($conn2, $sql7);
+
+    $DayFree = mysqli_num_rows($result3);
+    $month1 = mysqli_num_rows($result4);
+    $month3 = mysqli_num_rows($result5);
+    $month6 = mysqli_num_rows($result6);
+    $year = mysqli_num_rows($result7);
+
+    $best = "";
+    if (max($DayFree, $month1, $month3, $month6, $year) == $DayFree)
+    {
+        $best = "7 Day free trial ($DayFree Subscriptions)";
+    }
+    if (max($DayFree, $month1, $month3, $month6, $year) == $month1)
+    {
+        if ($best == "")
+            $best = "1 Month ($month1 Subscriptions)";
+        else
+            $best .= " & 1 Month ($month1 Subscriptions)"; 
+    }
+    if (max($DayFree, $month1, $month3, $month6, $year) == $month3)
+    {
+        if ($best == "")
+            $best = "3 Month ($month3 Subscriptions)";
+        else
+            $best .= " & 3 Month ($month3 Subscriptions)"; 
+    }
+    if (max($DayFree, $month1, $month3, $month6, $year) == $month6)
+    {
+        if ($best == "")
+            $best = "6 Month ($month6 Subscriptions)";
+        else
+            $best .= " & 6 Month ($month6 Subscriptions)"; 
+    }
+    if (max($DayFree, $month1, $month3, $month6, $year) == $year)
+    {
+        if ($best == "")
+            $best = "1 Year ($year Subscriptions)";
+        else
+            $best .= " & 1 Year ($year Subscriptions)"; 
+    }
+
+    mysqli_close($conn2);
+  ?>
+  <div class='row'>
+        <div class='col m12'>
+            <h4>Accounts Summary</h4>
         </div>
-    </nav>
-    <div id="dashboardTab" class="col m12">
-        <?php include 'tabs/dashboardTab.php'; ?>
     </div>
-    <div id="propertyInformationTab" class="col m12">
-        <?php include 'tabs/propertyTab.php'; ?>
+    <div class="row">
+        <div class="col s12 m3">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Number of Users</span>
+              <span><h1 align="center"> <?php echo $noUsers; ?> </h1></span>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Income for <?php echo date('F'); ?></span>
+              
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Most popular Subscription</span><br>
+              <span><?php echo $best;?></span>  
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Overdue Subsciptions</span><br>
+              
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php
+    include '../php/connectDB.php';
+    $sql = "SELECT * FROM Users JOIN Subscriptions ON Users.Subscription_ID = Subscriptions.Subscription_ID";
+    $result = mysqli_query($conn, $sql);
+    
+    mysqli_close($conn);
+?>
+<div class='row'>
+  <div class="col m6 s12 l6 offset-m3 offset-l3">
+    <h4 align="center">List of Users</h4>
+  </div>
+</div>
+<div class="row">
+    <div class="col m6 s12 l6 offset-m3 offset-l3">
+        <form>
+        <div class="input-field">
+          <input id="search" type="search" onkeyup="showResult(this.value)">
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
     </div>
-    <div id="renovationsTab" class="col m12">
-        <?php include 'tabs/testTab.php'; ?>
-    </div>
-    <div id="expensesTab" class="col m12">
-    </div>
-    <div id="salesCostsTab" class="col m12">
-    </div>
-    <div id="incomeTab" class="col m12">
-    </div>
-    <div class="container">
-    </div>
+</div>
+<div class="row">
+  <div class="col m6 s12 l6 offset-m3 offset-l3" style="overflow:auto; height:400px;">
+    <ul class="collapsible popout" data-collapsible="accordion" id="livesearch">
+      <?php
+        while($row = mysqli_fetch_assoc($result))
+        {?>
+          <li id="<?php echo $row['user_id']; ?>">
+            <div class="collapsible-header"><i class="fa fa-user" aria-hidden="true"></i><?php echo $row['firstName']." ".$row['lastName']?></div>
+            <div class="collapsible-body" style="padding:10px">
+              <strong>Email:</strong> <?php echo $row['email']; ?> <br>
+              <strong>Active Account?:</strong> <?php echo $row['active']; ?> <br>
+              <strong>Cellphone Number:</strong> <?php echo $row['cellNumber']; ?> <br>
+              <strong>Address:</strong> <?php echo $row['address']; ?> <br>
+              <strong>Province:</strong> <?php echo $row['province']; ?> <br>
+              <strong>Reference:</strong> <?php echo $row['reference']; ?> <br>
+              <strong>Subscription Plan:</strong> <?php echo $row['Plan']; ?> <br><br>
+              <?php 
+                if ($row['user_id'] != $_SESSION['ID'])
+                {?>
+                  <button class="btn waves-effect waves-light deleteAccount3rd" type="submit" name="action" style="margin-bottom:10px; background-color:#D9534F">Delete Account <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                <?php
+                }?>
+                <?php 
+                if ($row['admin'] != 1)
+                {?>
+                  <button class="btn waves-effect waves-light makeAdmin" type="submit" name="action" style="margin-bottom:10px; background-color:##5bc0de">Make Admin <i class="fa fa-lock" aria-hidden="true"></i></button>
+                <?php
+                }?>
+            </div>
+          </li>
+        <?php
+
+        } 
+        mysqli_close($conn);
+      ?>  
+    </ul>
+  </div>
+</div>
     <footer class="page-footer red darken-2">
         <div class="container">
             <div class="row">
@@ -151,81 +308,6 @@
     <script src="../js/init.js"></script>
     <script src="../js/webAppAjax.js"></script>
     <script src="../js/webAppCustoms.js"></script>
-    <script src="../js/jquery.validate.js"></script>
-    <script src="../js/additional-methods.js"></script>
-    <script>
-    $("#addRenovationForm").validate({
-        rules: {
-            renovationPropertySelect: {
-                required: true
-            },
-            nameRenovationInput: {
-                required: true
-            },
-            nameRenovationCustomInput: {
-                required: true,
-                minlength: 5
-            },
-            quantityRenovationInput: {
-                required: true,
-                min: 1,
-                number: true
-            },
-            costRenovationInput: {
-                required: true,
-                min: 0,
-                number: true
-            },
-            supplierRenovationInput: {
-                required: true,
-                minlength: 5
-            },
-            invoiceDateRenovationInput: {
-                required: true,
-                date: true
-            },
-            crole: "required",
-            ccomment: {
-                required: true,
-                minlength: 15
-            },
-        },
-        //For custom messages
-        messages: {
-            renovationPropertySelect: {
-                required: "Please select a property"
-            },
-            nameRenovationInput: {
-                required: "Please select a renovation"
-            },
-            nameRenovationCustomInput: {
-                required: "Enter a renovation",
-                minlength: "Enter at least 5 characters"
-            },
-            quantityRenovationInput: {
-                required: "Enter the quantity",
-                min: "Please enter a valid quantity"
-            },
-            costRenovationInput: {
-                required: "Enter the amount",
-                min: "Please enter a valid quantity"
-            },
-            supplierRenovationInput: {
-                required: "Enter supplier information",
-                minlength: "Enter at least 5 characters"
-            }
-        },
-        errorElement: "div",
-        errorPlacement: function(error, element) {
-            var placement = $(element).data("error");
-            if (placement) {
-                $(placement).append(error)
-            } else {
-                error.insertAfter(element);
-            }
-        }
-    });
-    </script>
 
     <!-- Modal Structure -->
         <div id="modal1" class="modal">
