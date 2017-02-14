@@ -10,12 +10,12 @@
 ?>
 <div class='container'>
     <div class='row'>
-        <div class='col m12'>
+        <div class='col m12 s12'>
             <h4>Your Renovations</h4>
         </div>
     </div>
     <div class='row'>
-        <div class="col m12">
+        <div class="col m12 s12">
         <?php
             $sql ="SELECT * FROM Properties WHERE UserID = " . $_SESSION['ID'] . "";
             $propertyResult = mysqli_query($conn, $sql);
@@ -31,19 +31,20 @@
                 <li>
                     <div class='collapsible-header'>
                         <div class='row'>
-                            <div class='col m8'>
+                            <div class='col m8 s12'>
                                 <h5><?php echo $propertyRow["Location"]?></h5>
                             </div>                          
                         </div>
                     </div>
                     <div class='collapsible-body'>
-                        <div>
-                            <a style='padding-right: 40px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyLocation?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
-                            <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyLocation?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
-                            <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyLocation?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
-                            
+                        <div class='row'>
+                            <div class="col m12 hide-on-small-only">
+                                <a style='padding-right: 40px; padding-left: 10px; padding-top: 15px;' href='#!' class='secondary-content'><i id='<?php echo $propertyLocation?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                                <a style='padding-right: 20px; padding-left: 10px; padding-top: 15px;' href='#!' class='secondary-content'><i id="<?php echo $propertyLocation?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
+                                <a style='padding-right: 20px; padding-left: 10px; padding-top: 15px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyLocation?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
+                            </div> 
                         </div>
-                        <table>
+                        <table class="responsive-table">
                             <thead>
                                 <tr>
                                     <th>Description</th>
@@ -56,6 +57,16 @@
                                     <th>Select</th>
                                 </tr>
                             </thead>
+                            <tfoot class="hide-on-med-and-up">
+                                <div class='row hide-on-med-and-up'>
+                                    <div class='col m12'>
+                                        <a style='padding-right: 5px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyLocation?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                                        <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyLocation?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
+                                        <a style='padding-right: 20px; padding-left: 80px; padding-top: 5px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyLocation?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
+                                    </div>
+                                    
+                                </div>
+                            </tfoot>
                             <tbody id="<?php echo $propertyLocation?>tbody">
                                 <script>$("#<?php echo $propertyLocation?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $propertyRow["ID"]?>&location=<?php echo $propertyLocation?>");</script>
                             </tbody>
@@ -102,7 +113,7 @@
                                                                 max--;
                                                                 localStorage.setItem("<?php echo $propertyLocation?>max", max);
                                                                 $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
-                                                                $("#<?php echo $propertyLocation ?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $propertyRow["ID"] ?>&location=<?php echo $propertyLocation?>");
+                                                                $("#<?php echo $propertyLocation ?>SumProduct").load("http://www.unhinged.co.za/Demo/Kyle12/php/RenovationModule/renovationSumProduct.php?id=<?php echo $propertyRow["ID"] ?>");
                                                             }                                        
                                                             else {
                                                                 swal("Error", "Unable to delete renovation. Please refresh the page. ", "error");
@@ -178,10 +189,10 @@
         </div>
     </div>
 <div class='row'>
-            <div class='col m8'>
+            <div class='col m8 s12'>
                 <h4>Add Renovation</h4>
             </div>
-            <div class='col m4'>
+            <div class='col m4 s12'>
                 <br>
                 <p>
                     <input type='checkbox' id='customRenovation' onclick='customRenovation()' />
@@ -191,7 +202,7 @@
         </div>
         <form id="addRenovationForm" enctype='multipart/form-data'>
             <div class='row'>
-                <div class='input-field col m12'>
+                <div class='input-field col m12 s12'>
                     <select id="renovationPropertySelect" name="renovationPropertySelect" data-error=".errorTxt10">
                         <option value='' disabled selected>Choose your property</option>
                         <?php 
@@ -217,7 +228,7 @@
                 </div>
             </div>
             <div class="row">
-                <div id='renovationSelectDiv' class='input-field col m6'>
+                <div id='renovationSelectDiv' class='input-field col m6 s12'>
                     <select id='nameRenovationInput' name="nameRenovationInput" data-error=".errorTxt10">
                         <optgroup label=' WALL AND FLOOR COVERINGS '>
                             <option value='' disabled selected>Choose your renovation</option>
@@ -300,19 +311,19 @@
                     <label>Renovation</label>
                     <div class="errorTxt10"></div>
                 </div>
-                <div id="customRenovationDiv" class="input-field col m6 hide">
+                <div id="customRenovationDiv" class="input-field col m6 s12 hide">
                     <i class="material-icons prefix">info_outline</i>
                     <input id="nameRenovationCustomInput" name="nameRenovationCustomInput" type="text" data-error=".errorTxt1">
                     <div class="errorTxt1"></div>
                     <label for="nameRenovationCustomInput">Custom Renovation</label>
                 </div>
-                <div class="input-field col m3">
+                <div class="input-field col m3 s12">
                     <i class="material-icons prefix">mode_edit</i>
                     <input id="quantityRenovationInput" name="quantityRenovationInput" type="number" data-error=".errorTxt2">
                     <div class="errorTxt2"></div>
                     <label for="quatnityRenovationInput">Quantity</label>
                 </div>
-                <div class="input-field col m3">
+                <div class="input-field col m3 s12">
                     <i class="material-icons prefix">shopping_cart</i>
                     <input id="costRenovationInput" name="costRenovationInput" type="number" data-error=".errorTxt3">
                     <div class="errorTxt3"></div>
@@ -320,13 +331,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col m6">
+                <div class="input-field col m6 s12">
                     <i class="material-icons prefix">store</i>
                     <input id="supplierRenovationInput" name="supplierRenovationInput" type="text" data-error=".errorTxt4">
                     <div class="errorTxt4"></div>
                     <label for="supplierRenovationInput">Supplier</label>
                 </div>
-                <div class="input-field col m6">
+                <div class="input-field col m6 s12">
                     <i class="material-icons prefix">today</i>
                     <input id="invoiceDateRenovationInput" name="invoiceDateRenovationInput" type="date" class="datepicker" data-error=".errorTxt5">
                     <div class="errorTxt5"></div>
@@ -334,7 +345,7 @@
                 </div>
             </div>
             <div class='row'>
-                <div class='file-field input-field s4'>
+                <div class='file-field input-field m4 s12'>
                     <div class='btn red darken-2'>
                         <span>Invoice</span>
                         <input id='invoiceFileRenovationInput' accept="application/pdf" type='file'>
