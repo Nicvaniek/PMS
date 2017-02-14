@@ -76,8 +76,9 @@ $('#addRenovationForm').submit(function(e) {
             console.log(response);
             if (response != "") {
                 $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
+                $("#" + propertyLocation + "tbody").html("");
                 swal({ title: "Renovation added!", type: "success", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });
-                $("#" + propertyLocation + "tbody").load("../php/RenovationModule/renovationTable.php?id=" + propertyID + "&location=" + propertyLocation);
+                $("#" + propertyLocation + "tbody").load("http://www.unhinged.co.za/Demo/Kyle12/php/RenovationModule/renovationTable.php?id=" + propertyID + "&location=" + propertyLocation);
 
             } else {
                 swal({ title: "Error!", text: "Details entered are unsupported", type: "error", confirmButtonText: "Close", confirmButtonColor: "#d32f2f" });

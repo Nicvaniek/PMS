@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once '../include/DB_Connect.php';
     $sql ="SELECT * FROM Renovations WHERE PropertyID = " . $_GET['id'] ." ORDER BY ID";
     $renovationResult = mysqli_query($conn, $sql);
@@ -45,9 +46,9 @@
             $result = mysqli_query($conn, $sql);
             $sumproduct = $result->fetch_assoc()
         ?>
-        <td><strong>R <?php echo $sumproduct['SumProduct'] ?></strong></td>
+        <td id="<?php echo $propertyLocation?>SumProduct"><strong>R <?php echo $sumproduct['SumProduct'] ?></strong></td>
         <td><strong>---</strong></td>
     </tr>
-    <script>localStorage.setItem("<?php echo $propertyLocation?>max", <?php echo $count?>);</script>
+    <script> localStorage.setItem("<?php echo $propertyLocation?>max", <?php echo $count?>); </script>
 <?php 
     }?>

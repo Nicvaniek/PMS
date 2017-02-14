@@ -101,9 +101,10 @@
         <?php include 'tabs/propertyTab.php'; ?>
     </div>
     <div id="renovationsTab" class="col m12">
-        <?php include 'tabs/testTab.php'; ?>
+        <?php include 'tabs/renovationsTab.php'; ?>
     </div>
     <div id="expensesTab" class="col m12">
+        <?php include 'tabs/testTab.php'; ?>
     </div>
     <div id="salesCostsTab" class="col m12">
     </div>
