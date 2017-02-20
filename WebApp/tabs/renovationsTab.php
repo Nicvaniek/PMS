@@ -24,24 +24,23 @@
                 while($propertyRow = $propertyResult->fetch_assoc()) 
                 {
                     $count = 0;
-                    $propertyLocation = $propertyRow["Location"];
-                    $propertyLocation = str_replace(" ","", $propertyLocation);
+                    $propertyID= $propertyRow["ID"];
         ?>
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li>
                     <div class='collapsible-header'>
                         <div class='row'>
                             <div class='col m8 s12'>
-                                <h5><?php echo $propertyRow["Location"]?></h5>
+                                <h5><?php echo $propertyRow["Name"]?></h5>
                             </div>                          
                         </div>
                     </div>
                     <div class='collapsible-body'>
                         <div class='row'>
                             <div class="col m12 hide-on-small-only">
-                                <a style='padding-right: 40px; padding-left: 10px; padding-top: 15px;' href='#!' class='secondary-content'><i id='<?php echo $propertyLocation?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
-                                <a style='padding-right: 20px; padding-left: 10px; padding-top: 15px;' href='#!' class='secondary-content'><i id="<?php echo $propertyLocation?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
-                                <a style='padding-right: 20px; padding-left: 10px; padding-top: 15px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyLocation?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
+                                <a style='padding-right: 40px; padding-left: 10px; padding-top: 15px;' href='#!' class='secondary-content'><i id='<?php echo $propertyID?>DeleteRenovationBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                                <a style='padding-right: 20px; padding-left: 10px; padding-top: 15px;' href='#!' class='secondary-content'><i id="<?php echo $propertyID?>DownloadRenovationBtn" class='black-text material-icons'>system_update_alt</i></a>
+                                <a style='padding-right: 20px; padding-left: 10px; padding-top: 15px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyID?>EditRenovationBtn" class='black-text material-icons'>mode_edit</i></a>
                             </div> 
                         </div>
                         <table class="responsive-table">
@@ -60,21 +59,21 @@
                             <tfoot class="hide-on-med-and-up">
                                 <div class='row hide-on-med-and-up'>
                                     <div class='col m12'>
-                                        <a style='padding-right: 5px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyLocation?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
-                                        <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyLocation?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
-                                        <a style='padding-right: 20px; padding-left: 80px; padding-top: 5px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyLocation?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
+                                        <a style='padding-right: 5px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyID?>DeleteRenovationBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                                        <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyID?>DownloadRenovationBtn" class='black-text material-icons'>system_update_alt</i></a>
+                                        <a style='padding-right: 20px; padding-left: 80px; padding-top: 5px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyID?>EditRenovationBtn" class='black-text material-icons'>mode_edit</i></a>
                                     </div>
                                     
                                 </div>
                             </tfoot>
-                            <tbody id="<?php echo $propertyLocation?>tbody">
-                                <script>$("#<?php echo $propertyLocation?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $propertyRow["ID"]?>&location=<?php echo $propertyLocation?>");</script>
+                            <tbody id="<?php echo $propertyID?>Renovationtbody">
+                                <script>$("#<?php echo $propertyID?>Renovationtbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $propertyRow["ID"]?>");</script>
                             </tbody>
                         </table>
                         <script type="text/javascript">
 
-                            $('#<?php echo $propertyLocation?>DeleteBtn').on('click', function(e) {
-                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                            $('#<?php echo $propertyID?>DeleteRenovationBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyID?>Renovationmax");
                                 if(max == 0)
                                 {
                                     swal("Error", "You have no renovations for this property. ", "error");
@@ -84,11 +83,11 @@
                                 var found = false;
                                 while(count < max)
                                 {
-                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    if($('#<?php echo $propertyID?>RenovationRadio' + count + '').is(':checked'))
                                     {
                                         found = true;
-                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
-                                        var trID = "<?php echo $propertyLocation?>Tr" + count + "";
+                                        var id1 = $('#<?php echo $propertyID?>RenovationRadio' + count + ':checked').val();
+                                        var trID = "<?php echo $propertyID?>RenovationTr" + count + "";
                                         swal({
                                             title: "Are you sure?",
                                             text: "You will not be able to recover this entry",
@@ -111,9 +110,9 @@
                                                                 swal("Deleted!", "Your renovation has been.", "success");
                                                                 document.getElementById(trID).innerHTML = "";
                                                                 max--;
-                                                                localStorage.setItem("<?php echo $propertyLocation?>max", max);
+                                                                localStorage.setItem("<?php echo $propertyID?>Renovationmax", max);
                                                                 $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
-                                                                $("#<?php echo $propertyLocation ?>SumProduct").load("http://www.unhinged.co.za/Demo/Kyle12/php/RenovationModule/renovationSumProduct.php?id=<?php echo $propertyRow["ID"] ?>");
+                                                                $("#<?php echo $propertyID ?>RenovationSumProduct").load("http://www.unhinged.co.za/Demo/php/RenovationModule/renovationSumProduct.php?id=<?php echo $propertyRow["ID"] ?>");
                                                             }                                        
                                                             else {
                                                                 swal("Error", "Unable to delete renovation. Please refresh the page. ", "error");
@@ -133,8 +132,8 @@
                                 }                                        
                             });
 
-                            $('#<?php echo $propertyLocation?>DownloadBtn').on('click', function(e) {
-                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                            $('#<?php echo $propertyID?>DownloadRenovationBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyID?>Renovationmax");
                                 if(max == 0)
                                 {
                                     swal("Error", "You have no renovations for this property. ", "error");
@@ -144,10 +143,10 @@
                                 var found = false;
                                 while(count < max)
                                 {
-                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    if($('#<?php echo $propertyID?>RenovationRadio' + count + '').is(':checked'))
                                     {
                                         found = true;
-                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                                        var id1 = $('#<?php echo $propertyID?>RenovationRadio' + count + ':checked').val();
                                         window.open("../php/RenovationModule/downloadRenovation.php?id="+id1);
                                     }
                                     count++;
@@ -158,8 +157,8 @@
                                 }                                        
                             });
 
-                            $('#<?php echo $propertyLocation?>EditBtn').on('click', function(e) {
-                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                            $('#<?php echo $propertyID?>EditRenovationBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyID?>Renovationmax");
                                 if(max == 0)
                                 {
                                     swal("Error", "You have no renovations for this property. ", "error");
@@ -168,9 +167,9 @@
                                 var count = 0;
                                 while(count < max)
                                 {
-                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    if($('#<?php echo $propertyID?>RenovationRadio' + count + '').is(':checked'))
                                     {
-                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                                        var id1 = $('#<?php echo $propertyID?>RenovationRadio' + count + ':checked').val();
                                         $("#editModal").load("../php/RenovationModule/editRenovation.php?id="+id1);
 
                                         $('#editModal').modal('open');
@@ -203,7 +202,7 @@
         <form id="addRenovationForm" enctype='multipart/form-data'>
             <div class='row'>
                 <div class='input-field col m12 s12'>
-                    <select id="renovationPropertySelect" name="renovationPropertySelect" data-error=".errorTxt10">
+                    <select id="renovationPropertySelect" name="renovationPropertySelect" data-error=".errorTxt01">
                         <option value='' disabled selected>Choose your property</option>
                         <?php 
                         $sql ="SELECT * FROM Properties WHERE UserID = " . $_SESSION['ID'] . "";
@@ -212,11 +211,9 @@
                         {
                             while($propertyRow = $propertyResult->fetch_assoc()) 
                             {
-                                $propertyLocation = $propertyRow["Location"];
-                                $propertyLocation = str_replace(" ","", $propertyLocation);
                                 ?>
-                        <option value='<?php echo $propertyLocation. " " .$propertyRow['ID']. " " .$userID?>'>
-                            <?php echo $propertyRow['Location']?>
+                        <option value='<?php echo $propertyRow['ID']. " " .$userID?>'>
+                            <?php echo $propertyRow['Name']?>
                         </option>
                         <?php
                             }
@@ -224,12 +221,12 @@
                     ?>
                     </select>
                     <label>Property</label>
-                    <div class="errorTxt11"></div>
+                    <div class="errorTxt01"></div>
                 </div>
             </div>
             <div class="row">
                 <div id='renovationSelectDiv' class='input-field col m6 s12'>
-                    <select id='nameRenovationInput' name="nameRenovationInput" data-error=".errorTxt10">
+                    <select id='nameRenovationInput' name="nameRenovationInput" data-error=".errorTxt02">
                         <optgroup label=' WALL AND FLOOR COVERINGS '>
                             <option value='' disabled selected>Choose your renovation</option>
                             <option value='FloorCovering'> Floor Covering </option>
@@ -309,38 +306,38 @@
                         </optgroup>
                     </select>
                     <label>Renovation</label>
-                    <div class="errorTxt10"></div>
+                    <div class="errorTxt02"></div>
                 </div>
                 <div id="customRenovationDiv" class="input-field col m6 s12 hide">
                     <i class="material-icons prefix">info_outline</i>
-                    <input id="nameRenovationCustomInput" name="nameRenovationCustomInput" type="text" data-error=".errorTxt1">
-                    <div class="errorTxt1"></div>
+                    <input id="nameRenovationCustomInput" name="nameRenovationCustomInput" type="text" data-error=".errorTxt03">
+                    <div class="errorTxt03"></div>
                     <label for="nameRenovationCustomInput">Custom Renovation</label>
                 </div>
                 <div class="input-field col m3 s12">
                     <i class="material-icons prefix">mode_edit</i>
-                    <input id="quantityRenovationInput" name="quantityRenovationInput" type="number" data-error=".errorTxt2">
-                    <div class="errorTxt2"></div>
+                    <input id="quantityRenovationInput" name="quantityRenovationInput" type="number" data-error=".errorTxt04">
+                    <div class="errorTxt04"></div>
                     <label for="quatnityRenovationInput">Quantity</label>
                 </div>
                 <div class="input-field col m3 s12">
                     <i class="material-icons prefix">shopping_cart</i>
-                    <input id="costRenovationInput" name="costRenovationInput" type="number" data-error=".errorTxt3">
-                    <div class="errorTxt3"></div>
+                    <input id="costRenovationInput" name="costRenovationInput" type="number" data-error=".errorTxt05">
+                    <div class="errorTxt05"></div>
                     <label for="costRenovationInput">Amount</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col m6 s12">
                     <i class="material-icons prefix">store</i>
-                    <input id="supplierRenovationInput" name="supplierRenovationInput" type="text" data-error=".errorTxt4">
-                    <div class="errorTxt4"></div>
+                    <input id="supplierRenovationInput" name="supplierRenovationInput" type="text" data-error=".errorTxt06">
+                    <div class="errorTxt06"></div>
                     <label for="supplierRenovationInput">Supplier</label>
                 </div>
                 <div class="input-field col m6 s12">
                     <i class="material-icons prefix">today</i>
-                    <input id="invoiceDateRenovationInput" name="invoiceDateRenovationInput" type="date" class="datepicker" data-error=".errorTxt5">
-                    <div class="errorTxt5"></div>
+                    <input id="invoiceDateRenovationInput" name="invoiceDateRenovationInput" type="date" class="datepicker" data-error=".errorTxt07">
+                    <div class="errorTxt07"></div>
                     <label for="invoiceDatePicker">Invoice Date</label>
                 </div>
             </div>

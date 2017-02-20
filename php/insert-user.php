@@ -64,7 +64,7 @@
 
         Please click this link to activate your account:
         
-        http://www.unhinged.co.za/Demo/Nic000/php/verify.php?email='.$email.'&hash='.$hash.'
+        http://www.unhinged.co.za/Demo/php/verify.php?email='.$email.'&hash='.$hash.'
 
          
         '; // Our message above including the link
