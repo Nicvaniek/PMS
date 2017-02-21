@@ -221,7 +221,7 @@ $(document).ready(function(){
                     userId: id
                 }, function(){
 
-                    window.location.href = "http://unhinged.co.za/Demo/Nic2/login.php";
+                    window.location.href = "http://unhinged.co.za/Demo/login.php";
                 });
             });
     });

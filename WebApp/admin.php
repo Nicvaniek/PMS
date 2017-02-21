@@ -67,12 +67,11 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> <?php echo $_SESSION['Name'] ?></a></li>
                 <li><a href="../login.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Settings<i class="material-icons right">arrow_drop_down</i></a></li>
+                
             </ul>
             <ul class="side-nav" id="mobile-demo">
                 <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> <?php echo $_SESSION['Name'] ?></a></li>
                 <li><a href="../login.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-                <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Settings<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
     </div>
   </nav>
@@ -152,6 +151,7 @@
 
     mysqli_close($conn2);
   ?>
+  <div class='container'>
   <div class='row'>
         <div class='col m12'>
             <h4>Accounts Summary</h4>
@@ -215,12 +215,12 @@
     mysqli_close($conn);
 ?>
 <div class='row'>
-  <div class="col m6 s12 l6 offset-m3 offset-l3">
+  <div class="col m12 s12">
     <h4 align="center">List of Users</h4>
   </div>
 </div>
 <div class="row">
-    <div class="col m6 s12 l6 offset-m3 offset-l3">
+    <div class="col m12 s12">
         <form>
         <div class="input-field">
           <input id="search" type="search" onkeyup="showResult(this.value)">
@@ -231,7 +231,7 @@
     </div>
 </div>
 <div class="row">
-  <div class="col m6 s12 l6 offset-m3 offset-l3" style="overflow:auto; height:400px;">
+  <div class="col m12 s12 " style="overflow:auto; height:550px;">
     <ul class="collapsible popout" data-collapsible="accordion" id="livesearch">
       <?php
         while($row = mysqli_fetch_assoc($result))
@@ -267,6 +267,14 @@
       ?>  
     </ul>
   </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 </div>
     <footer class="page-footer red darken-2">
         <div class="container">

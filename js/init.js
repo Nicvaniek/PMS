@@ -7,10 +7,13 @@ $(document).ready(function()
     $('.button-collapse').sideNav();
     $('.parallax').parallax();
     $('select').material_select();
-
     $('ul.tabs').tabs({
-        swipeable: true
+        'swipeable': true
     });
+
+    $('#tabs-swipe-demo').tabs({ 'swipeable': true });
+
+
 
     $('.datepicker').pickadate({
         format: 'yyyy-mm-dd',

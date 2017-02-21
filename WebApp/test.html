@@ -1,46 +1,198 @@
-<html lang="en">
+<?php 
+    session_start();
+    $userID = $_SESSION['ID'];
+    $server = "localhost";
+    $username = "morning2";
+    $password = "cm7RQ73jf9";
+    $database = "morning2_PropertyInvestor";
+    // Create Connection
+    $conn = mysqli_connect($server, $username, $password, $database);
+?>
+<div class='container'>
+    <div class='row'>
+        <div class='col m12 s12'>
+            <h4>Your Renovations</h4>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col m12 s12">
+        <?php
+            $sql ="SELECT * FROM Properties WHERE UserID = " . $_SESSION['ID'] . "";
+            $propertyResult = mysqli_query($conn, $sql);
+            if ($propertyResult->num_rows > 0) 
+            {
+                while($propertyRow = $propertyResult->fetch_assoc()) 
+                {
+                    $count = 0;
+                    $propertyLocation = $propertyRow["Location"];
+                    $propertyLocation = str_replace(" ","", $propertyLocation);
+        ?>
+            <ul class="collapsible popout" data-collapsible="accordion">
+                <li>
+                    <div class='collapsible-header'>
+                        <div class='row'>
+                            <div class='col m8 s12'>
+                                <h5><?php echo $propertyRow["Location"]?></h5>
+                            </div>                          
+                        </div>
+                    </div>
+                    <div class='collapsible-body'>
+                        <div class='row'>
+                            <div class="col m12 hide-on-small-only">
+                                <a style='padding-right: 40px; padding-left: 10px; padding-top: 15px;' href='#!' class='secondary-content'><i id='<?php echo $propertyLocation?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                                <a style='padding-right: 20px; padding-left: 10px; padding-top: 15px;' href='#!' class='secondary-content'><i id="<?php echo $propertyLocation?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
+                                <a style='padding-right: 20px; padding-left: 10px; padding-top: 15px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyLocation?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
+                            </div> 
+                        </div>
+                        <table class="responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Supplier </th>
+                                    <th>Invoice attached</th>
+                                    <th>Invoice date</th>
+                                    <th>Amount Paid</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Select</th>
+                                </tr>
+                            </thead>
+                            <tfoot class="hide-on-med-and-up">
+                                <div class='row hide-on-med-and-up'>
+                                    <div class='col m12'>
+                                        <a style='padding-right: 5px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id='<?php echo $propertyLocation?>DeleteBtn' class='red-text text-darken-2 material-icons'>delete</i></a>
+                                        <a style='padding-right: 20px; padding-left: 10px; padding-top: 5px;' href='#!' class='secondary-content'><i id="<?php echo $propertyLocation?>DownloadBtn" class='black-text material-icons'>system_update_alt</i></a>
+                                        <a style='padding-right: 20px; padding-left: 80px; padding-top: 5px;' href='#editModal' class='secondary-content'><i id="<?php echo $propertyLocation?>EditBtn" class='black-text material-icons'>mode_edit</i></a>
+                                    </div>
+                                    
+                                </div>
+                            </tfoot>
+                            <tbody id="<?php echo $propertyLocation?>tbody">
+                                <script>$("#<?php echo $propertyLocation?>tbody").load("../php/RenovationModule/renovationTable.php?id=<?php echo $propertyRow["ID"]?>&location=<?php echo $propertyLocation?>");</script>
+                            </tbody>
+                        </table>
+                        <script type="text/javascript">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-    <title>Property Investor</title>
-    <!-- CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="../js/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="../css/sweetalert.css">
-</head>
-<style type="text/css">
-.input-field div.error {
-    position: relative;
-    top: -1rem;
-    left: 0rem;
-    font-size: 0.8rem;
-    color: #FF4081;
-    -webkit-transform: translateY(0%);
-    -ms-transform: translateY(0%);
-    -o-transform: translateY(0%);
-    transform: translateY(0%);
-}
+                            $('#<?php echo $propertyLocation?>DeleteBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                                if(max == 0)
+                                {
+                                    swal("Error", "You have no renovations for this property. ", "error");
+                                    return;
+                                }
+                                var count = 0;
+                                var found = false;
+                                while(count < max)
+                                {
+                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    {
+                                        found = true;
+                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                                        var trID = "<?php echo $propertyLocation?>Tr" + count + "";
+                                        swal({
+                                            title: "Are you sure?",
+                                            text: "You will not be able to recover this entry",
+                                            type: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#DD6B55",
+                                            confirmButtonText: "Yes, delete it!",
+                                            cancelButtonText: "No, cancel!",
+                                            closeOnConfirm: false,
+                                            closeOnCancel: false
+                                            },function(isConfirm)
+                                            {
+                                                if (isConfirm) 
+                                                {
+                                                    $.post('../php/RenovationModule/deleteRenovation.php', {
+                                                        id: id1
+                                                        }, function(d) {
+                                                            if (d != "")
+                                                            {
+                                                                swal("Deleted!", "Your renovation has been.", "success");
+                                                                document.getElementById(trID).innerHTML = "";
+                                                                max--;
+                                                                localStorage.setItem("<?php echo $propertyLocation?>max", max);
+                                                                $("#dashboardTab").load("../WebApp/tabs/dashboardTab.php");
+                                                                $("#<?php echo $propertyLocation ?>SumProduct").load("http://www.unhinged.co.za/Demo/Kyle12/php/RenovationModule/renovationSumProduct.php?id=<?php echo $propertyRow["ID"] ?>");
+                                                            }                                        
+                                                            else {
+                                                                swal("Error", "Unable to delete renovation. Please refresh the page. ", "error");
+                                                            }
+                                                        });
+                                                } else 
+                                                {
+                                                    swal("Cancelled", "Your renovation is safe", "error");
+                                                }
+                                        });
+                                    }
+                                    count++;
+                                }
+                                if(found == false)
+                                {
+                                    swal("Error", "Please selected the renovation you wish to delete", "error");
+                                }                                        
+                            });
 
-.input-field label.active {
-    width: 100%;
-}
-</style>
+                            $('#<?php echo $propertyLocation?>DownloadBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                                if(max == 0)
+                                {
+                                    swal("Error", "You have no renovations for this property. ", "error");
+                                    return;
+                                }
+                                var count = 0;
+                                var found = false;
+                                while(count < max)
+                                {
+                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    {
+                                        found = true;
+                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                                        window.open("../php/RenovationModule/downloadRenovation.php?id="+id1);
+                                    }
+                                    count++;
+                                } 
+                                if(found == false)
+                                {
+                                    swal("Error", "Please selected the renovation you wish to download", "error");
+                                }                                        
+                            });
 
-<body class="grey lighten-5">
-    <div class="container">
-        <p class="caption">jQuery Validation Plugin</p>
-        <p><a href="http://jqueryvalidation.org/" target="_blank">jQuery Validation</a> This jQuery plugin makes simple clientside form validation easy, whilst still offering plenty of customization options.</p>
-        <div class="divider"></div>
-        <!--jqueryvalidation-->
-        <h4 class="header2">Validations example</h4>
-        <div class='row'>
-            <div class='col m10'>
+                            $('#<?php echo $propertyLocation?>EditBtn').on('click', function(e) {
+                                var max = localStorage.getItem("<?php echo $propertyLocation?>max");
+                                if(max == 0)
+                                {
+                                    swal("Error", "You have no renovations for this property. ", "error");
+                                    return;
+                                }
+                                var count = 0;
+                                while(count < max)
+                                {
+                                    if($('#<?php echo $propertyLocation?>Radio' + count + '').is(':checked'))
+                                    {
+                                        var id1 = $('#<?php echo $propertyLocation?>Radio' + count + ':checked').val();
+                                        $("#editModal").load("../php/RenovationModule/editRenovation.php?id="+id1);
+
+                                        $('#editModal').modal('open');
+                                    }
+                                    count++;
+                                }                                        
+                            });
+                        </script>
+                    </div>
+                </li>
+            <?php 
+                    }
+                }
+            ?>                   
+            </ul>
+        </div>
+    </div>
+<div class='row'>
+            <div class='col m8 s12'>
                 <h4>Add Renovation</h4>
             </div>
-            <div class='col m2'>
+            <div class='col m4 s12'>
                 <br>
                 <p>
                     <input type='checkbox' id='customRenovation' onclick='customRenovation()' />
@@ -48,9 +200,9 @@
                 </p>
             </div>
         </div>
-        <form id="addRenovationForm" method="get" action="" enctype='multipart/form-data'>
+        <form id="addRenovationForm" enctype='multipart/form-data'>
             <div class='row'>
-                <div class='input-field col m8'>
+                <div class='input-field col m12 s12'>
                     <select id="renovationPropertySelect" name="renovationPropertySelect" data-error=".errorTxt10">
                         <option value='' disabled selected>Choose your property</option>
                         <?php 
@@ -63,7 +215,7 @@
                                 $propertyLocation = $propertyRow["Location"];
                                 $propertyLocation = str_replace(" ","", $propertyLocation);
                                 ?>
-                        <option value='<?php echo $propertyLocation. " " .$propertyRow[' ID ']. " " .$userID?>'>
+                        <option value='<?php echo $propertyLocation. " " .$propertyRow['ID']. " " .$userID?>'>
                             <?php echo $propertyRow['Location']?>
                         </option>
                         <?php
@@ -76,7 +228,7 @@
                 </div>
             </div>
             <div class="row">
-                <div id='renovationSelectDiv' class='input-field col m6'>
+                <div id='renovationSelectDiv' class='input-field col m6 s12'>
                     <select id='nameRenovationInput' name="nameRenovationInput" data-error=".errorTxt10">
                         <optgroup label=' WALL AND FLOOR COVERINGS '>
                             <option value='' disabled selected>Choose your renovation</option>
@@ -159,19 +311,19 @@
                     <label>Renovation</label>
                     <div class="errorTxt10"></div>
                 </div>
-                <div id="customRenovationDiv" class="input-field col m6">
+                <div id="customRenovationDiv" class="input-field col m6 s12 hide">
                     <i class="material-icons prefix">info_outline</i>
                     <input id="nameRenovationCustomInput" name="nameRenovationCustomInput" type="text" data-error=".errorTxt1">
                     <div class="errorTxt1"></div>
                     <label for="nameRenovationCustomInput">Custom Renovation</label>
                 </div>
-                <div class="input-field col m3">
+                <div class="input-field col m3 s12">
                     <i class="material-icons prefix">mode_edit</i>
                     <input id="quantityRenovationInput" name="quantityRenovationInput" type="number" data-error=".errorTxt2">
                     <div class="errorTxt2"></div>
                     <label for="quatnityRenovationInput">Quantity</label>
                 </div>
-                <div class="input-field col m3">
+                <div class="input-field col m3 s12">
                     <i class="material-icons prefix">shopping_cart</i>
                     <input id="costRenovationInput" name="costRenovationInput" type="number" data-error=".errorTxt3">
                     <div class="errorTxt3"></div>
@@ -179,13 +331,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col m6">
+                <div class="input-field col m6 s12">
                     <i class="material-icons prefix">store</i>
                     <input id="supplierRenovationInput" name="supplierRenovationInput" type="text" data-error=".errorTxt4">
                     <div class="errorTxt4"></div>
                     <label for="supplierRenovationInput">Supplier</label>
                 </div>
-                <div class="input-field col m6">
+                <div class="input-field col m6 s12">
                     <i class="material-icons prefix">today</i>
                     <input id="invoiceDateRenovationInput" name="invoiceDateRenovationInput" type="date" class="datepicker" data-error=".errorTxt5">
                     <div class="errorTxt5"></div>
@@ -193,7 +345,7 @@
                 </div>
             </div>
             <div class='row'>
-                <div class='file-field input-field s4'>
+                <div class='file-field input-field m4 s12'>
                     <div class='btn red darken-2'>
                         <span>Invoice</span>
                         <input id='invoiceFileRenovationInput' accept="application/pdf" type='file'>
@@ -204,105 +356,12 @@
                 </div>
             </div>
             <div class='row'>
-                <button class='btn red darken-2 waves-effect waves-light' type='submit' name='action'>Add Renovation
+                <button class='btn red darken-2 waves-effect waves-light' type='submit'>Add Renovation
                     <i class='material-icons right'>send</i>
                 </button>
                 <br>
                 <br>
             </div>
         </form>
-        <div class="col s12 m12 l6">
-            <p>Simple jQuery Validation script to validate your form inputs.</p>
-            <pre class="language-javascript"><code class="language-javascript">
 
-     </code></pre>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <script src="../js/materialize.js"></script>
-    <script src="../js/init.js"></script>
-    <script src="../js/webAppAjax.js"></script>
-    <script src="../js/webAppCustoms.js"></script>
-    <script type="text/javascript" src="../js/jquery.validate.js"></script>
-    <script type="text/javascript" src="../js/additional-methods.js"></script>
-    <script type="text/javascript">
-    $("#addRenovationForm").validate({
-        rules: {
-            renovationPropertySelect: {
-                required: true
-            },
-            nameRenovationInput: {
-                required: true
-            },
-            nameRenovationCustomInput: {
-                required: true,
-                minlength: 5
-            },
-            quantityRenovationInput: {
-                required: true,
-                min: 1,
-                number: true
-            },
-            costRenovationInput: {
-                required: true,
-                min: 0,
-                number: true
-            },
-            supplierRenovationInput: {
-                required: true,
-                minlength: 5
-            },
-            invoiceDateRenovationInput: {
-                required: true,
-                date: true
-            },
-            crole: "required",
-            ccomment: {
-                required: true,
-                minlength: 15
-            },
-        },
-        //For custom messages
-        messages: {
-            renovationPropertySelect: {
-                required: "Please select a property"
-            },
-            nameRenovationInput: {
-                required: "Please select a renovation"
-            },
-            nameRenovationCustomInput: {
-                required: "Enter a renovation",
-                minlength: "Enter at least 5 characters"
-            },
-            quantityRenovationInput: {
-                required: "Enter the quantity",
-                min: "Please enter a valid quantity"
-            },
-            costRenovationInput: {
-                required: "Enter the amount",
-                min: "Please enter a valid quantity"
-            },
-            supplierRenovationInput: {
-                required: "Enter supplier information",
-                minlength: "Enter at least 5 characters"
-            },
-            curl: "Enter your website",
-        },
-        errorElement: "div",
-        errorPlacement: function(error, element) {
-            var placement = $(element).data("error");
-            if (placement) {
-                $(placement).append(error)
-            } else {
-                error.insertAfter(element);
-            }
-        }
-    });
-    </script>
-</body>
-
-</html>
-<!--  
--->
+</div>

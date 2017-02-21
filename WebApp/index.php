@@ -84,7 +84,7 @@
                 <li><a href="../login.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Settings<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
-<ul class="tabs tabs-transparent tabs-fixed-width center">
+            <ul id="tabs-swipe-demo" class="tabs tabs-transparent tabs-fixed-width center">
                 <li class="tab"><a href="#dashboardTab">Dashboard</a></li>
                 <li class="tab"><a href="#propertyInformationTab">Property Information</a></li>
                 <li class="tab"><a href="#renovationsTab">Renovations</a></li>
@@ -212,6 +212,76 @@
                 min: "Please enter a valid quantity"
             },
             supplierRenovationInput: {
+                required: "Enter supplier information",
+                minlength: "Enter at least 5 characters"
+            }
+        },
+        errorElement: "div",
+        errorPlacement: function(error, element) {
+            var placement = $(element).data("error");
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    $("#addExpenseForm").validate({
+        rules: {
+            expensePropertySelect: {
+                required: true
+            },
+            expenseOccurrenceSelect: {
+                required: true
+            },
+            nameExpenseInput: {
+                required: true
+            },
+            quantityExpenseInput: {
+                required: true,
+                min: 1,
+                number: true
+            },
+            costExpenseInput: {
+                required: true,
+                min: 0,
+                number: true
+            },
+            paidToExpenseInput: {
+                required: true,
+                minlength: 5
+            },
+            invoiceDateExpenseInput: {
+                required: true,
+                date: true
+            },
+            crole: "required",
+            ccomment: {
+                required: true,
+                minlength: 15
+            },
+        },
+        //For custom messages
+        messages: {
+            expensePropertySelect: {
+                required: "Please select a property"
+            },
+            expenseOccurrenceSelect: {
+                required: "Please select an occurrence"
+            },
+            nameExpenseInput: {
+                required: "Please select a renovation"
+            },
+            quantityExpenseInput: {
+                required: "Enter the quantity",
+                min: "Please enter a valid quantity"
+            },
+            costExpenseInput: {
+                required: "Enter the amount",
+                min: "Please enter a valid quantity"
+            },
+            paidToExpenseInput: {
                 required: "Enter supplier information",
                 minlength: "Enter at least 5 characters"
             }
