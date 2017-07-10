@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Property Investor</title>
+    <!-- CSS  -->
+    <link rel="stylesheet" href="../css/sweetalert.css">
+    <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../css/inputColor.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- JS  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../js/script.js"></script>
+    <script type="text/javascript" src="../js/Chart.js"></script>
+</head>
+<style type="text/css">
+.input-field div.error {
+    position: relative;
+    top: -1rem;
+    left: 0rem;
+    font-size: 0.8rem;
+    color: #FF4081;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+}
+
+.input-field label.active {
+    width: 100%;
+}
+
+header,
+main,
+footer {
+    padding-left: 10%;
+}
+
+@media only screen and (max-width: 992px) {
+    header,
+    main,
+    footer {
+        padding-left: 0;
+    }
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+</style>
+
+<body class="grey lighten-5" ng-app="propertyInvestor" ng-controller="propertyController">
+    <header class="">
+        <nav class="top-nav nav-extended red darken-2 text-white">
+            <div class="container">
+                <a href="#" class="brand-logo">Property Investor</a>
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+                <br>
+                <ul id="tabs-swipe-demo" class="tabs tabs-transparent tabs-fixed-width center">
+                    <li class="tab"><a href="#dashboardTab">Dashboard</a></li>
+                    <li class="tab"><a href="#propertyInformationTab">Property Information</a></li>
+                    <li class="tab"><a href="#expensesTab">Expenses</a></li>
+                    <li class="tab"><a href="#renovationsTab">Renovations</a></li>
+                    <li class="tab"><a href="#rentalIncomeTab">Rental</a></li>
+                    <li class="tab"><a href="#salesValuationsTab">Sale Valuations</a></li>
+                    <li class="tab"><a href="#salesCostsTab">Sale Costs</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Side navbar -->
+        <ul id="slide-out" class="side-nav fixed grey darken-1">
+            <li>
+                <div class="userView">
+                    <div class="background">
+                        <img src="">
+                    </div>
+                    <a href="#!user"><img class="circle" src="../img/default-user-image.jpg"></a>
+                    <a href="#!name"><span class="white-text name">Kyle Erwin</span></a>
+                    <a href="#!email"><span class="white-text email">kyle.erwin24@gmail.com</span></a>
+                </div>
+            </li>
+            <li><a href="#!"><i class="fa fa-home fa-2x white-text" aria-hidden="true"></i><span class="white-text">Home owner</span></a></li>
+            <li><a href="#!"><i class="fa fa-book fa-2x white-text" aria-hidden="true"></i><span id="numberOfpropertiesNavBar"class="white-text">0 Properties</span></a></li>
+            <hr>
+            <div ng-repeat="propertyDetail in propertyDetails">
+                <li><a href="#!" ng-click="selectPropertyToView(propertyDetail.propertyID)"><i class="fa fa-home fa-2x white-text" aria-hidden="true"></i><span class="white-text">{{propertyDetail.streetName}}</span></a></li>
+                </button>
+            </div>
+            <li>
+                <a class="waves-effect waves-light" href="#propertyInformationTab" ng-click="toggleAddProprty()"><span class="white-text">Add Property</span></a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="subheader"><span class="white-text">Settings</span></a></li>
+            <li><a href="#modal2"><i class="fa fa-shopping-bag fa-2x white-text" aria-hidden="true"></i><span class="white-text">Package</span></a></li>
+            <li><a href="#modal1"><i class="fa fa-info-circle fa-2x white-text" aria-hidden="true"></i><span class="white-text">My info</span></a></li>
+            <li><a href="#modal1"><i class="fa fa-power-off fa-2x white-text" aria-hidden="true"></i><span class="white-text">Log out</span></a></li>
+        </ul>
+    </header>
+    <main>
+        <!-- Dasboard tab -->
+        <div id="dashboardTab" class="col m12">
+            <div class='container'>
+                <div ng-show="!propertyDetails.length">
+                    <div class="row">
+                        <br>
+                        <h4>Selected Property</h4>
+                        <hr>
+                    </div>
+                    <p>You have no properties.</p>
+                    <hr>
+                </div>
+                <div class="row" ng-hide="!propertyDetails.length">
+                    <div ng-show="selectedProperty == -1">
+                        <div class="row">
+                            <br>
+                            <h4>Selected Property</h4>
+                            <hr>
+                        </div>
+                        <p>You have not selected a property.</p>
+                        <hr>
+                    </div>
+                    <div ng-hide="selectedProperty == -1">
+                        <div class="row">
+                            <br>
+                            <div class="col m10">
+                                <h4>Charts</h4>
+                            </div>
+                            <div class="col m2">
+                                <button class="btn red darken-2 waves-effect waves-light" type="sumbit">Get Report</button>
+                            </div>
+                            <div class="col m12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m4">
+                                <div id="canvas-holder" style="width:100%">
+                                    <canvas id="propertyDoughnutGraph" />
+                                </div>
+                            </div>
+                            <div class="col m8">
+                                <div style="width:100%;">
+                                    <canvas id="propertyBarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Property information tab -->
+        <div id="propertyInformationTab" class="col m12">
+            <div ng-include="'propertyTab.html'"></div>
+        </div>
+        <!-- Expenses Tab -->
+        <div id="expensesTab" class="col m12">
+            <div class='container'>
+                <div ng-show="!propertyDetails.length">
+                    <div class="row">
+                        <br>
+                        <h4>Selected Property</h4>
+                        <hr>
+                    </div>
+                    <p>You have no properties.</p>
+                    <hr>
+                </div>
+                <div class="row" ng-hide="!propertyDetails.length">
+                    <div ng-show="selectedProperty == -1">
+                        <div class="row">
+                            <br>
+                            <h4>Selected Property</h4>
+                            <hr>
+                        </div>
+                        <p>You have not selected a property.</p>
+                        <hr>
+                    </div>
+                    <div ng-hide="selectedProperty == -1">
+                        <!-- Expenses table -->
+                        <div class="row" ng-repeat="propertyDetail in propertyDetails | filter:{ propertyID: selectedProperty }">
+                            <br>
+                            <div class="col m6">
+                                <h4>{{propertyDetail.streetName}} - Expenses</h4>
+                            </div>
+                            <div class="col m6">
+                                <a style="cursor:pointer; padding-right: 40px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="red-text text-darken-2 material-icons" ng-click="deleteExpense()">delete</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i  class="black-text material-icons">system_update_alt</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="selectExpenseToEdit()" >mode_edit</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="repeatExpense()">settings_backup_restore</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="toggleAddExpense();" >playlist_add</i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr>
+                        </div>
+                        <form ng-submit="addNewExpense(expenseDetails)" enctype="multipart/form-data">
+                            <ul id="expensesCollapsible" class="collapsible popout" data-collapsible="expandable">
+                                <li>
+                                    <div class="collapsible-header active">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>All Expenses</h5>
+                                                <h6>Total Cost: <span id="currency-custom">{{getTotalExpenseCost("") | currency:"R"}}</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Description</th>
+                                                            <th>Supplier</th>
+                                                            <th>Invoice No</th>
+                                                            <th>Invoice Date</th>
+                                                            <th>Amount Paid</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total Paid</th>
+                                                            <th>Invoice Attached</th>
+                                                            <th>Select</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="expenseDetail in expenseDetails | filter:{ propertyID: selectedProperty }">
+                                                            <td>{{expenseDetail.description}}</td>
+                                                            <td>{{expenseDetail.paidTo}}</td>
+                                                            <td>{{expenseDetail.invoiceNumber}}</td>
+                                                            <td>{{expenseDetail.invoiceDate}}</td>
+                                                            <td><span id="currency-custom">{{expenseDetail.cost| currency:"R"}}</span></td>
+                                                            <td>{{expenseDetail.quantity}}</td>
+                                                            <td><span id="currency-custom">{{expenseDetail.quantity * expenseDetail.cost | currency:"R"}}</span></td>
+                                                            <td>Yes</td>
+                                                            <td>
+                                                                <div>
+                                                                    <input class="with-gap" name="group2" id="{{expenseDetail.description}}radio" type="radio">
+                                                                    <label for="{{expenseDetail.description}}radio"></label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li id="addExpensesCollapsible" ng-show="showAddExpense || showEditExpense">
+                                    <div class="collapsible-header active">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>Add Expense</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Description</th>
+                                                            <th>Supplier</th>
+                                                            <th>Invoice No</th>
+                                                            <th>Invoice Date</th>
+                                                            <th>Amount Paid</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total Paid</th>
+                                                            <th>Invoice Attached</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputExpenseDescription" type="text" ng-model="expenseDetails.description" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputExpensePaidTo" type="text" ng-model="expenseDetails.paidTo" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputExpenseInvoiceNumber" type="number" ng-model="expenseDetails.invoiceNumber">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputExpenseInvoiceDate" type="date" class="datepicker" ng-model="expenseDetails.invoiceDate" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputExpenseCost" type="number" ng-model="expenseDetails.cost" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputExpenseQuantity" type="number" ng-model="expenseDetails.quantity" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <strong> <span id="currency-custom">{{expenseDetails.quantity * expenseDetails.cost | currency:"R"}}</span></strong>
+                                                            </td>
+                                                            <td>
+                                                                <div class="file-field input-field">
+                                                                    <div>
+                                                                        <input type="file">
+                                                                    </div>
+                                                                    <div class="file-path-wrapper">
+                                                                        <input class="file-path validate" type="text">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row">
+                                <br>
+                            </div>
+                            <div ng-show="showAddExpense" class="row">
+                                <div ng-show="expenseAddQueue.length == 0" class="col m4 offset-m8">
+                                    <a class="btn red darken-2 waves-effect waves-light" href="#expenseQuickSelectModal">Quick Select Expenses</a>
+                                    <button class="btn red darken-2 waves-effect waves-light" type="submit">Add</button>
+                                </div>
+                                <div ng-show="expenseAddQueue.length != 0" class="col m6">
+                                    <strong><h5>Queue</h5></strong>
+                                    <h6 ng-repeat="expense in expenseAddQueue">{{expense}}</h6>
+                                </div>
+                                <div ng-show="expenseAddQueue.length != 0" class="col m6">
+                                    <button class="btn grey darken-2 waves-effect waves-light" type="button" ng-click="expenseAddQueue = []">Clear Queue</button>
+                                    <a class="btn red darken-2 waves-effect waves-light" href="#expenseQuickSelectModal">Quick Select Expenses</a>
+                                    <button class="btn red darken-2 waves-effect waves-light" type="submit">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Edit Expense -->
+                        <div ng-show="showEditExpense" class="row">
+                            <div class="col m4 offset-m8">
+                                <button class="btn grey darken-2 waves-effect waves-light" type="" ng-click="toggleEditExpense()">Cancel</button>
+                                <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="editExpense()">Edit</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <div class="col m12">
+                                <h4>Charts</h4>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form ng-submit="filterExpenseGraph(filterDetails)" enctype="multipart/form-data">
+                                <div class="input-field col m5">
+                                    <i class="material-icons prefix">today</i>
+                                    <input id="beginingExpenseDate" type="date" class="datepicker" required>
+                                    <label>Start Date</label>
+                                </div>
+                                <div class="input-field col m5">
+                                    <i class="material-icons prefix">today</i>
+                                    <input id="endExpenseDate" type="date" class="datepicker" required>
+                                    <label>End Date</label>
+                                </div>
+                                <div class="col m2">
+                                    <button class="btn red darken-2 waves-effect waves-light" type="sumbit">Fiter</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col m4">
+                                <div id="expenseDoughnutGraph-holder" style="width:100%">
+                                    <canvas id="expenseDoughnutGraph" />
+                                </div>
+                            </div>
+                            <div class="col m8">
+                                <div style="width:100%;">
+                                    <canvas id="expenseBarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Renovation Tab -->
+        <div id="renovationsTab" class="col m12">
+            <div class='container'>
+                <div ng-show="!propertyDetails.length">
+                    <div class="row">
+                        <br>
+                        <h4>Selected Property</h4>
+                        <hr>
+                    </div>
+                    <p>You have no properties.</p>
+                    <hr>
+                </div>
+                <div class="row" ng-hide="!propertyDetails.length">
+                    <div ng-show="selectedProperty == -1">
+                        <div class="row">
+                            <br>
+                            <h4>Selected Property</h4>
+                            <hr>
+                        </div>
+                        <p>You have not selected a property.</p>
+                        <hr>
+                    </div>
+                    <div ng-hide="selectedProperty == -1">
+                        <!-- Renovations table -->
+                        <div class="row" ng-repeat="propertyDetail in propertyDetails | filter:{ propertyID: selectedProperty }">
+                            <br>
+                            <div class="col m6">
+                                <h4>{{propertyDetail.streetName}} - Renovations</h4>
+                            </div>
+                            <div class="col m6">
+                                <a style="cursor:pointer; padding-right: 40px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="red-text text-darken-2 material-icons" ng-click="deleteRenovation()">delete</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i  class="black-text material-icons">system_update_alt</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="selectRenovationToEdit()" >mode_edit</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="repeatRenovation()">settings_backup_restore</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="toggleAddRenovation();" >playlist_add</i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr>
+                        </div>
+                        <form ng-submit="addNewRenovation(renovationDetails)" enctype="multipart/form-data">
+                            <ul id="renovationCollapsible" class="collapsible popout" data-collapsible="expandable">
+                                <li id="allRenovationsCollapsible">
+                                    <div class="collapsible-header active">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>All Renovations</h5>
+                                                <h6>Total Cost: <span id="currency-custom">{{getTotalRenovationCost("") | currency:"R"}}</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Description</th>
+                                                            <th>Supplier</th>
+                                                            <th>Invoice No</th>
+                                                            <th>Invoice Date</th>
+                                                            <th>Amount Paid</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total Paid</th>
+                                                            <th>Invoice Attached</th>
+                                                            <th>Select</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="renovationDetail in renovationDetails | filter:{ propertyID: selectedProperty }">
+                                                            <td>{{renovationDetail.description}}</td>
+                                                            <td>{{renovationDetail.paidTo}}</td>
+                                                            <td>{{renovationDetail.invoiceNumber}}</td>
+                                                            <td>{{renovationDetail.invoiceDate}}</td>
+                                                            <td><span id="currency-custom">{{renovationDetail.cost| currency:"R"}}</span></td>
+                                                            <td>{{renovationDetail.quantity}}</td>
+                                                            <td><span id="currency-custom">{{renovationDetail.quantity * renovationDetail.cost | currency:"R"}}</span></td>
+                                                            <td>Yes</td>
+                                                            <td>
+                                                                <div>
+                                                                    <input class="with-gap" name="group2" id="{{renovationDetail.description}}radio" type="radio">
+                                                                    <label for="{{renovationDetail.description}}radio"></label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li id="addRenovationsCollapsible" ng-show="showAddRenovation || showEditRenovation">
+                                    <div class="collapsible-header active">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>Add Renovation</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Description</th>
+                                                            <th>Supplier</th>
+                                                            <th>Invoice No</th>
+                                                            <th>Invoice Date</th>
+                                                            <th>Amount Paid</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total Paid</th>
+                                                            <th>Invoice Attached</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRenovationDescription" type="text" ng-model="renovationDetails.description" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRenovationPaidTo" type="text" ng-model="renovationDetails.paidTo" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRenovationInvoiceNumber" type="number" ng-model="renovationDetails.invoiceNumber">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRenovationInvoiceDate" type="date" class="datepicker" ng-model="renovationDetails.invoiceDate" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRenovationCost" type="number" ng-model="renovationDetails.cost" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRenovationQuantity" type="number" ng-model="renovationDetails.quantity" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <strong> <span id="currency-custom">{{renovationDetails.quantity * renovationDetails.cost | currency:"R"}}</span></strong>
+                                                            </td>
+                                                            <td>
+                                                                <div class="file-field input-field">
+                                                                    <div>
+                                                                        <input type="file">
+                                                                    </div>
+                                                                    <div class="file-path-wrapper">
+                                                                        <input class="file-path validate" type="text">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row">
+                                <br>
+                            </div>
+                            <div ng-show="showAddRenovation" class="row">
+                                <div ng-show="renovationAddQueue.length == 0" class="col m4 offset-m8">
+                                    <a class="btn red darken-2 waves-effect waves-light" href="#renovationQuickSelectModal">Quick Select Renovations</a>
+                                    <button class="btn red darken-2 waves-effect waves-light" type="submit">Add</button>
+                                </div>
+                                <div ng-show="renovationAddQueue.length != 0" class="col m6">
+                                    <strong><h5>Queue</h5></strong>
+                                    <h6 ng-repeat="renovation in renovationAddQueue">{{renovation}}</h6>
+                                </div>
+                                <div ng-show="renovationAddQueue.length != 0" class="col m6">
+                                    <button class="btn grey darken-2 waves-effect waves-light" type="button" ng-click="renovationAddQueue = []">Clear Queue</button>
+                                    <a class="btn red darken-2 waves-effect waves-light" href="#renovationQuickSelectModal">Quick Select Renovations</a>
+                                    <button class="btn red darken-2 waves-effect waves-light" type="submit">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Edit Renovation -->
+                        <div ng-show="showEditRenovation" class="row">
+                            <div class="col m4 offset-m8">
+                                <button class="btn grey darken-2 waves-effect waves-light" type="" ng-click="toggleEditRenovation()">Cancel</button>
+                                <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="editRenovation()">Edit</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <div class="col m12">
+                                <h4>Charts</h4>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form ng-submit="filterRenovationGraph(filterDetails)" enctype="multipart/form-data">
+                                <div class="input-field col m5">
+                                    <i class="material-icons prefix">today</i>
+                                    <input id="beginingRenovationDate" type="date" class="datepicker" required>
+                                    <label>Start Date</label>
+                                </div>
+                                <div class="input-field col m5">
+                                    <i class="material-icons prefix">today</i>
+                                    <input id="endRenovationDate" type="date" class="datepicker" required>
+                                    <label>End Date</label>
+                                </div>
+                                <div class="col m2">
+                                    <button class="btn red darken-2 waves-effect waves-light" type="sumbit">Fiter</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col m4">
+                                <div id="canvas-holder" style="width:100%">
+                                    <canvas id="renovationDoughnutGraph" />
+                                </div>
+                            </div>
+                            <div class="col m8">
+                                <div style="width:100%;">
+                                    <canvas id="renovationBarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @Rental -->
+        <div id="rentalIncomeTab" class="col m12">
+            <div class='container'>
+                <div ng-show="!propertyDetails.length">
+                    <div class="row">
+                        <br>
+                        <h4>Selected Property</h4>
+                        <hr>
+                    </div>
+                    <p>You have no properties.</p>
+                    <hr>
+                </div>
+                <div class="row" ng-hide="!propertyDetails.length">
+                    <div ng-show="selectedProperty == -1">
+                        <div class="row">
+                            <br>
+                            <h4>Selected Property</h4>
+                            <hr>
+                        </div>
+                        <p>You have not selected a property.</p>
+                        <hr>
+                    </div>
+                    <div ng-hide="selectedProperty == -1">
+                        <!-- @Rents table -->
+                        <div class="row" ng-repeat="propertyDetail in propertyDetails | filter:{ propertyID: selectedProperty }">
+                            <br>
+                            <div class="col m6">
+                                <h4>{{propertyDetail.streetName}} - Rent</h4>
+                            </div>
+                            <div class="col m6">
+                                <a style="cursor:pointer; padding-right: 40px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="red-text text-darken-2 material-icons" ng-click="deleteRent()">delete</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i  class="black-text material-icons">system_update_alt</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="selectRentToEdit()" >mode_edit</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="repeatRent()">settings_backup_restore</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="toggleAddRent()" >playlist_add</i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr>
+                        </div>
+                        <form ng-submit="addNewRent(rentDetails)" enctype="multipart/form-data">
+                            <ul id="rentCollapsible" class="collapsible popout" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>All Rent Records</h5>
+                                                <h6>Total Income: <span id="currency-custom">{{getTotalRentIncome("") | currency:"R"}}</span></h6>
+                                                <h6>Outstanding: <span id="currency-custom">{{getTotalRentBalance("") | currency:"R"}}</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Tentant</th>
+                                                            <th>Invoice</th>
+                                                            <th>Invoice Date</th>
+                                                            <th>Invoice Amount</th>
+                                                            <th>Proof of Payement</th>
+                                                            <th>Proof of Payment Date</th>
+                                                            <th>Payment Amount</th>
+                                                            <th>Balance</th>
+                                                            <th>Select</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="rentDetail in rentDetails | filter:{ propertyID: selectedProperty }">
+                                                            <td>{{rentDetail.tentantFullName}}</td>
+                                                            <td>Yes</td>
+                                                            <td>{{rentDetail.invoiceDate}}</td>
+                                                            <td><span id="currency-custom">{{rentDetail.invoiceAmount | currency:"R"}}</span></td>
+                                                            <td>Yes</td>
+                                                            <td>{{rentDetail.proofOfPaymentDate}}</td>
+                                                            <td><span id="currency-custom">{{rentDetail.proofOfPaymentAmount | currency:"R"}}</span></td>
+                                                            <td><span id="currency-custom">{{rentDetail.proofOfPaymentAmount - rentDetail.invoiceAmount | currency:"R"}}</span></td>
+                                                            <td>
+                                                                <div>
+                                                                    <input class="with-gap" name="group2" id="{{rentDetail.tentantFullName}}Rentradio" type="radio">
+                                                                    <label for="{{rentDetail.tentantFullName}}Rentradio"></label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li ng-repeat="tentantDetail in tentantDetails | filter:{ propertyID: selectedProperty }">
+                                    <div class="collapsible-header">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>{{tentantDetail.fullName}}</h5>
+                                                <h6>Total Income: <span id="currency-custom">{{getTotalRentIncome("") | currency:"R"}}</span></h6>
+                                                <h6>Outstanding: <span id="currency-custom">{{getTotalRentBalance(tentantDetail.fullName) | currency:"R"}}</span></h6>
+                                                <data ng-init="tentantName = tentantDetail.fullName + ''" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Tentant</th>
+                                                            <th>Invoice</th>
+                                                            <th>Invoice Date</th>
+                                                            <th>Invoice Amount</th>
+                                                            <th>Proof of Payement</th>
+                                                            <th>Proof of Payment Date</th>
+                                                            <th>Payment Amount</th>
+                                                            <th>Balance</th>
+                                                            <th>Select</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="rentDetail in rentDetails | filter:{ propertyID: selectedProperty, tentantFullName: tentantName}">
+                                                            <td>{{rentDetail.tentantFullName}}</td>
+                                                            <td>Yes</td>
+                                                            <td>{{rentDetail.invoiceDate}}</td>
+                                                            <td><span id="currency-custom">{{rentDetail.invoiceAmount | currency:"R"}}</span></td>
+                                                            <td>Yes</td>
+                                                            <td>{{rentDetail.proofOfPaymentDate}}</td>
+                                                            <td><span id="currency-custom">{{rentDetail.proofOfPaymentAmount | currency:"R"}}</span></td>
+                                                            <td><span id="currency-custom">{{rentDetail.proofOfPaymentAmount - rentDetail.invoiceAmount | currency:"R"}}</span></td>
+                                                            <td>
+                                                                <div>
+                                                                    <input class="with-gap" name="group2" id="{{rentDetail.tentantFullName}}Rentradio" type="radio">
+                                                                    <label for="{{rentDetail.tentantFullName}}Rentradio"></label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li ng-show="showAddRent || showEditRent">
+                                    <div class="collapsible-header active">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>Add Rent</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Tentant</th>
+                                                            <th>Invoice</th>
+                                                            <th>Invoice Date</th>
+                                                            <th>Invoice Amount</th>
+                                                            <th>Proof of Payement</th>
+                                                            <th>Proof of Payment Date</th>
+                                                            <th>Payment Amount</th>
+                                                            <th>Balance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRentTentantFullName" type="text" ng-model="rentDetails.tentantFullName" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="file-field input-field">
+                                                                    <div>
+                                                                        <input type="file">
+                                                                    </div>
+                                                                    <div class="file-path-wrapper">
+                                                                        <input class="file-path validate" type="text">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRentInvoiceDate" type="date" class="datepicker" ng-model="rentDetails.invoiceDate" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRentInvoiceAmount" type="number" ng-model="rentDetails.invoiceAmount" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="file-field input-field">
+                                                                    <div>
+                                                                        <input type="file">
+                                                                    </div>
+                                                                    <div class="file-path-wrapper">
+                                                                        <input class="file-path validate" type="text">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRentProofOfPaymentDate" type="date" class="datepicker" ng-model="rentDetails.proofOfPaymentDate" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputRentProofOfPaymentAmount" type="number" ng-model="rentDetails.proofOfPaymentAmount" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <strong> <span id="currency-custom">{{rentDetails.invoiceAmount - rentDetails.proofOfPaymentAmount | currency:"R"}}</span></strong>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row">
+                                <br>
+                            </div>
+                            <!-- @Rent Add -->
+                            <div ng-show="showAddRent" class="row">
+                                <div class="col m2 offset-m10">
+                                    <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Edit Rent -->
+                        <div ng-show="showEditRent" class="row">
+                            <div class="col m4 offset-m8">
+                                <button class="btn grey darken-2 waves-effect waves-light" type="" ng-click="toggleEditRent()">Cancel</button>
+                                <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="editRent()">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-hide="!propertyDetails.length">
+                    <div ng-hide="selectedProperty == -1">
+                        <!-- @Tentants table -->
+                        <div class="row" ng-repeat="propertyDetail in propertyDetails | filter:{ propertyID: selectedProperty }">
+                            <br>
+                            <div class="col m6">
+                                <h4>Tentants</h4>
+                            </div>
+                            <div class="col m6">
+                                <a style="cursor:pointer; padding-right: 40px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="red-text text-darken-2 material-icons" ng-click="deleteTentant()">delete</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i  class="black-text material-icons">system_update_alt</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="selectTentantToEdit()" >mode_edit</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="toggleAddTentant()" >playlist_add</i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr>
+                        </div>
+                        <ul class="collapsible popout" data-collapsible="accordion">
+                            <li ng-repeat="tentantDetail in tentantDetails | filter:{ propertyID: selectedProperty }">
+                                <div class="collapsible-header">
+                                    <div class="row">
+                                        <div class="col m12">
+                                            <h5>{{tentantDetail.fullName}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapsible-body">
+                                    <div class="row">
+                                        <div class="col m7 offset-m1">
+                                            <h5>Tentant Details</h5>
+                                        </div>
+                                        <div class="col m3">
+                                            <input class="with-gap" name="group2" id="{{tentantDetail.fullName}}radio" type="radio">
+                                            <label for="{{tentantDetail.fullName}}radio">Select Tentant</label>
+                                        </div>
+                                        <div class="col m10 offset-m1">
+                                            <hr>
+                                            <h6>ID Number: {{tentantDetail.idNumber}}</h6>
+                                            <h6>Cell Number: {{tentantDetail.cellNumber}}</h6>
+                                            <h6>Email: {{tentantDetail.email}}</h6>
+                                            <h6>Employer: {{tentantDetail.employer}}</h6>
+                                            <h6>Employer Cell Number: {{tentantDetail.employerCellNumber}}</h6>
+                                            <h6>Work Address: {{tentantDetail.workAddress}}</h6>
+                                        </div>
+                                        <div class="col m10 offset-m1">
+                                            <h5>Rent Details</h5>
+                                            <hr>
+                                            <h6>Deposit: {{tentantDetail.rentDeposit}}</h6>
+                                            <h6>Rent per Month: {{tentantDetail.rentPerMonth}}</h6>
+                                            <h6>Rent Duration: {{tentantDetail.rentDuration}}</h6>
+                                            <h6>Rent Escalation: {{tentantDetail.rentEscalation}}</h6>
+                                            <h6>Total Amount So Far: {{getTotalRentIncome(tentantDetail.fullName)}}</h6>
+                                            <h6>Ponetial Total Amount: {{tentantDetail.rentPerMonth * tentantDetail.rentDuration}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <!-- @Tentant Add -->
+                        <div ng-show="showAddTentant" class="row">
+                            <h4>Add Tentant</h4>
+                            <hr>
+                            <form ng-submit="addNewTentant(tentantDetails)" enctype="multipart/form-data">
+                                <div class="col m12">
+                                    <h5>Tentant Details</h5>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m3 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="text" ng-model="tentantDetails.fullName" required>
+                                        <label>Name and Surname</label>
+                                    </div>
+                                    <div class="input-field col m3">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="text" ng-model="tentantDetails.email">
+                                        <label>Email Address</label>
+                                    </div>
+                                    <div class="input-field col m2">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="number" ng-model="tentantDetails.idNumber" required>
+                                        <label>ID Number</label>
+                                    </div>
+                                    <div class="input-field col m2">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="text" ng-model="tentantDetails.cellNumber">
+                                        <label>Cell Phone Number</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m5 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="text" ng-model="tentantDetails.employer">
+                                        <label>Employer</label>
+                                    </div>
+                                    <div class="input-field col m5">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="text" ng-model="tentantDetails.employerCellNumber">
+                                        <label>Employer Cell Phone Number</label>
+                                    </div>
+                                    <div class="input-field col m10 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="text" ng-model="tentantDetails.workAddress">
+                                        <label>Work Address</label>
+                                    </div>
+                                </div>
+                                <div class="col m12">
+                                    <h5>Rent Details</h5>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m3 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="number" ng-model="tentantDetails.rentPerMonth" required>
+                                        <label>Rent per Month</label>
+                                    </div>
+                                    <div class="input-field col m3">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="number" ng-model="tentantDetails.rentDuration" required>
+                                        <label>Duration Of Rent (Months)</label>
+                                    </div>
+                                    <div class="input-field col m2">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="number" ng-model="tentantDetails.rentEscalation">
+                                        <label>Rent Escalation</label>
+                                    </div>
+                                    <div class="input-field col m2">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input type="number" ng-model="tentantDetails.rentDeposit">
+                                        <label>Deposit</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="file-field input-field col m5 offset-m1">
+                                        <div class="btn red darken-2">
+                                            <span>Upload Contract</span>
+                                            <input type="file">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="file-field input-field col m5">
+                                        <div class="btn red darken-2">
+                                            <span>Upload Deposit</span>
+                                            <input type="file">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col m10">
+                                    </div>
+                                    <div class="col m2 s12">
+                                        <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="">Add</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Edit Tentant -->
+                        <div ng-show="showEditTentant" id="editTenantDiv">
+                            <h4>Edit Tentant</h4>
+                            <hr>
+                            <form ng-submit="editTentant(tentantDetails)" enctype="multipart/form-data">
+                                <div class="col m12">
+                                    <h5>Tentant Details</h5>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m5 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantFullName" type="text" ng-model="tentantDetails.fullName" required>
+                                        <label>Name and Surname</label>
+                                    </div>
+                                    <div class="input-field col m5">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantIdNumber" type="number" ng-model="tentantDetails.idNumber" required>
+                                        <label>ID Number</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m5 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantCellNumber" type="text" ng-model="tentantDetails.cellNumber">
+                                        <label>Cell Phone Number</label>
+                                    </div>
+                                    <div class="input-field col m5">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantEmail" type="text" ng-model="tentantDetails.email">
+                                        <label>Email Address</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m10 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantEmployer" type="text" ng-model="tentantDetails.employer">
+                                        <label>Employer</label>
+                                    </div>
+                                    <div class="input-field col m10 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantWorkAddress" type="text" ng-model="tentantDetails.workAddress">
+                                        <label>Work Address</label>
+                                    </div>
+                                </div>
+                                <div class="col m12">
+                                    <h5>Rent Details</h5>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m5 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantRentPerMonth" type="number" ng-model="tentantDetails.rentPerMonth" required>
+                                        <label>Rent per Month</label>
+                                    </div>
+                                    <div class="input-field col m5">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantRentDuration" type="number" ng-model="tentantDetails.rentDuration" required>
+                                        <label>Duration Of Rent (Months)</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col m5 offset-m1">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantRentEscalation" type="number" ng-model="tentantDetails.rentEscalation">
+                                        <label>Rent Escalation</label>
+                                    </div>
+                                    <div class="input-field col m5">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <input id="editTentantRentDeposit" type="number" ng-model="tentantDetails.rentDeposit">
+                                        <label>Deposit</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="file-field input-field col m10 offset-m1">
+                                        <div class="btn red darken-2">
+                                            <span>Upload Contract</span>
+                                            <input type="file">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col m10">
+                                    </div>
+                                    <div class="col m2 s12">
+                                        <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="">Confirm</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @SalesTab -->
+        <div id="salesValuationsTab" class="col m12">
+            <!-- SaleAgent Tab -->
+            <div id="saleAgentsTab" class="col m12">
+                <div class='container'>
+                    <div ng-show="!propertyDetails.length">
+                        <div class="row">
+                            <br>
+                            <h4>Selected Property</h4>
+                            <hr>
+                        </div>
+                        <p>You have no properties.</p>
+                        <hr>
+                    </div>
+                    <div class="row" ng-hide="!propertyDetails.length">
+                        <div ng-show="selectedProperty == -1">
+                            <div class="row">
+                                <br>
+                                <h4>Selected Property</h4>
+                                <hr>
+                            </div>
+                            <p>You have not selected a property.</p>
+                            <hr>
+                        </div>
+                        <div ng-hide="selectedProperty == -1">
+                            <!-- SaleAgents table -->
+                            <div class="row" ng-repeat="propertyDetail in propertyDetails | filter:{ propertyID: selectedProperty }">
+                                <br>
+                                <div class="col m6">
+                                    <h4>{{propertyDetail.streetName}} - Sale Agents</h4>
+                                </div>
+                                <div class="col m6">
+                                    <a style="cursor:pointer; padding-right: 40px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="red-text text-darken-2 material-icons" ng-click="deleteSaleAgent()">delete</i></a>
+                                    <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="selectSaleAgentToEdit()" >mode_edit</i></a>
+                                    <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="toggleAddSaleAgent();" >playlist_add</i></a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr>
+                            </div>
+                            <form ng-submit="addNewSaleAgent(saleAgentDetails)" enctype="multipart/form-data">
+                                <ul id="saleAgentCollapsible" class="collapsible popout" data-collapsible="expandable">
+                                    <li id="allSaleAgentsCollapsible">
+                                        <div class="collapsible-header active">
+                                            <div class="row">
+                                                <div class="col m12">
+                                                    <h5>All Sale Agents</h5>
+                                                    <h6>Average Valuation: <span id="currency-custom">{{getAverageSaleAgentCost("") | currency:"R"}}</span></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+                                                <div class="col m12">
+                                                    <table class="highlight">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Company</th>
+                                                                <th>Full Name</th>
+                                                                <th>Cell Number</th>
+                                                                <th>Email</th>
+                                                                <th>Valuation</th>
+                                                                <th>Valuation Report</th>
+                                                                <th>Valuation Date</th>
+                                                                <th>Select</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="saleAgentDetail in saleAgentDetails | filter:{ propertyID: selectedProperty }">
+                                                                <td>{{saleAgentDetail.company}}</td>
+                                                                <td>{{saleAgentDetail.fullName}}</td>
+                                                                <td>{{saleAgentDetail.cellNumber}}</td>
+                                                                <td>{{saleAgentDetail.email}}</td>
+                                                                <td><span id="currency-custom">{{saleAgentDetail.valuation| currency:"R"}}</span></td>
+                                                                <td></td>
+                                                                <td>{{saleAgentDetail.valuationDate}}</td>
+                                                                <td>
+                                                                    <div>
+                                                                        <input class="with-gap" name="group2" id="{{saleAgentDetail.fullName}}radio" type="radio">
+                                                                        <label for="{{saleAgentDetail.fullName}}radio"></label>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li id="addSaleAgentsCollapsible" ng-show="showAddSaleAgent || showEditSaleAgent">
+                                        <div class="collapsible-header active">
+                                            <div class="row">
+                                                <div class="col m12">
+                                                    <h5>Add Sale Agent</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapsible-body">
+                                            <div class="row">
+                                                <div class="col m12">
+                                                    <table class="highlight">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Company</th>
+                                                                <th>Full Name</th>
+                                                                <th>Cell Number</th>
+                                                                <th>Email</th>
+                                                                <th>Valuation</th>
+                                                                <th>Valuation Report</th>
+                                                                <th>Valuation Date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="input-field">
+                                                                        <input id="inputSaleAgentCompany" type="text" ng-model="saleAgentDetails.company" required>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-field">
+                                                                        <input id="inputSaleAgentFullName" type="text" ng-model="saleAgentDetails.fullName" required>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-field">
+                                                                        <input id="inputSaleAgentCellPhone" type="number" ng-model="saleAgentDetails.cellNumber">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-field">
+                                                                        <input id="inputSaleAgentEmail" type="email" ng-model="saleAgentDetails.email" required>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-field">
+                                                                        <input id="inputSaleAgentValuation" type="number" ng-model="saleAgentDetails.valuation" required>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="file-field input-field">
+                                                                        <div>
+                                                                            <input type="file">
+                                                                        </div>
+                                                                        <div class="file-path-wrapper">
+                                                                            <input class="file-path validate" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-field">
+                                                                        <input id="inputSaleAgentValuationDate" class="datepicker" type="date" ng-model="saleAgentDetails.valuationDate">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="row">
+                                    <br>
+                                </div>
+                                <div ng-show="showAddSaleAgent" class="row">
+                                    <div class="col m2 offset-m10">
+                                        <button class="btn red darken-2 waves-effect waves-light" type="submit">Add</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- Edit SaleAgent -->
+                            <div ng-show="showEditSaleAgent" class="row">
+                                <div class="col m4 offset-m8">
+                                    <button class="btn grey darken-2 waves-effect waves-light" type="" ng-click="toggleEditSaleAgent()">Cancel</button>
+                                    <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="editSaleAgent()">Edit</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <br>
+                                <div class="col m12">
+                                    <h4>Charts</h4>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col m4">
+                                    <div id="canvas-holder" style="width:100%">
+                                        <canvas id="saleAgentDoughnutGraph" />
+                                    </div>
+                                </div>
+                                <div class="col m8">
+                                    <div style="width:100%;">
+                                        <canvas id="saleAgentBarChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @SalesTab -->
+        <div id="salesCostsTab" class="col m12">
+            <div class='container'>
+                <div ng-show="!propertyDetails.length">
+                    <div class="row">
+                        <br>
+                        <h4>Selected Property</h4>
+                        <hr>
+                    </div>
+                    <p>You have no properties.</p>
+                    <hr>
+                </div>
+                <div class="row" ng-hide="!propertyDetails.length">
+                    <div ng-show="selectedProperty == -1">
+                        <div class="row">
+                            <br>
+                            <h4>Selected Property</h4>
+                            <hr>
+                        </div>
+                        <p>You have not selected a property.</p>
+                        <hr>
+                    </div>
+                    <div ng-hide="selectedProperty == -1">
+                        <!-- Sales table -->
+                        <div class="row" ng-repeat="propertyDetail in propertyDetails | filter:{ propertyID: selectedProperty }">
+                            <br>
+                            <div class="col m6">
+                                <h4>{{propertyDetail.streetName}} - Sale Expenses</h4>
+                            </div>
+                            <div class="col m6">
+                                <a style="cursor:pointer; padding-right: 40px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="red-text text-darken-2 material-icons" ng-click="deleteSale()">delete</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i  class="black-text material-icons">system_update_alt</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="selectSaleToEdit()" >mode_edit</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="repeatSale()">settings_backup_restore</i></a>
+                                <a style="cursor:pointer; padding-right: 20px; padding-left: 10px; padding-top: 15px;" class="secondary-content"><i class="black-text material-icons" ng-click="toggleAddSale();" >playlist_add</i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr>
+                        </div>
+                        <form ng-submit="addNewSale(saleDetails)" enctype="multipart/form-data">
+                            <ul id="salesCollapsible" class="collapsible popout" data-collapsible="expandable">
+                                <li id="allSalesCollapsible">
+                                    <div class="collapsible-header active">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>Compliance Certificates and Expenses</h5>
+                                                <h6>Total Cost: <span id="currency-custom">{{getTotalSaleCost("") | currency:"R"}}</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Description</th>
+                                                            <th>Agent/Supplier</th>
+                                                            <th>Cost</th>
+                                                            <th>Document</th>
+                                                            <th>Document Date</th>
+                                                            <th>Select</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="saleDetail in saleDetails | filter:{ propertyID: selectedProperty }">
+                                                            <td>{{saleDetail.description}}</td>
+                                                            <td>{{saleDetail.supplier}}</td>
+                                                            <td><span id="currency-custom">{{saleDetail.cost | currency:"R"}}</span></td>
+                                                            <td>Yes</td>
+                                                            <td>{{saleDetail.documentDate}}</td>
+                                                            <td>
+                                                                <div>
+                                                                    <input class="with-gap" name="group2" id="{{saleDetail.description}}radio" type="radio">
+                                                                    <label for="{{saleDetail.description}}radio"></label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li ng-show="showAddSale || showEditSale">
+                                    <div class="collapsible-header active">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <h5>Add Sale</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <div class="col m12">
+                                                <table class="highlight">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Description</th>
+                                                            <th>Agent/Supplier</th>
+                                                            <th>Cost</th>
+                                                            <th>Document</th>
+                                                            <th>Document Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputSaleDescription" type="text" ng-model="saleDetails.description" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputSaleSupplier" type="text" ng-model="saleDetails.supplier" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputSaleCost" type="number" ng-model="saleDetails.cost" required>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="file-field input-field">
+                                                                    <div>
+                                                                        <input type="file">
+                                                                    </div>
+                                                                    <div class="file-path-wrapper">
+                                                                        <input class="file-path validate" type="text" ng-model="saleDetails.ComplianceCertificate">
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-field">
+                                                                    <input id="inputSaleDocumentDate" type="date" class="datepicker" ng-model="expenseDetails.documentDate" required>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row">
+                                <br>
+                            </div>
+                            <div ng-show="showAddSale" class="row">
+                                <div ng-show="saleAddQueue.length == 0" class="col m4 offset-m8">
+                                    <a class="btn red darken-2 waves-effect waves-light" href="#saleQuickSelectModal">Quick Select Sale Expense</a>
+                                    <button class="btn red darken-2 waves-effect waves-light" type="submit">Add</button>
+                                </div>
+                                <div ng-show="saleAddQueue.length != 0" class="col m6">
+                                    <strong><h5>Queue</h5></strong>
+                                    <h6 ng-repeat="sale in saleAddQueue">{{sale}}</h6>
+                                </div>
+                                <div ng-show="saleAddQueue.length != 0" class="col m6">
+                                    <button class="btn grey darken-2 waves-effect waves-light" type="button" ng-click="saleAddQueue = []">Clear Queue</button>
+                                    <a class="btn red darken-2 waves-effect waves-light" href="#saleQuickSelectModal">Quick Select Sale Expense</a>
+                                    <button class="btn red darken-2 waves-effect waves-light" type="submit">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="expenseQuickSelectModal" class="modal">
+            <div class="modal-content">
+                <h4>Expenses</h4>
+                <div class="row">
+                    <div class="col m5 offset-m1">
+                        <p>
+                            <input type="checkbox" name="expenseCheckBoxQuickSelect" id="expenseCheckBox1" value="Electricity" />
+                            <label for="expenseCheckBox1">Electricity </label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="expenseCheckBoxQuickSelect" id="expenseCheckBox2" value="Water" />
+                            <label for="expenseCheckBox2">Water</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="expenseCheckBoxQuickSelect" id="expenseCheckBox3" value="Sewer" />
+                            <label for="expenseCheckBox3">Sewer</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="expenseCheckBoxQuickSelect" id="expenseCheckBox4" value="Rates" />
+                            <label for="expenseCheckBox4">Rates</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="expenseCheckBoxQuickSelect" id="expenseCheckBox5" value="Maintenance" />
+                            <label for="expenseCheckBox5">Maintenance</label>
+                        </p>
+                    </div>
+                    <div class="col m5">
+                        <p>
+                            <input type="checkbox" name="expenseCheckBoxQuickSelect" id="expenseCheckBox6" value="House-Keeping" />
+                            <label for="expenseCheckBox6">House-Keeping</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" name="expenseCheckBoxQuickSelect" id="expenseCheckBox7" value="Gardening" />
+                            <label for="expenseRadio7">Gardening</label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red darken 2 btn-flat" ng-click="insertQuickExpenses()">Insert</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-red darken 2 btn-flat">Cancel</a>
+            </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="renovationQuickSelectModal" class="modal">
+            <div class="modal-content">
+                <h4>Renovations</h4>
+                <hr>
+                <div class="row">
+                    <div class="col m6">
+                        <p>
+                            <input type="checkbox" id="renovationCheckBox53" value="Electrical" />
+                            <label for="renovationCheckBox53">Electrical</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="renovationCheckBox54" value="External Work" />
+                            <label for="renovationCheckBox54">External Work</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="renovationCheckBox55" value="Kitchen and Bics" />
+                            <label for="renovationCheckBox55">Kitchen and Bics</label>
+                        </p>
+                    </div>
+                    <div class="col m6">
+                        <p>
+                            <input type="checkbox" id="renovationCheckBox56" value="Light fittings" />
+                            <label for="renovationCheckBox56">Light fittings</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="renovationCheckBox57" value="Plumbing" />
+                            <label for="renovationCheckBox57">Plumbing</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="renovationCheckBox58" value="Sanitaryware" />
+                            <label for="renovationCheckBox58">Sanitaryware</label>
+                        </p>
+                    </div>
+                </div>
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">Wall and Floor Coverings</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="renovationCheckBox0" value="Architraves" />
+                                        <label for="renovationCheckBox0">Architraves</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox1" value="Carpets" />
+                                        <label for="renovationCheckBox1">Carpets</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox2" value="Concrete" />
+                                        <label for="renovationCheckBox2">Concrete</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox3" value="Floor Covering" />
+                                        <label for="renovationCheckBox3">Floor Covering</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox4" value="Laminated" />
+                                        <label for="renovationCheckBox4">Laminated</label>
+                                    </p>
+                                </div>
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="renovationCheckBox5" value="Screed" />
+                                        <label for="renovationCheckBox5">Screed</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox6" value="Skirting" />
+                                        <label for="renovationCheckBox6">Skirting</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox7" value="Vinyl" />
+                                        <label for="renovationCheckBox7">Vinyl</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox8" value="Wall  Tiling" />
+                                        <label for="renovationCheckBox8">Wall Tiling</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox9" value="Wood" />
+                                        <label for="renovationCheckBox9">Wood</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">General Building Works</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="renovationCheckBox10" value="Brickwork" />
+                                        <label for="renovationCheckBox10">Brickwork</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox11" value="Ceilings" />
+                                        <label for="renovationCheckBox11">Ceilings</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox12" value="Cornices" />
+                                        <label for="renovationCheckBox12">Cornices</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox13" value="Doors" />
+                                        <label for="renovationCheckBox13">Doors</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox14" value="Foundation" />
+                                        <label for="renovationCheckBox14">Foundation</label>
+                                    </p>
+                                </div>
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="renovationCheckBox15" value="Handels" />
+                                        <label for="renovationCheckBox15">Handels</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox16" value="Locks" />
+                                        <label for="renovationCheckBox16">Locks</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox17" value="Roof Covering" />
+                                        <label for="renovationCheckBox17">Roof Covering</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox18" value="Roof structure" />
+                                        <label for="renovationCheckBox18">Roof structure</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox19" value="Window Quote" />
+                                        <label for="renovationCheckBox19">Window Quote</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Cladding</div>
+                        <div class="collapsible-body">
+                            <p>
+                                <input type="checkbox" id="renovationCheckBox20" value="Aliminium" />
+                                <label for="renovationCheckBox20">Aliminium</label>
+                            </p>
+                            <p style="margin-top: -30px">
+                                <input type="checkbox" id="renovationCheckBox21" value="Stone" />
+                                <label for="renovationCheckBox21">Stone</label>
+                            </p>
+                            <p style="margin-top: -30px">
+                                <input type="checkbox" id="renovationCheckBox22" value="Timber" />
+                                <label for="renovationCheckBox22">Timber</label>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">External Work</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="renovationCheckBox23" value="Battery room and invertors" />
+                                        <label for="renovationCheckBox23">Battery room and invertors</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox24" value="Boma" />
+                                        <label for="renovationCheckBox24">Boma</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox25" value="Braai" />
+                                        <label for="renovationCheckBox25">Braai</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox26" value="External Shower" />
+                                        <label for="renovationCheckBox26">External Shower</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox27" value="Fireplace" />
+                                        <label for="renovationCheckBox27">Fireplace</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox28" value="Garage Doors" />
+                                        <label for="renovationCheckBox28">Garage Doors</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox29" value="Gutters" />
+                                        <label for="renovationCheckBox29">Gutters</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox30" value="Irrigation" />
+                                        <label for="renovationCheckBox30">Irrigation</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox31" value="Landscaping" />
+                                        <label for="renovationCheckBox31">Landscaping</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox46" value="Paving" />
+                                        <label for="renovationCheckBox46">Paving</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox32" value="Pergolas" />
+                                        <label for="renovationCheckBox32">Pergolas</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox33" value="Pool" />
+                                        <label for="renovationCheckBox33">Pool</label>
+                                    </p>
+                                </div>
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="renovationCheckBox34" value="Rainwater harvesting" />
+                                        <label for="renovationCheckBox34">Rainwater harvesting</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox35" value="Screen walls" />
+                                        <label for="renovationCheckBox35">Screen walls</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox36" value="Security System" />
+                                        <label for="renovationCheckBox36">Security System</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox37" value="Solar power system" />
+                                        <label for="renovationCheckBox37">Solar power system</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox38" value="Timber decking" />
+                                        <label for="renovationCheckBox38">Timber decking</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox39" value="Timber screening" />
+                                        <label for="renovationCheckBox39">Timber screening</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox40" value="Washing lines" />
+                                        <label for="renovationCheckBox40">Washing lines</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox41" value="Water storage pumps" />
+                                        <label for="renovationCheckBox41">Water storage pumps</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox42" value="Water storage tanks" />
+                                        <label for="renovationCheckBox42">Water storage tanks</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="renovationCheckBox43" value="Yard gates" />
+                                        <label for="renovationCheckBox43">Yard gates</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Painting</div>
+                        <div class="collapsible-body">
+                            <p>
+                                <input type="checkbox" id="renovationCheckBox44" value="Painting External" />
+                                <label for="renovationCheckBox44">Painting External</label>
+                            </p>
+                            <p style="margin-top: -30px">
+                                <input type="checkbox" id="renovationCheckBox45" value="Painting Internal" />
+                                <label for="renovationCheckBox45">Painting Internal</label>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Miscellaneous </div>
+                        <div class="collapsible-body">
+                            <p>
+                                <input type="checkbox" id="renovationCheckBox47" value="Bar area" />
+                                <label for="renovationCheckBox47">Bar area</label>
+                            </p>
+                            <p style="margin-top: -30px">
+                                <input type="checkbox" id="renovationCheckBox48" value="Special staircase" />
+                                <label for="renovationCheckBox48">Special staircase</label>
+                            </p>
+                            <p style="margin-top: -30px">
+                                <input type="checkbox" id="renovationCheckBox49" value="Wine Cella" />
+                                <label for="renovationCheckBox49">Wine Cellar</label>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Balustrades (Glass - Int. and Ext.)</div>
+                        <div class="collapsible-body">
+                            <p>
+                                <input type="checkbox" id="renovationCheckBox50" value="Aliminium" />
+                                <label for="renovationCheckBox50">Aliminium</label>
+                            </p>
+                            <p style="margin-top: -30px">
+                                <input type="checkbox" id="renovationCheckBox51" value="Glass" />
+                                <label for="renovationCheckBox51">Glass</label>
+                            </p>
+                            <p style="margin-top: -30px">
+                                <input type="checkbox" id="renovationCheckBox52" value="Mild steel" />
+                                <label for="renovationCheckBox52">Mild steel</label>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red darken 2 btn-flat" ng-click="insertQuickRenovations()">Insert</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-red darken 2 btn-flat">Cancel</a>
+            </div>
+        </div>
+        <div id="tentantQuickSelectModal" class="modal">
+            <div class="modal-content">
+                <h4>Tentants</h4>
+                <div class="row">
+                    <div class="col m5 offset-m1">
+                        <p ng-repeat="tentantDetail in tentantDetails | filter:{ propertyID: selectedProperty }">
+                            <input type="radio" id="tentantRadio{{$index + 1}}" value="{{tentantDetail.fullName}}" name="tentantQuickSelectGroup" />
+                            <label for="tentantRadio{{$index + 1}}">{{tentantDetail.fullName}} </label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red darken 2 btn-flat" onClick="insertQuickTentant()">Insert</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-red darken 2 btn-flat">Cancel</a>
+            </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="saleQuickSelectModal" class="modal">
+            <div class="modal-content">
+                <h4>Sales</h4>
+                <hr>
+                <div class="row">
+                    <div class="col m6">
+                        <p>
+                            <input type="checkbox" id="saleCheckBox1" value="Agent Commission" />
+                            <label for="saleCheckBox1">Agent Commission</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="saleCheckBox2" value="Attorney Fee – cansellation of Bond" />
+                            <label for="saleCheckBox2">Attorney Fee – cansellation of Bond</label>
+                        </p>
+                    </div>
+                    <div class="col m6">
+                        <p>
+                            <input type="checkbox" id="saleCheckBox3" value="Bank – cancellation of Bond" />
+                            <label for="saleCheckBox3">Bank – cancellation of Bond</label>
+                        </p>
+                    </div>
+                </div>
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">Advance payments</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="saleCheckBox4" value="Electricity – Advance payment" />
+                                        <label for="saleCheckBox4">Electricity – Advance payment</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox5" value="Levies – Advance payment" />
+                                        <label for="saleCheckBox5">Levies – Advance payment</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox6" value="Rates and Taxes – Advance payment " />
+                                        <label for="saleCheckBox6">Rates and Taxes – Advance payment </label>
+                                    </p>
+                                </div>
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="saleCheckBox7" value="Sewer – Advance payment" />
+                                        <label for="saleCheckBox7">Sewer – Advance payment</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox8" value="Water – Advance payment" />
+                                        <label for="saleCheckBox8">Water – Advance payment</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Compliance Certificates</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="saleCheckBox9" value="Bug" />
+                                        <label for="saleCheckBox9">Bug</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox10" value="Electricity" />
+                                        <label for="saleCheckBox10">Electricity</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox11" value="Electricity" />
+                                        <label for="saleCheckBox11">Electricity</label>
+                                    </p>
+                                </div>
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="saleCheckBox12" value="Gas" />
+                                        <label for="saleCheckBox12">Gas</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox13" value="Plumbing" />
+                                        <label for="saleCheckBox13">Plumbing</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Failed Compliance Certifcates</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="saleCheckBox14" value="Bug – work" />
+                                        <label for="saleCheckBox14">Bug – work</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox15" value="Electricity fence - work" />
+                                        <label for="saleCheckBox15">Electricity fence - work</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox16" value="Electricity – work" />
+                                        <label for="saleCheckBox16">Electricity – work</label>
+                                    </p>
+                                </div>
+                                <div class="col m6">
+                                    <p>
+                                        <input type="checkbox" id="saleCheckBox17" value="Gas – work" />
+                                        <label for="saleCheckBox17">Gas – work</label>
+                                    </p>
+                                    <p style="margin-top: -30px">
+                                        <input type="checkbox" id="saleCheckBox18" value="Plumbing – work" />
+                                        <label for="saleCheckBox18">Plumbing – work</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-red darken 2 btn-flat" ng-click="insertQuickSales()">Insert</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-red darken 2 btn-flat">Cancel</a>
+            </div>
+        </div>
+    </main>
+    <footer class="page-footer red darken-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Property Investor</h5>
+                    <p class="grey-text text-lighten-4">Your biggest investment yet. </p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Links</h5></h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Terms and Conditions</a></li>
+                        <li><a class="white-text" href="#!">Help</a></li>
+                        <li><a class="white-text" href="#!">Main Page</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Contact</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Email</a></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Developed by <a class="white-text" href="http://www.unhinged.co.za">Unhinged</a>
+            </div>
+        </div>
+    </footer>
+    <script src="../js/materialize.js"></script>
+    <script src="../js/init.js"></script>
+    <script src="../js/webAppAjax.js"></script>
+    <script src="../js/webAppCustoms.js"></script>
+    <script src="../js/jquery.validate.js"></script>
+    <script src="../js/additional-methods.js"></script>
+    <script type="text/javascript" src="../js/utils.js"></script>
+    <script src="DatabaseManager.js"></script>
+    <script src="doughnutGraph.js"></script>
+    <script src="barGraph.js"></script>
+    <script src="customBarGraph.js"></script>
+    <script src="graphManager.js"></script>
+    <script src="customGraphManager.js"></script>
+    <script src="app.js"></script>
+    <script>
+    </script>
+</body>
+
+</html>

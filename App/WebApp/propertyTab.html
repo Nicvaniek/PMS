@@ -1,0 +1,412 @@
+<!-- Adding property -->
+<div ng-show="addPropertyForm || editProperty" class="container">
+    <form ng-submit="addNewProperty(propertyDetails)" enctype="multipart/form-data">
+        <div class='row'>
+            <h4>Add Property</h4>
+            <hr>
+            <div class='col m12'>
+                <h5>Address</h5>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m5 s12 offset-m1">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyStreetName" type="text" maxlength="30" class="validate" ng-model="propertyDetails.streetName" required="">
+                <label>Street Name and Number</label>
+            </div>
+            <div class="input-field col m5 s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertySuburb" type="text" maxlength="30" class="validate" ng-model="propertyDetails.suburb" required="">
+                <label>Suburb</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m7 s12 offset-m1">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyProvince" type="text" maxlength="30" class="autocomplete validate" ng-model="propertyDetails.province" required="">
+                <label>Province</label>
+            </div>
+            <div class="input-field col m3 s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyAreaPostalCode" type="number" min="0" class="validate" ng-model="propertyDetails.areaPostalCode" required="">
+                <label>Area Postal Code</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m7 s12 offset-m1">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyComplexName" type="text" maxlength="30" class="validate" ng-model="propertyDetails.complexName">
+                <label>Complex Name</label>
+            </div>
+            <div class="input-field col m3 s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyComplexNumber" type="number" maxlength="10" class="validate" ng-model="propertyDetails.complexNumber" required="">
+                <label>Complex Number</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m4 s12 offset-m1">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyStandSize" type="text" maxlength="10" class="validate" ng-model="propertyDetails.standSize">
+                <label>Stand Size (m^2)</label>
+            </div>
+            <div class="input-field col m3 s12 ">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyStandSizeCovered" type="text" maxlength="10" class="validate" ng-model="propertyDetails.standSizeCovered">
+                <label>Covered Size (m^2)</label>
+            </div>
+            <div class="input-field col m3 s12 ">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyStandSizeUncovered" type="text" maxlength="10" class="validate" ng-model="propertyDetails.standSizeUncovered">
+                <label>Uncovered Size (m^2)</label>
+            </div>
+        </div>
+        <h5>Acquisition Information</h5>
+        <hr>
+        <div class="row">
+            <div class="input-field col m5 s12 offset-m1">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyPurchaseAmount" format="currency" type="text" maxlength="10" max="10000000" ng-model="propertyDetails.purchaseAmount">
+                <label>Purchase Amount</label>
+            </div>
+            <div class="input-field col m5 s12">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyAuctionCost" format="currency" type="text" maxlength="10" class="validate" ng-model="propertyDetails.auctionCost">
+                <label>Auction Cost</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m5 s12 offset-m1">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyAttorneysFees" format="currency" type="text" maxlength="10" class="validate" ng-model="propertyDetails.attorneyFees">
+                <label>Attorneys Fees - Transfer</label>
+            </div>
+            <div class="input-field col m5 s12">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyTransferDuty" format="currency" type="text" maxlength="10" class="validate" ng-model="propertyDetails.transferDuty">
+                <label>Transfer Duty</label>
+            </div>
+        </div>
+        <h5>Bond Information</h5>
+        <hr>
+        <div class="row">
+            <div class="input-field col m5 s12 offset-m1">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyBankName" type="text" maxlength="30" class="validate" ng-model="propertyDetails.bankName">
+                <label>Bank Name</label>
+            </div>
+            <div class="input-field col m5 s12">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyAccountNumber" type="text" maxlength="10" class="validate" ng-model="propertyDetails.accountNumber" min="0">
+                <label>Account Number</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m5 s12 offset-m1">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyDepositAmount" format="currency" type="text" maxlength="10" class="validate" ng-model="propertyDetails.depositAmount">
+                <label>Deposit Amount</label>
+            </div>
+            <div class="input-field col m5 s12 ">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyBondAmount" format="currency" type="text" maxlength="10" class="validate" ng-model="propertyDetails.bondAmount" min="0">
+                <label>Bond Amount</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m5 s12 offset-m1">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyPeriod" type="number" min="0" class="validate" ng-model="propertyDetails.period">
+                <label>Period (Months)</label>
+            </div>
+            <div class="input-field col m5 s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyInteresetRate" type="number" min="0" class="validate" ng-model="propertyDetails.interesetRate">
+                <label>Interest Rate</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m5 s12 offset-m1">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyMonthlyInstallments" format="currency" type="text" maxlength="10" class="validate" ng-model="propertyDetails.monthlyInstallments">
+                <label>Monthly Installments</label>
+            </div>
+            <div class="input-field col m5 s12">
+                <i class="material-icons prefix">shopping_cart</i>
+                <input id="inputPropertyBondInitiationFee" format="currency" type="text" maxlength="10" class="validate" ng-model="propertyDetails.bondInitiationFee">
+                <label>Bond Initiation Fee</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col m5 s12 offset-m1">
+                <i class="material-icons prefix">mode_edit</i>
+                <input id="inputPropertyBondRegistration" format="currency" type="text" maxlength="10" class="validate" ng-model="propertyDetails.bondRegistration">
+                <label>Attorneys Fees - Bond Registration</label>
+            </div>
+        </div>
+        <h5>Documents</h5>
+        <hr>
+        <!-- Purchase Contract
+        Auction fees
+        Transfer Duty
+        Attorney fees – Transfer
+        Attorney fees – Bond Application
+        Bond Confirmation – Bank
+        Deposit -->
+        <div class="row">
+            <div class="file-field input-field col m10 offset-m1">
+                <div class="btn red darken-2 waves-effect waves-light">
+                    <span>Upload File</span>
+                    <input id="inputPropertyPurchaseContractFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Purchase Contract">
+                </div>
+            </div>
+            <div class="file-field input-field col m10 offset-m1">
+                <div class="btn red darken-2 waves-effect waves-light">
+                    <span>Upload File</span>
+                    <input id="inputPropertyAuctionFeesFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Auction fees">
+                </div>
+            </div>
+            <div class="file-field input-field col m10 offset-m1">
+                <div class="btn red darken-2 waves-effect waves-light">
+                    <span>Upload File</span>
+                    <input id="inputPropertyTransferDutyFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Transfer Duty">
+                </div>
+            </div>
+            <div class="file-field input-field col m10 offset-m1">
+                <div class="btn red darken-2 waves-effect waves-light">
+                    <span>Upload File</span>
+                    <input id="inputPropertyAttorneyFeesTransferFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Attorney fees – Transfer">
+                </div>
+            </div>
+            <div class="file-field input-field col m10 offset-m1">
+                <div class="btn red darken-2 waves-effect waves-light">
+                    <span>Upload File</span>
+                    <input id="inputPropertyAttorneyFeesBondApplicationFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Attorney fees – Bond Application">
+                </div>
+            </div>
+            <div class="file-field input-field col m10 offset-m1">
+                <div class="btn red darken-2 waves-effect waves-light">
+                    <span>Upload File</span>
+                    <input id="inputPropertyBondConfirmationBankFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Bond Confirmation – Bank">
+                </div>
+            </div>
+            <div class="file-field input-field col m10 offset-m1">
+                <div class="btn red darken-2 waves-effect waves-light">
+                    <span>Upload File</span>
+                    <input id="inputPropertyDepositFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Deposit">
+                </div>
+            </div>
+            <div class="row" ng-show="addPropertyForm">
+                <div class="col m4 offset-m8">
+                    <button class="btn grey darken-2 waves-effect waves-light" type="button" ng-click="toggleAddProprty()">Cancel</button>
+                    <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="">Add</button>
+                </div>
+            </div>
+            <div ng-show="editProperty" class="row">
+                <div class="col m4 offset-m8">
+                    <button class="btn grey darken-2 waves-effect waves-light" type="button" ng-click="toggleEditProprty()">Cancel</button>
+                    <button class="btn red darken-2 waves-effect waves-light" type="button" ng-click="editPropertyConfirm()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-hide="addPropertyForm" class="container">
+    <div ng-show="!propertyDetails.length">
+        <div class="row">
+            <br>
+            <h4>Selected Property</h4>
+            <hr>
+        </div>
+        <p>You have no properties.</p>
+        <hr>
+    </div>
+    <div class="row" ng-hide="!propertyDetails.length">
+        <div ng-show="selectedProperty == -1">
+            <div class="row">
+                <br>
+                <h4>Selected Property</h4>
+                <hr>
+            </div>
+            <p>You have not selected a property.</p>
+            <hr>
+        </div>
+        <!-- Property details -->
+        <div ng-hide="selectedProperty == -1">
+            <div ng-show="viewProperty">
+                <div ng-repeat="propertyDetail in propertyDetails | filter:{ propertyID: selectedProperty }">
+                    <div class="row">
+                        <br>
+                        <h4>{{propertyDetail.streetName}}</h4>
+                        <hr>
+                        <div class="col m12 s12">
+                            <h4>Address</h4>
+                            <hr>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Address: {{propertyDetail.streetName + ", " + propertyDetail.suburb + ", " + propertyDetail.province}}</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Area Postal Code: {{propertyDetail.areaPostalCode}}</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Complex Name: {{propertyDetail.complexName}}</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Complex Number: {{propertyDetail.complexNumber}}</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Size: {{propertyDetail.standSize}} m^2</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Covered Area: {{propertyDetail.standSizeCoverd}} m^2</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Uncovered Area: {{propertyDetail.standSizeUncovered}} m^2</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <h4>Acquisition Information</h4>
+                            <hr>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Purchase Amount: <span id="currency-custom">{{propertyDetail.purchaseAmount | currency:"R"}}</span></p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Auction Cost: <span id="currency-custom">{{propertyDetail.auctionCost | currency:"R"}}</span></p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Attorneys Fees - Transfer: <span id="currency-custom">{{propertyDetail.attorneyFees | currency:"R"}}</span></p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Transfer Duty: <span id="currency-custom">{{propertyDetail.transferDuty | currency:"R"}}</span></p>
+                        </div>
+                        <div class="col m12 s12">
+                            <h4>Bond Information</h4>
+                            <hr>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Deposit: <span id="currency-custom">{{propertyDetail.depositAmount | currency:"R"}}</span></p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Bond: <span id="currency-custom">{{propertyDetail.bondAmount | currency:"R"}}</span></p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Period: {{propertyDetail.period}}</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Monthly Installments: <span id="currency-custom">{{propertyDetail.monthlyInstallments | currency:"R"}}</span></p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Intereset Rate: {{propertyDetail.interesetRate}}%</p>
+                        </div>
+                        <div class="col m12 s12">
+                            <p>Attorneys Fees - Bond Registration: <span id="currency-custom">{{propertyDetail.bondRegistration}}</span></p>
+                        </div>
+                        <div class="col m12 s12">
+                            <h4>Documents</h4>
+                            <hr>
+                        </div>
+                        <div class="col m6 s6">
+                            <p>Purchase Contract File: </p> 
+                        </div>
+                        <div class="col m6 s6">
+                            <i ng-show="propertyDetail.purchaseContractFileID != 0" class="fa fa-check-square-o" aria-hidden="true"></i>
+                            <p ng-show="propertyDetail.purchaseContractFileID == 0">Not yet uploaded</p>
+                        </div>
+
+                        <div class="col m6 s6">
+                            <p>Auction Fees File: </p> 
+                        </div>
+                        <div class="col m6 s6">
+                            <i ng-show="propertyDetail.auctionFeesFileID != 0" class="fa fa-check-square-o" aria-hidden="true"></i>
+                            <p ng-show="propertyDetail.auctionFeesFileID == 0">Not yet uploaded</p>
+                        </div>
+
+                        <div class="col m6 s6">
+                            <p>Transfer Duty File: </p> 
+                        </div>
+                        <div class="col m6 s6">
+                            <i ng-show="propertyDetail.transferDutyFileID != 0" class="fa fa-check-square-o" aria-hidden="true"></i>
+                            <p ng-show="propertyDetail.transferDutyFileID == 0">Not yet uploaded</p>
+                        </div>
+
+                        <div class="col m6 s6">
+                            <p>Attorney Fees - Transfer File: </p> 
+                        </div>
+                        <div class="col m6 s6">
+                            <i ng-show="propertyDetail.attorneyFeesTransferFileID != 0" class="fa fa-check-square-o" aria-hidden="true"></i>
+                            <p ng-show="propertyDetail.attorneyFeesTransferFileID == 0">Not yet uploaded</p>
+                        </div>
+
+                        <div class="col m6 s6">
+                            <p>Attorney Fees - Bond Application File: </p> 
+                        </div>
+                        <div class="col m6 s6">
+                            <i ng-show="propertyDetail.attorneyFeesBondApplicationFileID != 0" class="fa fa-check-square-o" aria-hidden="true"></i>
+                            <p ng-show="propertyDetail.attorneyFeesBondApplicationFileID == 0">Not yet uploaded</p>
+                        </div>
+
+                        <div class="col m6 s6">
+                            <p>Bond Confirmation - Bank File: </p> 
+                        </div>
+                        <div class="col m6 s6">
+                            <i ng-show="propertyDetail.bondConfirmationBankFileID != 0" class="fa fa-check-square-o" aria-hidden="true"></i>
+                            <p ng-show="propertyDetail.bondConfirmationBankFileID == 0">Not yet uploaded</p>
+                        </div>
+
+                        <div class="col m6 s6">
+                            <p>Deposit File: </p> 
+                        </div>
+                        <div class="col m6 s6">
+                            <i ng-show="propertyDetail.depositFileID != 0" class="fa fa-check-square-o" aria-hidden="true"></i>
+                            <p ng-show="propertyDetail.depositFileID == 0">Not yet uploaded</p>
+                        </div>
+
+
+                        <div class="row" ng-show="addPropertyForm">
+                            <div class="col m4 offset-m8">
+                                <button class="btn grey darken-2 waves-effect waves-light" type="button" ng-click="toggleAddProprty()">Cancel</button>
+                                <button class="btn red darken-2 waves-effect waves-light" type="sumbit" ng-click="">Add</button>
+                            </div>
+                        </div>
+                        <div ng-show="editProperty" class="row">
+                            <div class="col m4 offset-m8">
+                                <button class="btn grey darken-2 waves-effect waves-light" type="button" ng-click="toggleEditProprty()">Cancel</button>
+                                <button class="btn red darken-2 waves-effect waves-light" type="button" ng-click="editPropertyConfirm()">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m4 offset-m8">
+                            <button class="btn grey darken-2 waves-effect waves-light" ng-click="delete()">Delete</button>
+                            <button class="btn red darken-2 waves-effect waves-light" ng-click="selectPropertyToEdit()">Edit</button>
+                            <button class="btn red darken-2 waves-effect waves-light" ng-click="downloadProperty()">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

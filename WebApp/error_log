@@ -1,3 +1,0 @@
-[31-Jan-2017 15:06:00 UTC] PHP Parse error:  syntax error, unexpected '$sql' (T_VARIABLE) in /home/morning2/public_html/unhinged.co.za/Demo/Kyle2/WebApp/tabs/testTab.php on line 39
-[31-Jan-2017 16:46:14 UTC] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in /home/morning2/public_html/unhinged.co.za/Demo/Kyle2/WebApp/tabs/testTab.php on line 28
-[31-Jan-2017 16:48:30 UTC] PHP Parse error:  syntax error, unexpected '$row' (T_VARIABLE) in /home/morning2/public_html/unhinged.co.za/Demo/Kyle2/WebApp/tabs/testTab.php on line 28

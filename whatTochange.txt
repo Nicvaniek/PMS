@@ -1,8 +1,0 @@
-webAppAjax
-renovations tab, expenses, andtest tab
-downloadZip
-index.php
-script.js
-insert-user.php
-send-recover-email.php
-login.php

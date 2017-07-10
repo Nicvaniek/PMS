@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Property Investor</title>
+
+    <!-- CSS  -->
+    <link rel="stylesheet" href="../css/sweetalert.css">
+    <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../css/inputColor.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- JS  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../js/fcsaNumber.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../js/script.js"></script>
+</head>
+<style type="text/css">
+    .input-field div.error {
+        position: relative;
+        top: -1rem;
+        left: 0rem;
+        font-size: 0.8rem;
+        color: #FF4081;
+        -webkit-transform: translateY(0%);
+        -ms-transform: translateY(0%);
+        -o-transform: translateY(0%);
+        transform: translateY(0%);
+    }
+
+    .input-field label.active {
+        width: 100%;
+    }
+
+    header,
+    main,
+    footer {
+        padding-left: 10%;
+    }
+
+    @media only screen and (max-width: 992px) {
+        header,
+        main,
+        footer {
+            padding-left: 0;
+        }
+    }
+
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1 0 auto;
+    }
+</style>
+
+<body class="grey lighten-5">
+    <header class="">
+        <nav class="top-nav nav-extended red darken-2 text-white">
+            <div class="container">
+                <a href="#" class="brand-logo">Property Investor</a>
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+                <br>
+                <ul id="tabs-swipe-demo" class="tabs tabs-transparent tabs-fixed-width center">
+                    <li class="tab"><a href="#dashboardTab">Dashboard</a></li>
+                    <li class="tab"><a href="#propertyInformationTab">Property Information</a></li>
+                    <li class="tab"><a href="#renovationsTab">Renovations</a></li>
+                    <li class="tab"><a href="#expensesTab">Expenses</a></li>
+                    <li class="tab"><a href="#salesCostsTab">Sales Costs</a></li>
+                    <li class="tab"><a href="#incomeTab">Income</a></li>
+                </ul>
+            </div>
+        </nav>
+        <ul id="slide-out" class="side-nav fixed grey darken-1">
+            <li>
+                <div class="userView">
+                    <div class="background">
+                        <img src="">
+                    </div>
+                    <a href="#!user"><img class="circle" src="../img/default-user-image.png"></a>
+                    <a href="#!name"><span class="white-text name">Kyle Erwin</span></a>
+                    <a href="#!email"><span class="white-text email">kyle.erwin24@gmail.com</span></a>
+
+                </div>
+            </li>
+            <li><a href="#!"><i class="fa fa-home fa-2x white-text" aria-hidden="true"></i><span class="white-text">Home owner</span></a></li>
+            <li><a href="#!"><i class="fa fa-book fa-2x white-text" aria-hidden="true"></i><span id="numberOfpropertiesNavBar"class="white-text">0 Properties</span></a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="subheader"><span class="white-text">Settings</span></a></li>
+            <li><a href="#modal2"><i class="fa fa-shopping-bag fa-2x white-text" aria-hidden="true"></i><span class="white-text">Package</span></a></li>
+            <li><a href="#modal1"><i class="fa fa-info-circle fa-2x white-text" aria-hidden="true"></i><span class="white-text">My info</span></a></li>
+            <li><a href="#modal1"><i class="fa fa-power-off fa-2x white-text" aria-hidden="true"></i><span class="white-text">Log out</span></a></li>
+
+        </ul>
+    </header>
+    <main>
+        <div id="dashboardTab" class="col m12">
+        </div>
+        <div id="propertyInformationTab" class="col m12" ng-app="myapp" ng-controller="ListController">
+            <div class="container">
+                <div class="row">
+                    <div class="col m10">
+                        <h4>Properties</h4>
+                    </div>
+                </div>
+                <div ng-if="!propertyDetails.length">
+                    <p>You have no properties.</p>
+                    <hr>
+                </div>
+                <div class="row" ng-hide="!propertyDetails.length">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Type</th>
+                                    <th>House Number</th>
+                                    <th>Address</th>
+                                    <th>Stand Size</th>
+                                    <th>Bond Amount</th>
+                                    <th>Select</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="propertyDetail in propertyDetails">
+                                    <td>{{propertyDetail.description}}</td>
+                                    <td>{{propertyDetail.type}}</td>
+                                    <td>{{propertyDetail.houseNumber}}</td>
+                                    <td>{{propertyDetails.townExtension + " " + propertyDetails.province}}</td>
+                                    <td>{{propertyDetail.standSize}}</td>
+                                    <td>{{propertyDetail.bondAmount}}</td>
+                                    <td>
+                                        <button class="btn red darken-2 waves-effect waves-light" ng-click="selectPropertyToView(propertyDetail.description)">View
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div ng-click="toggleViewProperty()" class="row" style="cursor:pointer">
+                    <br>
+                    <h4>Selected Property</h4>
+                    <hr>
+                </div>
+                <div ng-show="viewProperty">
+                    <div ng-if="!propertyDetails.length">
+                        <p>You have no properties.</p>
+                        <hr>
+                    </div>
+                    <div class="row" ng-hide="!propertyDetails.length">
+                        <div ng-if="selectedProperty == 'EMPTY'">
+                            <p>You have not selected a property.</p>
+                            <hr>
+                        </div>
+                        <div ng-hide="selectedProperty == 'EMPTY'">
+                            <div ng-repeat="propertyDetail in propertyDetails | filter:{ description: selectedProperty }">
+                                <h5>{{propertyDetail.description}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-click="toggleAddProprty()" class="row" style="cursor:pointer">
+                    <br>
+                    <h4>Add Property</h4>
+                    <hr>
+                </div>
+                <form ng-show="addPropertyForm" id="addPropertyForm" ng-submit="addNew(propertyDetails)" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="row">
+                            <h5>Details</h5>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">info_outline</i>
+                            <input id="namePropertyInput" type="text" ng-model="propertyDetails.description" data-error=".errorTxt01">
+                            <div class="errorTxt01"></div>
+                            <label for="namePropertyInput">Short Description or Name</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">info_outline</i>
+                            <input id="occupantropertyInput" type="text" ng-model="propertyDetails.occupant" data-error=".errorTxt02">
+                            <div class="errorTxt02"></div>
+                            <label for="namePropertyInput">Occupant</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">info_outline</i>
+                            <input id="typePropertyInput" type="text" ng-model="propertyDetails.type" data-error=".errorTxt03">
+                            <div class="errorTxt03"></div>
+                            <label for="typePropertyInput">Apartment or House</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <h5>Address</h5>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="houseNumberPropertyInput" type="text" ng-model="propertyDetails.houseNumber" data-error=".errorTxt04">
+                            <div class="errorTxt04"></div>
+                            <label for="houseNumberPropertyInput">House Number</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="tensionPropertyInput" type="text" ng-model="propertyDetails.townExtension" data-error=".errorTxt05">
+                            <div class="errorTxt05"></div>
+                            <label for="tensionPropertyInput">Town Extension</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="provincePropertyInput" type="text" ng-model="propertyDetails.province" data-error=".errorTxt06">
+                            <div class="errorTxt06"></div>
+                            <label for="provincePropertyInput">Province</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="areaCodePropertyInput" type="text" ng-model="propertyDetails.areaCode" data-error=".errorTxt07">
+                            <div class="errorTxt07"></div>
+                            <label for="areaCodePropertyInput">Area Code</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <h5>Stand Information</h5>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="stanSizePropertyInput" type="text" fcsa-number ng-model="propertyDetails.standSize" data-error=".errorTxt08">
+                            <div class="errorTxt08"></div>
+                            <label for="stanSizePropertyInput">Stand Size (m^2)</label>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="standSizeCoverdPropertyInput" type="text" fcsa-number ng-model="propertyDetails.standSizeCoverd" data-error=".errorTxt09">
+                            <div class="errorTxt09"></div>
+                            <label for="standSizeCoverdPropertyInput">Covered Size (m^2)</label>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="standSizeUncoveredPropertyInput" type="text" fcsa-number ng-model="propertyDetails.standSizeUncovered" data-error=".errorTxt10">
+                            <div class="errorTxt10"></div>
+                            <label for="standSizeUncoveredPropertyInput">Uncovered Size (m^2)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <h5>Purchase Amount - Deposit</h5>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">shopping_cart</i>
+                            <input id="depositAmountPropertyInput" type="text" fcsa-number="{ prepend: 'R' }" ng-model="propertyDetails.depositAmount" data-error=".errorTxt11">
+                            <div class="errorTxt11"></div>
+                            <label for="depositAmountPropertyInput">Deposit Amount</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <h5>Purchase Amount - Bond</h5>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">shopping_cart</i>
+                            <input id="bondAmountPropertyInput" type="text" fcsa-number="{ prepend: 'R' }" ng-model="propertyDetails.bondAmount" data-error=".errorTxt12">
+                            <div class="errorTxt12"></div>
+                            <label for="bondAmountPropertyInput">Bond Amount</label>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="periodPropertyInput" type="text" ng-model="propertyDetails.period" data-error=".errorTxt13">
+                            <div class="errorTxt13"></div>
+                            <label for="periodPropertyInput">Period (Months)</label>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="interesetRatePropertyInput" type="text" fcsa-number="{  append: '%' }" ng-model="propertyDetails.interesetRate" data-error=".errorTxt14">
+                            <div class="errorTxt14"></div>
+                            <label for="interesetRatePropertyInput">Interest Rate</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">shopping_cart</i>
+                            <input id="monthlyInstallmentsPropertyInput" type="text" fcsa-number="{ prepend: 'R' }" ng-model="propertyDetails.monthlyInstallments" data-error=".errorTxt15">
+                            <div class="errorTxt15"></div>
+                            <label for="monthlyInstallmentsPropertyInput">Monthly Installments</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="bondRegistrationPropertyInput" type="text" fcsa-number="{ prepend: 'R' }" ng-model="propertyDetails.bondRegistration" data-error=".errorTxt16">
+                            <div class="errorTxt16"></div>
+                            <label for="bondRegistrationPropertyInput">Attorneys Fees - Bond Registration</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <h5>Acquisition Information</h5>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">shopping_cart</i>
+                            <input id="auctionCostPropertyInput" type="text" fcsa-number="{ prepend: 'R' }" ng-model="propertyDetails.auctionCost" data-error=".errorTxt17">
+                            <div class="errorTxt17"></div>
+                            <label for="auctionCostPropertyInput">Auction Cost</label>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">shopping_cart</i>
+                            <input id="transferFeesPropertyInput" type="text" fcsa-number="{ prepend: 'R' }" ng-model="propertyDetails.transferFees" data-error=".errorTxt18">
+                            <div class="errorTxt18"></div>
+                            <label for="transferFeesPropertyInput">Attorneys Fees - Transfer</label>
+                        </div>
+                        <div class="input-field col m4 s12">
+                            <i class="material-icons prefix">shopping_cart</i>
+                            <input id="transferDutyPropertyInput" type="text" fcsa-number="{ prepend: 'R' }" ng-model="propertyDetails.transferDuty" data-error=".errorTxt19">
+                            <div class="errorTxt19"></div>
+                            <label for="transferDutyPropertyInput">Transfer Duty</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="addPropertyBtn" class="btn red darken-2 waves-effect waves-light" type="submit" value="Add New">Add Property
+                            <i class="material-icons right">send</i>
+                        </button>
+                        <br>
+                        <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="renovationsTab" class="col m12">
+            <?php include "tabs/renovationsTab.php"; ?>
+        </div>
+        <div id="expensesTab" class="col m12">
+            <?php include "tabs/testTab.php"; ?>
+        </div>
+        <div id="salesCostsTab" class="col m12">
+        </div>
+        <div id="incomeTab" class="col m12">
+        </div>
+    </main>
+
+    <footer class="page-footer red darken-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Property Investor</h5>
+                    <p class="grey-text text-lighten-4">Your biggest investment yet. </p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Links</h5></h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Terms and Conditions</a></li>
+                        <li><a class="white-text" href="#!">Help</a></li>
+                        <li><a class="white-text" href="#!">Main Page</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Contact</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Email</a></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Developed by <a class="white-text" href="http://www.unhinged.co.za">Unhinged</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/materialize.js"></script>
+    <script src="../js/init.js"></script>
+    <script src="../js/webAppAjax.js"></script>
+    <script src="../js/webAppCustoms.js"></script>
+    <script src="../js/jquery.validate.js"></script>
+    <script src="../js/additional-methods.js"></script>
+    <script>
+        $("#addRenovationForm").validate({
+            rules: {
+                renovationPropertySelect: {
+                    required: true
+                },
+                nameRenovationInput: {
+                    required: true
+                },
+                nameRenovationCustomInput: {
+                    required: true,
+                    minlength: 5
+                },
+                quantityRenovationInput: {
+                    required: true,
+                    min: 1,
+                    number: true
+                },
+                costRenovationInput: {
+                    required: true,
+                    min: 0,
+                    number: true
+                },
+                supplierRenovationInput: {
+                    required: true,
+                    minlength: 5
+                },
+                invoiceDateRenovationInput: {
+                    required: true,
+                    date: true
+                },
+                crole: "required",
+                ccomment: {
+                    required: true,
+                    minlength: 15
+                },
+            },
+            //For custom messages
+            messages: {
+                renovationPropertySelect: {
+                    required: "Please select a property"
+                },
+                nameRenovationInput: {
+                    required: "Please select a renovation"
+                },
+                nameRenovationCustomInput: {
+                    required: "Enter a renovation",
+                    minlength: "Enter at least 5 characters"
+                },
+                quantityRenovationInput: {
+                    required: "Enter the quantity",
+                    min: "Please enter a valid quantity"
+                },
+                costRenovationInput: {
+                    required: "Enter the amount",
+                    min: "Please enter a valid quantity"
+                },
+                supplierRenovationInput: {
+                    required: "Enter supplier information",
+                    minlength: "Enter at least 5 characters"
+                }
+            },
+            errorElement: "div",
+            errorPlacement: function(error, element) {
+                var placement = $(element).data("error");
+                if (placement) {
+                    $(placement).append(error)
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        var app = angular.module("myapp", ['fcsa-number']);
+        app.controller("ListController", ["$scope", function($scope) {
+            $scope.propertyDetails = [];
+
+            $scope.addPropertyForm = false;
+            $scope.viewProperty = false;
+            $scope.selectedProperty = "EMPTY";
+            $scope.numberOfproperties = 0;
+            $scope.numberOfpropertiesCAP = 1;
+
+            $scope.addNew = function(propertyDetails) {
+                if ($scope.numberOfproperties == $scope.numberOfpropertiesCAP) {
+                    swal({
+                        title: "Limit Reached",
+                        text: "You've reached your maximum number of properties. You can add more properties by upgrading your account",
+                        type: "error",
+                        confirmButtonText: "Close",
+                        confirmButtonColor: "#d32f2f"
+                    });
+                    $scope.toggleAddProprty();
+                    return;
+                }
+
+                $scope.propertyDetails.push({
+                    "description": propertyDetails.description,
+                    "occupant": propertyDetails.occupant,
+                    "type": propertyDetails.type,
+                    "houseNumber": propertyDetails.houseNumber,
+                    "townExtension": propertyDetails.townExtension,
+                    "province": propertyDetails.province,
+                    "areaCode": propertyDetails.areaCode,
+                    "standSize": propertyDetails.standSize,
+                    "standSizeCoverd": propertyDetails.standSizeCoverd,
+                    "standSizeUncovered": propertyDetails.standSizeUncovered,
+                    "depositAmount": propertyDetails.depositAmount,
+                    "bondAmount": propertyDetails.bondAmount,
+                    "period": propertyDetails.period,
+                    "interesetRate": propertyDetails.interesetRate,
+                    "monthlyInstallments": propertyDetails.monthlyInstallments,
+                    "transferFees": propertyDetails.transferFees,
+                    "transferDuty": propertyDetails.transferDuty
+                });
+                $scope.PD = {};
+                $scope.numberOfproperties = $scope.numberOfproperties + 1;
+                $("#numberOfpropertiesNavBar").text($scope.numberOfproperties + " Properties");
+                $scope.toggleAddProprty();
+            };
+
+            $scope.remove = function() {
+                var newDataList = [];
+                $scope.selectedAll = false;
+                angular.forEach($scope.propertyDetails, function(selected) {
+                    if (!selected.selected) {
+                        newDataList.push(selected);
+                    }
+                });
+                $scope.propertyDetails = newDataList;
+            };
+
+            $scope.toggleAddProprty = function() {
+                $scope.addPropertyForm = !$scope.addPropertyForm;
+            };
+
+            $scope.toggleViewProperty = function() {
+                $scope.viewProperty = !$scope.viewProperty;
+            };
+
+            $scope.selectPropertyToView = function(selectedProperty) {
+                $scope.selectedProperty = selectedProperty;
+                toggleViewProperty();
+            };
+
+        }]);
+    </script>
+</body>
+
+</html>
